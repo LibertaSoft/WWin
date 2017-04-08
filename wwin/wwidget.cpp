@@ -11,11 +11,16 @@ HWND WWidget::hwnd() const
 HWND WWidget::parentHwnd() const
 {
     HWND p_hwnd = HWND_DESKTOP;
-    WWidget *parent = static_cast<WWidget*>(this->parent());
+    WWidget *parent = parentWidget();
     if( parent && parent->hwnd() ){
         p_hwnd = parent->hwnd();
     }
     return p_hwnd;
+}
+
+WWidget* WWidget::parentWidget() const
+{
+    return static_cast<WWidget*>( WObject::parent() );
 }
 
 int WWidget::style()
@@ -43,6 +48,7 @@ void WWidget::show()
             .geometry(_x, _y, _width, _height)
             .parent(parentHwnd())
             .hinstance(WApplication::instance()->getHinstance())
+            .param( LPVOID( _windowParams ) )
             .build();
     }
     ShowWindow( _hwnd, _windowParams );

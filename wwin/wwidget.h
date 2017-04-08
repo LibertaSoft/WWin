@@ -55,6 +55,7 @@ private:
 
     HWND hwnd() const;
     HWND parentHwnd() const;
+    WWidget *parentWidget() const;
 
     virtual int style();
 protected:
