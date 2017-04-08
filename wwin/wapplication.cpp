@@ -52,6 +52,7 @@ int WApplication::run()
 
 void WApplication::init()
 {
+    hideConsole();
     if( ! this->registerClass() ){
         return;
     }
@@ -74,6 +75,19 @@ ATOM WApplication::registerClass()
     wcl.hbrBackground = ( HBRUSH )GetStockObject( WHITE_BRUSH );
 
     return RegisterClass( &wcl );
+}
+
+void WApplication::hideConsole()
+{
+    /*
+    const LPCWSTR consoleName = L"WWIN-HIDE-5648-45748-DFJHV-SDAYUF-SNVNS";
+    SetConsoleTitle(consoleName);
+    HWND console = FindWindow(NULL, consoleName);
+    if(console == 0) {
+        // \todo
+    }
+    ShowWindow(console, SW_HIDE);
+    // */
 }
 
 LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

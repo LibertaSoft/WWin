@@ -7,6 +7,11 @@ WObject::WObject(WObject* parent = nullptr)
 WObject::~WObject()
 {}
 
+WObject *WObject::parent() const
+{
+    return _parent;
+}
+
 LPWSTR WObject::tow(const std::string &s)
 {
     LPWSTR ws = new wchar_t[s.size()+1];

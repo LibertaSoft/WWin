@@ -9,7 +9,7 @@ class WObject
 {
 private:
     WObject *_parent;
-    std::string objectName;
+    std::string _objectName;
 
     std::list<WObject> _childrens;
 
@@ -20,8 +20,7 @@ public:
     void setObjectName(std::string &name);
 
     void setParent(WObject* parent);
-    WObject parent() const;
-    std::list<WObject*> children() const;
+    WObject* parent() const;
 
 //    virtual bool event(WEvent *e);
 //    virtual bool eventFilter(WObject *watched, WEvent *event);
@@ -29,6 +28,7 @@ public:
 
     // опции и рекурсивно
     WObject* findChild(const std::string &name) const;
+    std::list<WObject*> children() const;
     std::list<WObject*> findChildren(const std::string &name) const;
 
 //    std::string tr(const char *sourceText, constChar *disambiguation = nullptr, int n = -1);

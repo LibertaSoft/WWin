@@ -40,8 +40,9 @@ private:
     int _contentMargins_left   = 0;
 
     // Widget
-    HWND _hwnd;
+    HWND _hwnd = nullptr;
     int  _windowParams = 0;
+    std::string _name;
 
     bool _isDisabled = false;
     bool _isFocused  = false;
@@ -49,17 +50,24 @@ private:
 
 //    WLayout* _layout = nullptr;
 
-    std::string _windowTitle;
     int _windowIcon = 0; // ICON from RC || file
     int _windowState = 0; // FullScreen || ! FullScreen
 
+    HWND hwnd() const;
+    HWND parentHwnd() const;
 
+    virtual int style();
+protected:
+    std::string _className = "WWINAPI";
+    std::string _title;
 public:
     WWidget(WWidget *parent = nullptr, int params = WWidgetState::Show);
 
     void show();
 
-    void setGeometry(int x, int y, int w, int h);
+    void setGeometry(int x, int y, int width, int height);
+    std::string title() const;
+    void setTitle(const std::string &title);
 };
 
 #endif // WWIDGET_H

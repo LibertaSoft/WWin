@@ -15,6 +15,7 @@ private:
 
     void init();
     ATOM registerClass();
+    void hideConsole();
     static CALLBACK LRESULT wndproc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam );
 
     WApplication(int &argc, char** argv);
