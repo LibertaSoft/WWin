@@ -1,0 +1,65 @@
+#ifndef WWIDGET_H
+#define WWIDGET_H
+
+#include "wwin/wobject.h"
+
+enum WWidgetState{
+    ForceMinimize = SW_FORCEMINIMIZE,
+    Hide = SW_HIDE,
+    Maximize = SW_MAXIMIZE,
+    Minimize = SW_MINIMIZE,
+    Restore = SW_RESTORE,
+    Show = SW_SHOW,
+    ShowDefault = SW_SHOWDEFAULT,
+    ShowMaximized = SW_SHOWMAXIMIZED,
+    ShowMinimized = SW_SHOWMINIMIZED,
+    ShowMinNoActive = SW_SHOWMINNOACTIVE,
+    ShowNoActive = SW_SHOWNA,
+    ShowNoActivate = SW_SHOWNOACTIVATE,
+    ShowNormal = SW_SHOWNORMAL
+};
+
+class WWidget : public WObject
+{
+private:
+    // Geometry
+    int _x = 0;
+    int _y = 0;
+    int _width = 0;
+    int _height = 0;
+
+    int _maxWidth = 16777215;
+    int _maxHeight = 16777215;
+
+    int _minWidth = 0;
+    int _minHeight = 0;
+
+    int _contentMargins_top    = 0;
+    int _contentMargins_right  = 0;
+    int _contentMargins_bottom = 0;
+    int _contentMargins_left   = 0;
+
+    // Widget
+    HWND _hwnd;
+    int  _windowParams = 0;
+
+    bool _isDisabled = false;
+    bool _isFocused  = false;
+    bool _isVisible  = false;
+
+//    WLayout* _layout = nullptr;
+
+    std::string _windowTitle;
+    int _windowIcon = 0; // ICON from RC || file
+    int _windowState = 0; // FullScreen || ! FullScreen
+
+
+public:
+    WWidget(WWidget *parent = nullptr, int params = WWidgetState::Show);
+
+    void show();
+
+    void setGeometry(int x, int y, int w, int h);
+};
+
+#endif // WWIDGET_H
