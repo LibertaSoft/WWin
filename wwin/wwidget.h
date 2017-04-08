@@ -41,7 +41,8 @@ private:
 
     // Widget
     HWND _hwnd = nullptr;
-    int  _windowParams = 0;
+    int  _windowIcon   = 0; // ICON from RC || file
+    int  _windowParams = 0; // FullScreen || ! FullScreen
     std::string _name;
 
     bool _isDisabled = false;
@@ -50,8 +51,6 @@ private:
 
 //    WLayout* _layout = nullptr;
 
-    int _windowIcon = 0; // ICON from RC || file
-    int _windowState = 0; // FullScreen || ! FullScreen
 
     HWND hwnd() const;
     HWND parentHwnd() const;
