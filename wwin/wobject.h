@@ -5,19 +5,37 @@
 #include <string>
 #include <list>
 
+namespace WObjectType {
+    enum WObjectType{
+        Object,
+        Widget
+    };
+}
+
 class WObject
 {
 private:
     WObject *_parent;
     std::string _objectName;
 
+    HWND _hwnd = nullptr;
+
     std::list<WObject> _childrens;
 
+protected:
+    void setHwnd(HWND hwnd);
 public:
     WObject(WObject *parent);
     virtual ~WObject();
 
+    HWND hwnd() const;
+
+    WObjectType::WObjectType _type = WObjectType::Object;
+
     void setObjectName(std::string &name);
+
+    void setType(WObjectType::WObjectType type);
+    WObjectType::WObjectType type() const;
 
     void setParent(WObject* parent);
     WObject* parent() const;

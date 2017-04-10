@@ -33,6 +33,22 @@ WApplication* WApplication::instance()
     return _appInstance;
 }
 
+void WApplication::addComponent(const WObject *object)
+{
+    this->_objects[object->hwnd()] = object;
+}
+
+void WApplication::removeComponent(const WObject* object)
+{
+    for (auto it = begin(_objects); it != end(_objects);) {
+        if(it->first == object->hwnd()) {
+            it = _objects.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
+
 HINSTANCE WApplication::getHinstance()
 {
     return _hInstance;
@@ -96,11 +112,16 @@ LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
       case WM_DESTROY:
         PostQuitMessage( EXIT_SUCCESS );
         break;
-    //      case WM_COMMAND:
-    //        HandleEvents( hWnd, wParam);
-    //        break;
+      case WM_COMMAND:
+        WApplication::handleEvents( hWnd, message, wParam, lParam );
+        break;
       default:
         return DefWindowProc( hWnd, message, wParam, lParam );
     }
     return wParam;
+}
+
+void WApplication::handleEvents(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+
 }

@@ -40,7 +40,6 @@ private:
     int _contentMargins_left   = 0;
 
     // Widget
-    HWND _hwnd = nullptr;
     int  _windowIcon   = 0; // ICON from RC || file
     int  _windowParams = 0; // FullScreen || ! FullScreen
     std::string _name;
@@ -51,8 +50,6 @@ private:
 
 //    WLayout* _layout = nullptr;
 
-
-    HWND hwnd() const;
     HWND parentHwnd() const;
     WWidget *parentWidget() const;
 
