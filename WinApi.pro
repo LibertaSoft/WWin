@@ -11,7 +11,8 @@ HEADERS += \
     wwin/wwidget.h \
     wwin/helpers/winapiwindowbuilder.h \
     wwin/wscreen.h \
-    wwin/wpushbutton.h
+    wwin/wpushbutton.h \
+    wwin/wevent.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -19,4 +20,5 @@ SOURCES += main.cpp\
     wwin/wwidget.cpp \
     wwin/helpers/winapiwindowbuilder.cpp \
     wwin/wscreen.cpp \
-    wwin/wpushbutton.cpp
+    wwin/wpushbutton.cpp \
+    wwin/wevent.cpp

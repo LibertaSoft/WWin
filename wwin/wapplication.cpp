@@ -1,6 +1,8 @@
 #include "wapplication.h"
-#include "wwin/wobject.h"
+#include "wwin/wevent.h"
 #include <string>
+
+#include <iostream>
 
 WApplication* WApplication::_appInstance = nullptr;
 
@@ -33,12 +35,12 @@ WApplication* WApplication::instance()
     return _appInstance;
 }
 
-void WApplication::addComponent(const WObject *object)
+void WApplication::addComponent(WWidget *object)
 {
     this->_objects[object->hwnd()] = object;
 }
 
-void WApplication::removeComponent(const WObject* object)
+void WApplication::removeComponent(const WWidget* object)
 {
     for (auto it = begin(_objects); it != end(_objects);) {
         if(it->first == object->hwnd()) {
@@ -123,5 +125,16 @@ LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 
 void WApplication::handleEvents(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    if( HIWORD( wParam ) == LBN_DBLCLK || HIWORD( wParam ) == BN_CLICKED ) {
+        WEvent* evt = new WEvent();
+        WObject* cmp = wApp->components()[hWnd];
+        if( cmp ) {
+            cmp->event(evt);
+        }
+    }
+}
 
+WComponentsMap WApplication::components()
+{
+    return _objects;
 }

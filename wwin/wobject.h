@@ -5,6 +5,8 @@
 #include <string>
 #include <list>
 
+#include "wwin/wevent.h"
+
 namespace WObjectType {
     enum WObjectType{
         Object,
@@ -17,8 +19,6 @@ class WObject
 private:
     WObject *_parent;
     std::string _objectName;
-
-    HWND _hwnd = nullptr;
 
     std::list<WObject> _childrens;
 
@@ -40,7 +40,7 @@ public:
     void setParent(WObject* parent);
     WObject* parent() const;
 
-//    virtual bool event(WEvent *e);
+    virtual bool event(WEvent *e);
 //    virtual bool eventFilter(WObject *watched, WEvent *event);
     void removeEventFilter(WObject* obj);
 

@@ -3,6 +3,16 @@
 #include "wwin/helpers/winapiwindowbuilder.h"
 #include "wwin/wscreen.h"
 
+HWND WWidget::hwnd() const
+{
+    return _hwnd;
+}
+
+void WWidget::hwnd(HWND hwnd)
+{
+    _hwnd = hwnd;
+}
+
 HWND WWidget::parentHwnd() const
 {
     HWND p_hwnd = HWND_DESKTOP;
@@ -36,12 +46,17 @@ WWidget::WWidget(WWidget *parent, int params)
     _height = 320;
 
     _x = WScreen::width()  / 2  - _width / 2,
-    _y = WScreen::height() / 2 - _height / 2;
+            _y = WScreen::height() / 2 - _height / 2;
+}
+
+WWidget::~WWidget()
+{
+    wApp->removeComponent(this);
 }
 
 void WWidget::show()
 {
-    if( ! WObject::hwnd() ) {
+    if( ! WWidget::hwnd() ) {
        HWND x = WinApiWindowBuilder()
             .className(_className)
             .title(_title)
@@ -51,10 +66,11 @@ void WWidget::show()
             .hinstance(WApplication::instance()->getHinstance())
             .param( LPVOID( _windowParams ) )
             .build();
-       WObject::setHwnd(x);
+       WWidget::hwnd(x);
+       wApp->addComponent(this);
     }
-    ShowWindow( WObject::hwnd(), _windowParams );
-    UpdateWindow( WObject::hwnd() );
+    ShowWindow( WWidget::hwnd(), _windowParams );
+    UpdateWindow( WWidget::hwnd() );
 }
 
 void WWidget::setGeometry(int x, int y, int width, int height)

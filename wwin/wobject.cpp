@@ -1,25 +1,15 @@
 #include "wobject.h"
 #include "wwin/wapplication.h"
 
-void WObject::setHwnd(HWND hwnd)
-{
-    _hwnd = hwnd;
-}
-
 WObject::WObject(WObject* parent = nullptr)
     : _parent(parent)
 {
-    wApp->addComponent(this);
+
 }
 
 WObject::~WObject()
 {
-    wApp->removeComponent(this);
-}
 
-HWND WObject::hwnd() const
-{
-    return _hwnd;
 }
 
 void WObject::setType(WObjectType::WObjectType type)
@@ -35,6 +25,11 @@ WObjectType::WObjectType WObject::type() const
 WObject *WObject::parent() const
 {
     return _parent;
+}
+
+bool WObject::event(WEvent *e)
+{
+    MessageBox(NULL, WObject::tow("Test"), WObject::tow("Event"), MB_OK);
 }
 
 LPWSTR WObject::tow(const std::string &s)

@@ -50,6 +50,7 @@ private:
 
 //    WLayout* _layout = nullptr;
 
+    HWND _hwnd = nullptr;
     HWND parentHwnd() const;
     WWidget *parentWidget() const;
 
@@ -59,7 +60,10 @@ protected:
     std::string _title;
 public:
     WWidget(WWidget *parent = nullptr, int params = WWidgetState::Show);
+    virtual ~WWidget();
 
+    HWND hwnd() const;
+    void hwnd(HWND hwnd);
     void show();
 
     void setGeometry(int x, int y, int width, int height);
