@@ -46,7 +46,21 @@ WWidget::WWidget(WWidget *parent, int params)
     _height = 320;
 
     _x = WScreen::width()  / 2  - _width / 2,
-            _y = WScreen::height() / 2 - _height / 2;
+    _y = WScreen::height() / 2 - _height / 2;
+
+    /*
+    HWND x = WinApiWindowBuilder()
+         .className(_className)
+         .title(_title)
+         .style(style())
+         .geometry(_x, _y, _width, _height)
+         .parent(parentHwnd())
+         .hinstance(wApp->getHinstance())
+         .param( LPVOID( _windowParams ) )
+         .build();
+    this->hwnd(x);
+    wApp->addComponent(this);
+    // */
 }
 
 WWidget::~WWidget()
@@ -56,21 +70,21 @@ WWidget::~WWidget()
 
 void WWidget::show()
 {
-    if( ! WWidget::hwnd() ) {
+    if( ! this->hwnd() ) {
        HWND x = WinApiWindowBuilder()
             .className(_className)
             .title(_title)
             .style(style())
             .geometry(_x, _y, _width, _height)
             .parent(parentHwnd())
-            .hinstance(WApplication::instance()->getHinstance())
+            .hinstance(wApp->getHinstance())
             .param( LPVOID( _windowParams ) )
             .build();
-       WWidget::hwnd(x);
+       this->hwnd(x);
        wApp->addComponent(this);
     }
-    ShowWindow( WWidget::hwnd(), _windowParams );
-    UpdateWindow( WWidget::hwnd() );
+    ShowWindow( this->hwnd(), _windowParams );
+    UpdateWindow( this->hwnd() );
 }
 
 void WWidget::setGeometry(int x, int y, int width, int height)
@@ -97,5 +111,6 @@ void WWidget::setGeometry(int x, int y, int width, int height)
 void WWidget::setTitle(const std::string &title)
 {
     _title = title;
+    SetWindowText(this->hwnd(), WObject::tow(_title));
 }
 
