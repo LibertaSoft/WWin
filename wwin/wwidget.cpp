@@ -3,6 +3,8 @@
 #include "wwin/helpers/winapiwindowbuilder.h"
 #include "wwin/wscreen.h"
 
+#include <iostream>
+
 HWND WWidget::hwnd() const
 {
     return _hwnd;
@@ -37,30 +39,31 @@ int WWidget::style()
     return WS_OVERLAPPEDWINDOW | WS_SYSMENU | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
 }
 
+bool WWidget::init()
+{
+    HWND x = WinApiWindowBuilder()
+         .className( _className )
+         .title( _title )
+         .style( this->style() )
+         .geometry( _x, _y, _width, _height )
+         .parent( this->parentHwnd() )
+         .hinstance( wApp->getHinstance() )
+         .param( LPVOID( _windowParams ) )
+         .build();
+    this->hwnd(x);
+    wApp->addComponent(this);
+
+    return (x != nullptr);
+}
+
 WWidget::WWidget(WWidget *parent, int params)
     : WObject(parent), _windowParams(params)
 {
     this->setType(WObjectType::Widget);
 
-    _width  = 480;
-    _height = 320;
-
-    _x = WScreen::width()  / 2  - _width / 2,
-    _y = WScreen::height() / 2 - _height / 2;
-
-    /*
-    HWND x = WinApiWindowBuilder()
-         .className(_className)
-         .title(_title)
-         .style(style())
-         .geometry(_x, _y, _width, _height)
-         .parent(parentHwnd())
-         .hinstance(wApp->getHinstance())
-         .param( LPVOID( _windowParams ) )
-         .build();
-    this->hwnd(x);
-    wApp->addComponent(this);
-    // */
+    if( parent == nullptr ) {
+        this->init();
+    }
 }
 
 WWidget::~WWidget()
@@ -71,17 +74,7 @@ WWidget::~WWidget()
 void WWidget::show()
 {
     if( ! this->hwnd() ) {
-       HWND x = WinApiWindowBuilder()
-            .className(_className)
-            .title(_title)
-            .style(style())
-            .geometry(_x, _y, _width, _height)
-            .parent(parentHwnd())
-            .hinstance(wApp->getHinstance())
-            .param( LPVOID( _windowParams ) )
-            .build();
-       this->hwnd(x);
-       wApp->addComponent(this);
+       this->init();
     }
     ShowWindow( this->hwnd(), _windowParams );
     UpdateWindow( this->hwnd() );
@@ -106,6 +99,9 @@ void WWidget::setGeometry(int x, int y, int width, int height)
 
     _width = width;
     _height = height;
+
+    SetWindowPos(this->hwnd(), nullptr, _x, _y, _width, _height, 0);
+
 }
 
 void WWidget::setTitle(const std::string &title)

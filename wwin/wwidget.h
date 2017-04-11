@@ -58,6 +58,8 @@ private:
 protected:
     std::string _className = "WWINAPI";
     std::string _title;
+
+    bool init();
 public:
     WWidget(WWidget *parent = nullptr, int params = WWidgetState::Show);
     virtual ~WWidget();
