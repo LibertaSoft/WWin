@@ -1,6 +1,8 @@
 #include "wobject.h"
 #include "wwin/wapplication.h"
 
+#include <iostream>
+
 WObject::WObject(WObject* parent = nullptr)
     : _parent(parent)
 {
@@ -29,7 +31,9 @@ WObject *WObject::parent() const
 
 bool WObject::event(WEvent *e)
 {
-    MessageBox(NULL, WObject::tow("Test"), WObject::tow("Event"), MB_OK);
+    std::cout << "WObject::event" << std::endl;
+
+    return e->isAccepted();
 }
 
 LPWSTR WObject::tow(const std::string &s)

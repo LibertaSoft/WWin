@@ -56,6 +56,22 @@ bool WWidget::init()
     return (x != nullptr);
 }
 
+bool WWidget::mouseEvent(WMouseEvent *e)
+{
+    std::cout << "WWidget::mouseEvent" << std::endl;
+    std::cout << "HWND: " << this->hwnd() << " - " << this->title() << std::endl;
+    return e->isAccepted();
+}
+
+bool WWidget::event(WEvent *e)
+{
+    std::cout << "WWidget::event" << std::endl;
+    if( e->type() == WEventType::WMouseEvent ){
+        this->mouseEvent( static_cast<WMouseEvent*>(e) );
+    }
+    return WObject::event(e);
+}
+
 WWidget::WWidget(WWidget *parent, int params)
     : WObject(parent), _windowParams(params)
 {
@@ -104,9 +120,19 @@ void WWidget::setGeometry(int x, int y, int width, int height)
 
 }
 
+std::string WWidget::title() const
+{
+    return _title;
+}
+
 void WWidget::setTitle(const std::string &title)
 {
     _title = title;
     SetWindowText(this->hwnd(), WObject::tow(_title));
+}
+
+void WWidget::setFocus()
+{
+    SetFocus( this->hwnd() );
 }
 

@@ -16,13 +16,18 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     int y = WScreen::height() / 2 - height / 2;
 
     WWidget *wgt = new WWidget();
-//    wgt->setTitle("WWinApi Lib Title");
+    wgt->setTitle("WWinApi Lib Title");
     wgt->setGeometry(x,y,width,height);
     wgt->show();
 
     WPushButton *btn = new WPushButton("My Button", wgt);
     btn->setGeometry(10,10,120,60);
     btn->show();
+
+    WPushButton *btn2 = new WPushButton("My Button 2", wgt);
+    btn2->setGeometry(140,10,120,60);
+    btn2->show();
+    btn2->setFocus();
 
     return app->run();
 }

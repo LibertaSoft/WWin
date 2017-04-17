@@ -24,6 +24,7 @@ private:
 
 protected:
     void setHwnd(HWND hwnd);
+
 public:
     WObject(WObject *parent);
     virtual ~WObject();
@@ -43,6 +44,7 @@ public:
     virtual bool event(WEvent *e);
 //    virtual bool eventFilter(WObject *watched, WEvent *event);
     void removeEventFilter(WObject* obj);
+
 
     // опции и рекурсивно
     WObject* findChild(const std::string &name) const;

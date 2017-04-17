@@ -82,7 +82,7 @@ ATOM WApplication::registerClass()
     WNDCLASS wcl;
 
     wcl.hInstance = _hInstance;
-    wcl.lpszClassName = L"WWINAPI";
+    wcl.lpszClassName = L"WWIDGET";
     wcl.lpfnWndProc = &WApplication::wndproc;
     wcl.style = CS_VREDRAW | CS_HREDRAW;
     wcl.hIcon = NULL;
@@ -97,12 +97,12 @@ ATOM WApplication::registerClass()
 
 void WApplication::hideConsole()
 {
-    /*
+    //*
     const LPCWSTR consoleName = L"WWIN-HIDE-5648-45748-DFJHV-SDAYUF-SNVNS";
     SetConsoleTitle(consoleName);
     HWND console = FindWindow(NULL, consoleName);
     if(console == 0) {
-        // \todo
+        /// \todo handle errors
     }
     ShowWindow(console, SW_HIDE);
     // */
@@ -112,9 +112,12 @@ LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 {
     switch( message ){
       case WM_DESTROY:
+        /// \todo Process in ever window, if close one closed all
         PostQuitMessage( EXIT_SUCCESS );
         break;
       case WM_COMMAND:
+      case WM_CONTEXTMENU:
+      case WM_KEYDOWN:
         WApplication::handleEvents( hWnd, message, wParam, lParam );
         break;
       default:
@@ -125,12 +128,15 @@ LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 
 void WApplication::handleEvents(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    WObject* component = wApp->components()[hWnd];
+    std::cout << "WApp::handleEvents: " << hWnd << std::endl;
+    if( ! component ) {
+        throw "NullPointerException: Widget is not exists.";
+        return;
+    }
     if( HIWORD( wParam ) == LBN_DBLCLK || HIWORD( wParam ) == BN_CLICKED ) {
-        WEvent* evt = new WEvent();
-        WObject* cmp = wApp->components()[hWnd];
-        if( cmp ) {
-            cmp->event(evt);
-        }
+        WEvent* evt = new WMouseEvent();
+        component->event(evt);
     }
 }
 

@@ -2,6 +2,7 @@
 #define WWIDGET_H
 
 #include "wwin/wobject.h"
+#include "wwin/wmouseevent.h"
 
 enum WWidgetState{
     ForceMinimize = SW_FORCEMINIMIZE,
@@ -56,10 +57,13 @@ private:
 
     virtual int style();
 protected:
-    std::string _className = "WWINAPI";
+    std::string _className = "WWIDGET";
     std::string _title;
 
     bool init();
+
+    virtual bool event(WEvent *e);
+    virtual bool mouseEvent(WMouseEvent *e);
 public:
     WWidget(WWidget *parent = nullptr, int params = WWidgetState::Show);
     virtual ~WWidget();
@@ -71,6 +75,8 @@ public:
     void setGeometry(int x, int y, int width, int height);
     std::string title() const;
     void setTitle(const std::string &title);
+
+    void setFocus();
 };
 
 #endif // WWIDGET_H
