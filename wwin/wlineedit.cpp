@@ -22,7 +22,7 @@ bool WLineEdit::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
   return WWidget::processEvent(hWnd, message, wParam, lParam);
 }
 
-void WLineEdit::setValue(const std::string &value)
+void WLineEdit::setText(const std::string &value)
 {
   this->setTitle(value);
 }
@@ -43,5 +43,11 @@ WLineEdit::WLineEdit(std::string value, WWidget *parent) : WWidget(parent)
 
 int WLineEdit::style()
 {
-  return WS_VISIBLE | WS_CHILD | WS_BORDER | ES_LEFT;
+    int style = WS_VISIBLE | WS_CHILD | WS_BORDER | ES_LEFT | ES_AUTOHSCROLL;
+
+    if( _echoMode == EchoMode::Password ) {
+        style |= ES_PASSWORD;
+    }
+
+    return style;
 }

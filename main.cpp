@@ -56,7 +56,7 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     });
 
     WLineEdit *edit = new WLineEdit("hellow", wgt);
-    edit->setGeometry(10,80,240,60);
+    edit->setGeometry(10,80,250,20);
     edit->show();
 
     WPushButton *btn2 = new WPushButton("My Button Привет 2", wgt);
