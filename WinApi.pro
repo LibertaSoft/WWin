@@ -14,7 +14,8 @@ HEADERS += \
     wwin/wpushbutton.h \
     wwin/wevent.h \
     wwin/wmessagebox.h \
-    wwin/wmouseevent.h
+    wwin/wmouseevent.h \
+    wwin/wlineedit.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -25,4 +26,5 @@ SOURCES += main.cpp\
     wwin/wpushbutton.cpp \
     wwin/wevent.cpp \
     wwin/wmessagebox.cpp \
-    wwin/wmouseevent.cpp
+    wwin/wmouseevent.cpp \
+    wwin/wlineedit.cpp

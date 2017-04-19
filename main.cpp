@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <wwin/wlineedit.h>
 #include "wwin/wapplication.h"
 #include "wwin/wwidget.h"
 
@@ -28,16 +29,23 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
         WMessageBox::information(nullptr, "Title", "Button 1 clicked");
     });
 
+    WLineEdit *edit = new WLineEdit("hellow", wgt);
+    edit->setGeometry(10,80,240,60);
+    edit->show();
+
     WPushButton *btn2 = new WPushButton("My Button 2", wgt);
     btn2->setGeometry(140,10,120,60);
     btn2->show();
     btn2->setFocus();
-    btn2->on_click([](WMouseEvent*e){
-        WMessageBox::information(nullptr, "Title", "Mouse pos: (" + std::to_string(e->x()) + "," + std::to_string(e->y()) + ")");
+    btn2->on_click([&](WMouseEvent*e){
+        WMessageBox::information(nullptr, "Title", edit->value());
         if( e->modifiers() & WMouseKeyModifiers::ControlModifier ){
             WMessageBox::information(nullptr, "Title", "Control is hold");
         }
     });
+
+
+
 
     return app->run();
 }

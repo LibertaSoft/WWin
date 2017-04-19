@@ -112,30 +112,50 @@ void WApplication::hideConsole()
 
 LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch( message ){
-      case WM_DESTROY:
-        /// \todo Process in ever window, if close one closed all
-        PostQuitMessage( EXIT_SUCCESS );
-        break;
-      case WM_COMMAND:
-      case WM_CONTEXTMENU:
-      case WM_KEYDOWN:
-        WApplication::handleEvents( hWnd, message, wParam, lParam );
-        break;
-      default:
-        return DefWindowProc( hWnd, message, wParam, lParam );
-    }
-    return wParam;
+  WORD cid = LOWORD(wParam);
+  WObject* component = wApp->component(hWnd, cid);
+
+  /*
+  bool accept = false;
+  if( component ) {
+      accept = component->processEvent(hWnd, message, wParam, lParam);
+  }
+
+  if( ! accept ){
+    return DefWindowProc( hWnd, message, wParam, lParam );
+  }
+  // */
+
+  //*
+  switch( message ){
+    case WM_DESTROY:
+      /// \todo Process in ever window, if close one closed all
+      PostQuitMessage( EXIT_SUCCESS );
+      break;
+    case WM_COMMAND:
+    case WM_CONTEXTMENU:
+    case WM_KEYDOWN:
+      WApplication::handleEvents( hWnd, message, wParam, lParam );
+      break;
+    default:
+      return DefWindowProc( hWnd, message, wParam, lParam );
+  }
+  //*/
+
+  return wParam;
 }
 
 void WApplication::handleEvents(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     WORD cid = LOWORD(wParam);
     WObject* component = wApp->component(hWnd, cid);
+
     if( ! component ) {
         // throw "NullPointerException: Widget is not exists.";
         return;
     }
+//    component->processEvent(hWnd, message, wParam, lParam);
+
     if( HIWORD( wParam ) == BN_CLICKED ) {
         WMouseEvent* evt = new WMouseEvent();
         POINT p;
