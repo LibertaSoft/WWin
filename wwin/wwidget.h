@@ -81,6 +81,8 @@ public:
     std::string title() const;
     void setTitle(const std::string &title);
 
+    bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
+
     void setFocus();
 };
 

@@ -34,6 +34,7 @@ void WMessageBox::question(WWidget *parent, std::string title, std::string messa
     MessageBox(hwnd, WObject::tow(message), WObject::tow(title), MB_OK | MB_ICONQUESTION);
 }
 
+
 void WMessageBox::warning(WWidget *parent, std::string title, std::string message)
 {
     HWND hwnd = nullptr;
@@ -42,4 +43,3 @@ void WMessageBox::warning(WWidget *parent, std::string title, std::string messag
     }
     MessageBox(hwnd, WObject::tow(message), WObject::tow(title), MB_OK | MB_ICONWARNING);
 }
-

@@ -112,53 +112,21 @@ void WApplication::hideConsole()
 
 LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch( message ){
-      case WM_DESTROY:
-        /// \todo Process in ever window, if close one closed all
-        PostQuitMessage( EXIT_SUCCESS );
-        break;
-      case WM_COMMAND:
-      case WM_CONTEXTMENU:
-      case WM_KEYDOWN:
-        WApplication::handleEvents( hWnd, message, wParam, lParam );
-        break;
-      default:
-        return DefWindowProc( hWnd, message, wParam, lParam );
-    }
-    return wParam;
-}
+  WORD cid = LOWORD(wParam);
+  WObject* component = wApp->component(hWnd, cid);
 
-void WApplication::handleEvents(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    WORD cid = LOWORD(wParam);
-    WObject* component = wApp->component(hWnd, cid);
-    if( ! component ) {
-        // throw "NullPointerException: Widget is not exists.";
-        return;
-    }
-    if( HIWORD( wParam ) == BN_CLICKED ) {
-        WMouseEvent* evt = new WMouseEvent();
-        POINT p;
-        if( GetCursorPos(&p) ){
-            evt->setCursorPos(p.x, p.y);
-        }
-        evt->setButton(WMouseButton::LeftButton);
-        int mod = WMouseKeyModifiers::NoModifier;
-        if( GetAsyncKeyState(VK_LSHIFT) < 0 || GetAsyncKeyState(VK_RSHIFT) < 0 ){
-            mod |= WMouseKeyModifiers::ShiftModifier;
-        }
-        if( GetKeyState(VK_LCONTROL) < 0 || GetKeyState(VK_RCONTROL) < 0 ){
-            mod |= WMouseKeyModifiers::ControlModifier;
-        }
-        if( GetAsyncKeyState(VK_LMENU) < 0 || GetAsyncKeyState(VK_RMENU) < 0 ){
-            mod |= WMouseKeyModifiers::AltModifier;
-        }
-        if( GetAsyncKeyState(VK_LWIN) < 0 || GetAsyncKeyState(VK_RWIN) < 0 ){
-            mod |= WMouseKeyModifiers::MetaModifier;
-        }
-        evt->setModifiers(mod);
-        component->event(evt);
-    }
+  if( message == WM_DESTROY ){
+    PostQuitMessage( EXIT_SUCCESS );
+  }
+  bool accept = false;
+  if( component ) {
+      accept = component->processEvent(hWnd, message, wParam, lParam);
+  }
+
+  if( ! accept ){
+    return DefWindowProc( hWnd, message, wParam, lParam );
+  }
+  return wParam;
 }
 
 WComponentsMap &WApplication::components(HWND hwnd)

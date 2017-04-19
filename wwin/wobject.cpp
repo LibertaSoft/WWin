@@ -1,6 +1,7 @@
 #include "wobject.h"
 #include "wwin/wapplication.h"
 
+#include <windows.h>
 #include <iostream>
 
 WObject::WObject(WObject* parent = nullptr)
@@ -31,7 +32,17 @@ WObject *WObject::parent() const
 
 bool WObject::event(WEvent *e)
 {
-    return e->isAccepted();
+  return e->isAccepted();
+}
+
+bool WObject::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+  if( message == WM_TIMER ){
+      /// \todo process timer event
+      /// return true;
+  }
+
+  return false;
 }
 
 LPWSTR WObject::tow(const std::string &s)
@@ -42,3 +53,9 @@ LPWSTR WObject::tow(const std::string &s)
     return ws;
 }
 
+std::string WObject::tos(const TCHAR *s)
+{
+  std::wstring arr_w( s );
+  std::string arr_s( arr_w.begin(), arr_w.end() );
+  return arr_s;
+}
