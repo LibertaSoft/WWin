@@ -139,7 +139,6 @@ void WWidget::setTitle(const std::string &title)
 
 bool WWidget::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-  std::cout << "WWidget::processEvent" << std::endl;
   if( message == WM_DESTROY ){
     PostQuitMessage( EXIT_SUCCESS );
     return true;

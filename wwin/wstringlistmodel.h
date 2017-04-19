@@ -11,7 +11,9 @@ typedef std::vector<std::string> WStringList;
 
 class WStringListModel : public WAbstractItemModel
 {
+private:
     WStringList _stringList;
+
 public:
     WStringListModel(WObject *parent = nullptr);
     WStringListModel(const WStringList &strings, WObject *parent = nullptr);
