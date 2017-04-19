@@ -11,7 +11,7 @@ int WPushButton::style()
 bool WPushButton::mouseEvent(WMouseEvent *e)
 {
     for(auto callback : _callbacks){
-        callback();
+        callback(e);
     }
 
     e->accept();
@@ -32,7 +32,7 @@ WPushButton::WPushButton(std::string title, WWidget *parent)
     this->init();
 }
 
-int WPushButton::on_click(std::function<void()> callback)
+int WPushButton::on_click(std::function<void(WMouseEvent*)> callback)
 {
     _callbacks.push_back( callback );
     return _callbacks.size();

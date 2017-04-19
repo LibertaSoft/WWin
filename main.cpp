@@ -24,22 +24,19 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     WPushButton *btn = new WPushButton("My Button", wgt);
     btn->setGeometry(10,10,120,60);
     btn->show();
-    btn->on_click([](){
-        WMessageBox::warning(nullptr, "Title", "Button 1 clicked");
-    });
-    btn->on_click([](){
-        WMessageBox::question(nullptr, "Title", "Button 1 clicked two");
+    btn->on_click([](WMouseEvent*){
+        WMessageBox::information(nullptr, "Title", "Button 1 clicked");
     });
 
     WPushButton *btn2 = new WPushButton("My Button 2", wgt);
     btn2->setGeometry(140,10,120,60);
     btn2->show();
     btn2->setFocus();
-    btn2->on_click([](){
-        WMessageBox::information(nullptr, "Title", "Button 2 clicked");
-    });
-    btn2->on_click([](){
-        WMessageBox::critical(nullptr, "Title", "Button 2 clicked two");
+    btn2->on_click([](WMouseEvent*e){
+        WMessageBox::information(nullptr, "Title", "Mouse pos: (" + std::to_string(e->x()) + "," + std::to_string(e->y()) + ")");
+        if( e->modifiers() & WMouseKeyModifiers::ControlModifier ){
+            WMessageBox::information(nullptr, "Title", "Control is hold");
+        }
     });
 
     return app->run();

@@ -8,7 +8,7 @@
 class WPushButton : public WWidget
 {
 private:
-    std::vector< std::function<void()> > _callbacks;
+    std::vector< std::function<void(WMouseEvent*)> > _callbacks;
 
     int style() override;
 
@@ -17,7 +17,7 @@ protected:
 public:
     WPushButton(WWidget* parent = nullptr);
     WPushButton(std::string title, WWidget* parent = nullptr);
-    int on_click( std::function<void()> callback );
+    int on_click(std::function<void(WMouseEvent *)> callback );
 };
 
 #endif // WPUSHBUTTON_H
