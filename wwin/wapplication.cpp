@@ -151,6 +151,9 @@ void WApplication::handleEvents(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
             mod |= WMouseKeyModifiers::ControlModifier;
         }
         if( GetAsyncKeyState(VK_LMENU) < 0 || GetAsyncKeyState(VK_RMENU) < 0 ){
+            mod |= WMouseKeyModifiers::AltModifier;
+        }
+        if( GetAsyncKeyState(VK_LWIN) < 0 || GetAsyncKeyState(VK_RWIN) < 0 ){
             mod |= WMouseKeyModifiers::MetaModifier;
         }
         evt->setModifiers(mod);
