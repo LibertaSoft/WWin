@@ -137,6 +137,32 @@ void WWidget::setTitle(const std::string &title)
     SetWindowText(this->hwnd(), WObject::tow(_title));
 }
 
+bool WWidget::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+  std::cout << "WWidget::processEvent" << std::endl;
+  if( message == WM_DESTROY ){
+    PostQuitMessage( EXIT_SUCCESS );
+    return true;
+  }
+  if(WM_SIZE == message || WM_MOVE == message) {
+    RECT rect;
+    if( ! GetWindowRect(hWnd, &rect) ){
+      /// \todo process error
+    }
+
+    _x = rect.left;
+    _y = rect.top;
+    _width = rect.right-rect.left;
+    _height = rect.bottom - rect.top;
+    return true;
+  }
+  if (WM_PAINT) {
+    /// \todo repaint something
+  }
+
+  return WObject::processEvent(hWnd, message, wParam, lParam);
+}
+
 void WWidget::setFocus()
 {
     SetFocus( this->hwnd() );

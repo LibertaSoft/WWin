@@ -6,6 +6,8 @@
 class WLineEdit : public WWidget
 {
 private:
+  int _maxLength = 255;
+private:
   int style();
 
 public:
@@ -13,6 +15,8 @@ public:
   WLineEdit(std::string value, WWidget *parent);
   void setValue(const std::string &value);
   std::string value() const;
+
+  bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 #endif // WLINEEDIT_H

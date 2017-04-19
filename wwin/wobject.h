@@ -42,6 +42,8 @@ public:
 //    virtual bool eventFilter(WObject *watched, WEvent *event);
     void removeEventFilter(WObject* obj);
 
+    // WINAPI Processing
+    virtual bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
     // опции и рекурсивно
     WObject* findChild(const std::string &name) const;
@@ -50,6 +52,7 @@ public:
 
 //    std::string tr(const char *sourceText, constChar *disambiguation = nullptr, int n = -1);
     static LPWSTR tow( const std::string& s );
+    static std::string tos(const TCHAR *s);
 };
 
 #endif // WOBJECT_H

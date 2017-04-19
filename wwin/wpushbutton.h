@@ -18,6 +18,7 @@ public:
     WPushButton(WWidget* parent = nullptr);
     WPushButton(std::string title, WWidget* parent = nullptr);
     int on_click(std::function<void(WMouseEvent *)> callback );
+    bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 #endif // WPUSHBUTTON_H

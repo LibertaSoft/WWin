@@ -11,6 +11,32 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
 {
     WApplication *app = WApplication::instance(hInstace, hPrevInst, lpCmdString, nCmdShow);
 
+    TCHAR * text;
+
+        /*/
+    #ifdef UNICODE
+        // Simple C
+        const size_t size = ( wcslen(text) + 1 ) * sizeof(wchar_t);
+        wcstombs(&buffer[0], text, size);
+        std::vector<char> buffer(size);
+        //
+        // Windows API (I would use this)
+        std::vector<char> buffer;
+        int size = WideCharToMultiByte(CP_UTF8, 0, text, -1, NULL, 0, NULL, NULL);
+        if (size > 0) {
+            buffer.resize(size);
+            WideCharToMultiByte(CP_UTF8, 0, text, -1, static_cast<BYTE*>(&buffer[0]), buffer.size(), NULL, NULL);
+        }
+        else {
+            // Error handling
+        }
+        ///
+        std::string string(&buffer[0]);
+    #else
+        std::string string(text);
+    #endif
+    //*/
+
     // Window pos
     int width  = 480;
     int height = 320;
@@ -33,7 +59,7 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     edit->setGeometry(10,80,240,60);
     edit->show();
 
-    WPushButton *btn2 = new WPushButton("My Button 2", wgt);
+    WPushButton *btn2 = new WPushButton("My Button Привет 2", wgt);
     btn2->setGeometry(140,10,120,60);
     btn2->show();
     btn2->setFocus();

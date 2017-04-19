@@ -25,7 +25,6 @@ private:
     ATOM registerClass();
     void hideConsole();
     static CALLBACK LRESULT wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-    static void handleEvents(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
     WComponentsMap& components(HWND hwnd);
     WObject* component(HWND hwnd, WORD cid);
