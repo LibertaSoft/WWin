@@ -37,18 +37,20 @@ WApplication* WApplication::instance()
 
 void WApplication::addComponent(WWidget *object)
 {
-    this->_objects[object->hwnd()] = object;
+    (this->_objects[object->parentHwnd()])[object->cid()] = object;
 }
 
 void WApplication::removeComponent(const WWidget* object)
 {
-    for (auto it = begin(_objects); it != end(_objects);) {
-        if(it->first == object->hwnd()) {
-            it = _objects.erase(it);
-        } else {
-            ++it;
-        }
-    }
+//    for (auto it_d = begin(_objects); it_d != end(_objects);) {
+//        for (auto it_c = begin(*it_d); it_c != end(*it_d);){
+//            if(it_c->first == object->hwnd()) {
+//                it_c = _objects.erase(it_c);
+//            } else {
+//                ++it_c;
+//            }
+//        }
+//    }
 }
 
 HINSTANCE WApplication::getHinstance()
@@ -128,10 +130,10 @@ LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 
 void WApplication::handleEvents(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    WObject* component = wApp->components()[hWnd];
-    std::cout << "WApp::handleEvents: " << hWnd << std::endl;
+    WORD cid = LOWORD(wParam);
+    WObject* component = wApp->component(hWnd, cid);
     if( ! component ) {
-        throw "NullPointerException: Widget is not exists.";
+        // throw "NullPointerException: Widget is not exists.";
         return;
     }
     if( HIWORD( wParam ) == LBN_DBLCLK || HIWORD( wParam ) == BN_CLICKED ) {
@@ -140,7 +142,12 @@ void WApplication::handleEvents(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
     }
 }
 
-WComponentsMap WApplication::components()
+WComponentsMap &WApplication::components(HWND hwnd)
 {
-    return _objects;
+    return _objects[hwnd];
+}
+
+WObject *WApplication::component(HWND hwnd, WORD cid)
+{
+    return _objects[hwnd][cid];
 }

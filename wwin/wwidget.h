@@ -52,8 +52,11 @@ private:
 //    WLayout* _layout = nullptr;
 
     HWND _hwnd = nullptr;
-    HWND parentHwnd() const;
+    int _cid = 0;
+    static int _componentCount;
+
     WWidget *parentWidget() const;
+
 
     virtual int style();
 protected:
@@ -69,6 +72,8 @@ public:
     virtual ~WWidget();
 
     HWND hwnd() const;
+    HWND parentHwnd() const;
+    WORD cid() const;
     void hwnd(HWND hwnd);
     void show();
 

@@ -31,8 +31,6 @@ WObject *WObject::parent() const
 
 bool WObject::event(WEvent *e)
 {
-    std::cout << "WObject::event" << std::endl;
-
     return e->isAccepted();
 }
 

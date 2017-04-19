@@ -10,8 +10,10 @@ int WPushButton::style()
 
 bool WPushButton::mouseEvent(WMouseEvent *e)
 {
-    std::cout << "WPushButton::event" << std::endl;
-    WMessageBox::information("Title", "Button clicked");
+    for(auto callback : _callbacks){
+        callback();
+    }
+
     e->accept();
     return e->isAccepted();
 }

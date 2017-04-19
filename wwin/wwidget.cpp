@@ -5,6 +5,8 @@
 
 #include <iostream>
 
+int WWidget::_componentCount = 0;
+
 HWND WWidget::hwnd() const
 {
     return _hwnd;
@@ -34,6 +36,11 @@ WWidget* WWidget::parentWidget() const
     return nullptr;
 }
 
+WORD WWidget::cid() const
+{
+    return _cid;
+}
+
 int WWidget::style()
 {
     return WS_OVERLAPPEDWINDOW | WS_SYSMENU | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
@@ -43,12 +50,13 @@ bool WWidget::init()
 {
     HWND x = WinApiWindowBuilder()
          .className( _className )
-         .title( _title )
+         .title( this->title() )
          .style( this->style() )
          .geometry( _x, _y, _width, _height )
          .parent( this->parentHwnd() )
          .hinstance( wApp->getHinstance() )
          .param( LPVOID( _windowParams ) )
+         .menu( reinterpret_cast<HMENU>( this->cid() ) )
          .build();
     this->hwnd(x);
     wApp->addComponent(this);
@@ -58,14 +66,11 @@ bool WWidget::init()
 
 bool WWidget::mouseEvent(WMouseEvent *e)
 {
-    std::cout << "WWidget::mouseEvent" << std::endl;
-    std::cout << "HWND: " << this->hwnd() << " - " << this->title() << std::endl;
     return e->isAccepted();
 }
 
 bool WWidget::event(WEvent *e)
 {
-    std::cout << "WWidget::event" << std::endl;
     if( e->type() == WEventType::WMouseEvent ){
         this->mouseEvent( static_cast<WMouseEvent*>(e) );
     }
@@ -75,6 +80,7 @@ bool WWidget::event(WEvent *e)
 WWidget::WWidget(WWidget *parent, int params)
     : WObject(parent), _windowParams(params)
 {
+    _cid = _componentCount++;
     this->setType(WObjectType::Widget);
 
     if( parent == nullptr ) {

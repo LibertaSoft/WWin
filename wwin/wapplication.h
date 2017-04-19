@@ -2,12 +2,12 @@
 #define WAPPLICATION_H
 
 #include <windows.h>
-#include "wwin/wwidget.h"
 #include <unordered_map>
+#include "wwin/wwidget.h"
 
 #define wApp WApplication::instance()
-
-typedef std::unordered_map<HWND,WObject*> WComponentsMap;
+typedef std::unordered_map<WORD,WObject*> WComponentsMap;
+typedef std::unordered_map<HWND,WComponentsMap> WDialogsMap;
 
 class WApplication
 {
@@ -19,7 +19,7 @@ private:
     LPSTR     _lpCmdLine = nullptr;
     int       _nCmdShow  = 0;
 
-    WComponentsMap _objects;
+    WDialogsMap _objects;
 
     void init();
     ATOM registerClass();
@@ -27,7 +27,8 @@ private:
     static CALLBACK LRESULT wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
     static void handleEvents(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-    WComponentsMap components();
+    WComponentsMap& components(HWND hwnd);
+    WObject* component(HWND hwnd, WORD cid);
 
     WApplication(int &argc, char** argv);
     WApplication(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);

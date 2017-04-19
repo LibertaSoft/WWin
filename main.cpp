@@ -4,6 +4,7 @@
 
 #include "wwin/wpushbutton.h"
 #include "wwin/wscreen.h"
+#include "wwin/wmessagebox.h"
 
 int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, int nCmdShow)
 {
@@ -28,6 +29,9 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     btn2->setGeometry(140,10,120,60);
     btn2->show();
     btn2->setFocus();
+    btn2->on_click([](){
+        WMessageBox::information("Title", "Button clicked");
+    });
 
     return app->run();
 }

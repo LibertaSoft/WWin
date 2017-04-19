@@ -23,13 +23,10 @@ private:
     std::list<WObject> _childrens;
 
 protected:
-    void setHwnd(HWND hwnd);
 
 public:
     WObject(WObject *parent);
     virtual ~WObject();
-
-    HWND hwnd() const;
 
     WObjectType::WObjectType _type = WObjectType::Object;
 
