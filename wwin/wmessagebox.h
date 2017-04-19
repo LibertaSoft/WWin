@@ -2,13 +2,16 @@
 #define WMESSAGEBOX_H
 
 #include <string>
-#include "wwin/wobject.h"
+#include "wwin/wwidget.h"
 
-class WMessageBox : WObject
+class WMessageBox : public WWidget
 {
 public:
-    WMessageBox();
-    static void information(std::string title, std::string message);
+    WMessageBox(WWidget *parent = nullptr);
+    static void critical(WWidget* parent, std::string title, std::string message);
+    static void information(WWidget* parent, std::string title, std::string message);
+    static void question(WWidget* parent, std::string title, std::string message);
+    static void warning(WWidget* parent, std::string title, std::string message);
 };
 
 #endif // WMESSAGEBOX_H
