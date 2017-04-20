@@ -21,7 +21,7 @@ protected:
     //    void on_selectionChanged();
     //    void on_cursorPositionChanged(int old, int new);
 
-    void onUpateValue();//    void on_chenge(WKeyEvent& event);
+    bool changeEvent(WEvent *e);//    void on_chenge(WKeyEvent& event);
 public:
     WLineEdit(WWidget* parent);
     WLineEdit(WString value, WWidget *parent);

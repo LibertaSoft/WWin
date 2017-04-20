@@ -66,10 +66,39 @@ protected:
     std::wstring _title2;
 
     virtual int style();
-    bool init();
+    bool initWndClass(WString className);
 
     virtual bool event(WEvent *e);
-    virtual bool mouseEvent(WMouseEvent *e);
+    virtual bool mouseReleaseEvent(WMouseEvent *e);
+    virtual bool mouseDoubleClickEvent(WMouseEvent *e);
+    virtual bool changeEvent(WEvent *e);
+    /*
+    virtual bool keyPressEvent(WKeyEvent *e);
+    virtual bool keyReleaseEvent(WKeyEvent *e);
+    //*/
+
+    /*
+    virtual bool wheelEvent(WWheelEvent *e);
+    virtual bool mouseMoveEvent(WMouseEvent *e);
+    virtual bool mousePressEvent(WMouseEvent *e);
+
+    virtual bool showEvent(WShowEvent *e);
+    virtual bool hideEvent(WHideEvent *e);
+    virtual bool closeEvent(WCloseEvent *e);
+
+    virtual bool enterEvent(WEvent *e);
+
+    virtual bool paintEvent(WPaintEvent *e);
+    virtual bool resizeEvent(WResizeEvent *e);
+    virtual bool moveEvent(WMoveEvent *e);
+
+    virtual bool dragEnter(WDragEvent *e);
+    virtual bool dragLeave(WDragEvent *e);
+    virtual bool dragMove(WDragEvent *e);
+
+    virtual bool dropEvent(WDropEvent *e);
+    //*/
+
 public:
     WWidget(WWidget *parent = nullptr, int params = WWidgetState::Show);
     virtual ~WWidget();

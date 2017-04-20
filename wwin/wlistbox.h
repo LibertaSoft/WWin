@@ -32,7 +32,7 @@ public:
   struct Item {
       int id;
       WString text;
-  //    std::variant UserData; to future
+      //std::variant UserData; to future
     };
 private:
   ListItems _itemList;
@@ -44,20 +44,18 @@ private:
 protected:
   int style();
 
-  virtual void __onSelChange();
-  virtual void __onDblClick();
+  virtual bool changeEvent(WEvent *event);
+  virtual bool mouseDoubleClickEvent(WMouseEvent *event);
 
 public:
 
   WListBox(WWidget *parent = nullptr) : WWidget(parent)
   {
-    _className = L"LISTBOX";
-    this->init();
+    this->initWndClass(L"LISTBOX");
   }
   WListBox(ListItems itemList, WWidget *parent = nullptr) : WWidget(parent)
   {
-    _className = L"LISTBOX";
-    this->init();
+    this->initWndClass(L"LISTBOX");
     setItemList(itemList);
   }
 

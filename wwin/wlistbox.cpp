@@ -16,8 +16,7 @@ void WListBox::setItemList(const ListItems &itemList)
 void WListBox::addListItem(const WString &item)
 {
   _itemList.push_back(item);
-//  SendDlgItemMessage(this->hwnd(),this->cid(),LB_ADDSTRING, 0, (LPARAM)item.c_str());
-    SendMessage(this->hwnd(), LB_ADDSTRING, 0, (LPARAM)item.c_str());
+  SendMessage(this->hwnd(), LB_ADDSTRING, 0, (LPARAM)item.c_str());
 }
 
 bool WListBox::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -29,13 +28,11 @@ bool WListBox::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
   if(HIWORD(wParam) == LBN_SELCHANGE)
   {
-    __onSelChange();
-    return true;
+    return changeEvent(new WEvent);
   }
   if(HIWORD(wParam) == LBN_DBLCLK)
   {
-    __onDblClick();
-    return true;
+    return mouseDoubleClickEvent(new WMouseEvent);
   }
 
   return WWidget::processEvent(hWnd, message, wParam, lParam);
@@ -65,22 +62,27 @@ int WListBox::style(int prameterAnable, int parameterDisable)
 
 
 
-void WListBox::__onSelChange()
+bool WListBox::changeEvent(WEvent *e)
 {
+  /// \fixme maybe this->hwnd() need change to this->parentHwnd()
   _selectedIndex = SendDlgItemMessage(this->hwnd(), this->cid(), LB_GETCURSEL, 0, 0);
+  e->accept();
+  return e->isAccepted();
 }
 
-void WListBox::__onDblClick()
+bool WListBox::mouseDoubleClickEvent(WMouseEvent *e)
 {
   Item item;
   for(auto callback : _callbacksDblClick){
       callback(item);
   }
+  e->accept();
+  return e->isAccepted();
 }
 
 int WListBox::style()
 {
-  return (WS_CHILD | WS_VISIBLE | LBS_STANDARD) ^ (int)WListBoxParameters::sort;
+  return (WS_CHILD | WS_VISIBLE | LBS_STANDARD) ^ WListBoxParameters::sort;
 }
 
 

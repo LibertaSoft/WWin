@@ -3,16 +3,10 @@
 
 #include "wwin/wevent.h"
 
-enum class WMouseButton : int {
-    LeftButton,    
-    RightButton,
-    MiddleButton,
-    BackButton,
-    NoButton,
-    dblClick
-};
-namespace WMouseKeyModifiers {
-    enum WMouseKeyModifiers {
+class WMouseEvent : public WEvent
+{
+public:
+    enum KeyModifiers {
         NoModifier      = 0,
         ShiftModifier   = 1 << 0,
         ControlModifier = 1 << 1,
@@ -20,15 +14,21 @@ namespace WMouseKeyModifiers {
         MetaModifier    = 1 << 3,
         KeypadModifier  = 1 << 4
     };
-}
+    enum class Button : int {
+        LeftButton,
+        RightButton,
+        MiddleButton,
+        BackButton,
+        NoButton,
+        dblClick
+    };
 
-class WMouseEvent : public WEvent
-{
+private:
     int _x = 0;
     int _y = 0;
 
-    WMouseButton _button = WMouseButton::NoButton;
-    int _modifiers = WMouseKeyModifiers::NoModifier;
+    WMouseEvent::Button _button = WMouseEvent::Button::NoButton;
+    int _modifiers = WMouseEvent::KeyModifiers::NoModifier;
 public:
     WMouseEvent();
     void setCursorPos(long x, long y);
@@ -36,8 +36,8 @@ public:
     long x() const;
     long y() const;
 
-    void setButton(WMouseButton button);
-    WMouseButton button() const;
+    void setButton(WMouseEvent::Button button);
+    WMouseEvent::Button button() const;
 
     void setModifiers(int modifiers);
     int modifiers() const;

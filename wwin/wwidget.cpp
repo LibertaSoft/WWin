@@ -46,8 +46,9 @@ int WWidget::style()
     return WS_OVERLAPPEDWINDOW | WS_SYSMENU | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
 }
 
-bool WWidget::init()
+bool WWidget::initWndClass(WString className)
 {
+    _className = className;
     HWND x = WinApiWindowBuilder()
          .className( _className )
          .title( this->title() )
@@ -55,7 +56,7 @@ bool WWidget::init()
          .geometry( _x, _y, _width, _height )
          .parent( this->parentHwnd() )
          .hinstance( wApp->getHinstance() )
-         .param( LPVOID( _windowParams ) )
+         .param( reinterpret_cast<LPVOID>( _windowParams ) )
          .menu( reinterpret_cast<HMENU>( this->cid() ) )
          .build();
     this->hwnd(x);
@@ -64,15 +65,25 @@ bool WWidget::init()
     return (x != nullptr);
 }
 
-bool WWidget::mouseEvent(WMouseEvent *e)
+bool WWidget::mouseReleaseEvent(WMouseEvent *e)
+{
+    return e->isAccepted();
+}
+
+bool WWidget::mouseDoubleClickEvent(WMouseEvent *e)
+{
+    return e->isAccepted();
+}
+
+bool WWidget::changeEvent(WEvent *e)
 {
     return e->isAccepted();
 }
 
 bool WWidget::event(WEvent *e)
 {
-    if( e->type() == WEventType::WMouseEvent ){
-        this->mouseEvent( static_cast<WMouseEvent*>(e) );
+    if( e->type() == WEvent::Type::MouseReleaseEvent ){
+        this->mouseReleaseEvent( static_cast<WMouseEvent*>(e) );
     }
     return WObject::event(e);
 }
@@ -84,7 +95,7 @@ WWidget::WWidget(WWidget *parent, int params)
     this->setType(WObjectType::Widget);
 
     if( parent == nullptr ) {
-        this->init();
+        this->initWndClass(L"WWIDGET");
     }
 }
 
@@ -96,7 +107,7 @@ WWidget::~WWidget()
 void WWidget::show()
 {
     if( ! this->hwnd() ) {
-       this->init();
+       this->initWndClass(L"WWIDGET");
     }
     ShowWindow( this->hwnd(), _windowParams );
     UpdateWindow( this->hwnd() );

@@ -1,6 +1,6 @@
 #include "wevent.h"
 
-WEvent::WEvent(WEventType type)
+WEvent::WEvent(WEvent::Type type)
     : _type(type)
 {
 
@@ -26,7 +26,7 @@ void WEvent::setAccepted(bool accepted)
     _accepted = accepted;
 }
 
-WEventType WEvent::type()
+WEvent::Type WEvent::type()
 {
     return _type;
 }

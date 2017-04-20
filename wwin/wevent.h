@@ -1,29 +1,33 @@
 #ifndef WEVENT_H
 #define WEVENT_H
 
-enum class WEventType : int {
-    WNone,
-    WMouseEvent,
-//    WKeyEvent,
-//    WPaintEvent,
-//    WShowEvent,
-//    WHideEvent,
-//    WWheelEvent,
-//    WTabletEvent,
-//    WFocusEvent
-};
+
 
 class WEvent
 {
-    WEventType _type = WEventType::WNone;
+public:
+    enum class Type : int {
+        None,
+        MouseReleaseEvent,
+        WindowTitleChange,
+        KeyEvent,
+        PaintEvent,
+        ShowEvent,
+        HideEvent,
+        WheelEvent,
+        TabletEvent,
+        FocusEvent
+    };
+private:
+    WEvent::Type _type = WEvent::Type::None;
     bool _accepted = false;
 public:
-    WEvent(WEventType type = WEventType::WNone);
+    WEvent(WEvent::Type type = WEvent::Type::None);
     void accept();
     void ignore();
     bool isAccepted() const;
     void setAccepted(bool accepted);
-    WEventType type();
+    WEvent::Type type();
 };
 
 #endif // WEVENT_H

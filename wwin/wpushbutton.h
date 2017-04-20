@@ -13,7 +13,7 @@ private:
     int style() override;
 
 protected:
-    virtual bool mouseEvent(WMouseEvent *e);
+    virtual bool mouseReleaseEvent(WMouseEvent *e);
 public:
     WPushButton(WWidget* parent = nullptr);
     WPushButton(WString title, WWidget* parent = nullptr);

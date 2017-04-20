@@ -12,9 +12,9 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
 {
     WApplication *app = WApplication::instance(hInstace, hPrevInst, lpCmdString, nCmdShow);
 
-    TCHAR * text;
 
         /*/
+    TCHAR * text;
     #ifdef UNICODE
         // Simple C
         const size_t size = ( wcslen(text) + 1 ) * sizeof(wchar_t);
@@ -78,7 +78,7 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     btn2->on_click([&](WMouseEvent*e){
         WMessageBox::information(nullptr, L"Title", edit->value());
         listbox->addListItem(edit->value());
-        if( e->modifiers() & WMouseKeyModifiers::ControlModifier ){
+        if( e->modifiers() & WMouseEvent::KeyModifiers::ControlModifier ){
             WMessageBox::information(nullptr, L"Title", L"Control is hold");
         }
     });
