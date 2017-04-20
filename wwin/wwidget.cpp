@@ -107,7 +107,7 @@ WWidget::WWidget(WWidget *parent, int params)
 
 WWidget::~WWidget()
 {
-    wApp->removeComponent(this);
+    this->remove();
 }
 
 void WWidget::show()
