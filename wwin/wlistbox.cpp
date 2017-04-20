@@ -1,4 +1,5 @@
 #include "wlistbox.h"
+#include <iostream>
 
 WListBox::WListBox(WWidget *parent)
     : WWidget(parent)
@@ -77,8 +78,8 @@ int WListBox::style(int prameterAnable, int parameterDisable)
 
 bool WListBox::changeEvent(WEvent *e)
 {
-  /// \fixme maybe this->hwnd() need change to this->parentHwnd()
-  _selectedIndex = SendDlgItemMessage(this->hwnd(), this->cid(), LB_GETCURSEL, 0, 0);
+  _selectedIndex = SendDlgItemMessage(this->parentHwnd(), this->cid(), LB_GETCURSEL, 0, 0);
+  std::cout << _selectedIndex << std::endl;
   e->accept();
   return e->isAccepted();
 }
