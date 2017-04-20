@@ -21,13 +21,21 @@ bool WLineEdit::changeEvent(WEvent *e)
   return e->isAccepted();
 }
 
-bool WLineEdit::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+bool WLineEdit::event(WEvent *e)
+{
+    if( e->type() == WEvent::Type::WindowTitleChange ){
+        return changeEvent(e);
+    }
+    return e->isAccepted();
+}
+
+bool WLineEdit::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   if( EN_CHANGE == HIWORD(wParam) )
   {
-    return this->changeEvent(new WEvent(WEvent::Type::WindowTitleChange));
+    return this->event( new WEvent(WEvent::Type::WindowTitleChange) );
   }
-  return WWidget::processEvent(hWnd, message, wParam, lParam);
+  return WWidget::nativeEvent(hWnd, message, wParam, lParam);
 }
 
 void WLineEdit::setText(const WString &value)

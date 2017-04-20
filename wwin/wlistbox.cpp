@@ -32,11 +32,11 @@ void WListBox::addListItem(const WString &item)
   SendMessage(this->hwnd(), LB_ADDSTRING, 0, (LPARAM)item.c_str());
 }
 
-bool WListBox::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+bool WListBox::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   if( message != WM_COMMAND )
   {
-    return WWidget::processEvent(hWnd, message, wParam, lParam);
+    return WWidget::nativeEvent(hWnd, message, wParam, lParam);
   }
 
   if(HIWORD(wParam) == LBN_SELCHANGE)
@@ -48,7 +48,7 @@ bool WListBox::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     return mouseDoubleClickEvent(new WMouseEvent);
   }
 
-  return WWidget::processEvent(hWnd, message, wParam, lParam);
+  return WWidget::nativeEvent(hWnd, message, wParam, lParam);
 }
 
 int WListBox::on_select(std::function<void (WListBox::Item)> callback)

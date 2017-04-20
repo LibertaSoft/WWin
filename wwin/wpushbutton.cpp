@@ -36,14 +36,14 @@ int WPushButton::on_click(std::function<void(WMouseEvent*)> callback)
     return _callbacks.size();
 }
 
-bool WPushButton::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+bool WPushButton::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   if(message != WM_COMMAND){
-    return WWidget::processEvent(hWnd, message, wParam, lParam);
+    return WWidget::nativeEvent(hWnd, message, wParam, lParam);
   }
 
   if( HIWORD( wParam ) == BN_CLICKED ) {
       return this->event(new WMouseEvent);
   }
-  return WWidget::processEvent(hWnd, message, wParam, lParam);
+  return WWidget::nativeEvent(hWnd, message, wParam, lParam);
 }

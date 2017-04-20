@@ -119,7 +119,7 @@ LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
   }
   bool accept = false;
   if( component ) {
-      accept = component->processEvent(hWnd, message, wParam, lParam);
+      accept = component->nativeEvent(hWnd, message, wParam, lParam);
   }
 
   if( ! accept ){

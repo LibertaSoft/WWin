@@ -35,7 +35,7 @@ bool WObject::event(WEvent *e)
   return e->isAccepted();
 }
 
-bool WObject::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+bool WObject::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   if( message == WM_TIMER ){
       /// \todo process timer event

@@ -113,7 +113,7 @@ public:
     WString title() const;
     void setTitle(const WString &title);
 
-    bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
+    bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
 
     void setFocus();
 };

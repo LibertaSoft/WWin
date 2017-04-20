@@ -148,7 +148,7 @@ void WWidget::setTitle(const WString &title)
     SetWindowText(this->hwnd(), _title.c_str());
 }
 
-bool WWidget::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   if( message == WM_DESTROY ){
     PostQuitMessage( EXIT_SUCCESS );
@@ -170,7 +170,7 @@ bool WWidget::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
     /// \todo repaint something
   }
 
-  return WObject::processEvent(hWnd, message, wParam, lParam);
+  return WObject::nativeEvent(hWnd, message, wParam, lParam);
 }
 
 void WWidget::setFocus()

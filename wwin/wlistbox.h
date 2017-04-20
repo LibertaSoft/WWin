@@ -60,7 +60,7 @@ public:
   int style(int prameterAnable = WListBoxParameters::sort,
             int parameterDisable = WListBoxParameters::multiplesel);
 
-  virtual bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+  virtual bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
   int on_select(std::function<void(Item )> callback );
   int on_dblClick(std::function<void(Item )> callback );

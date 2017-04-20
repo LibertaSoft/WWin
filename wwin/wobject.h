@@ -43,7 +43,7 @@ public:
     void removeEventFilter(WObject* obj);
 
     // WINAPI Processing
-    virtual bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+    virtual bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
     // опции и рекурсивно
     WObject* findChild(const WString &name) const;

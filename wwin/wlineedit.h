@@ -21,7 +21,8 @@ protected:
     //    void on_selectionChanged();
     //    void on_cursorPositionChanged(int old, int new);
 
-    bool changeEvent(WEvent *e);//    void on_chenge(WKeyEvent& event);
+    bool changeEvent(WEvent *e);
+    bool event(WEvent *e);
 public:
     WLineEdit(WWidget* parent);
     WLineEdit(WString value, WWidget *parent);
@@ -41,7 +42,7 @@ public:
 //    void undo();
 //    void selectAll();
 
-    bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+    bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
     enum EchoMode {
         Normal,
