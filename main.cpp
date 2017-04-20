@@ -83,7 +83,7 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
         }
     });
 
-    btn->remove();
+    delete btn;
 
 
 
