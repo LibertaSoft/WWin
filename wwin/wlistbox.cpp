@@ -1,5 +1,18 @@
 #include "wlistbox.h"
 
+WListBox::WListBox(WWidget *parent)
+    : WWidget(parent)
+{
+  this->initWndClass(L"LISTBOX");
+}
+
+WListBox::WListBox(ListItems itemList, WWidget *parent)
+    : WWidget(parent)
+{
+  this->initWndClass(L"LISTBOX");
+  setItemList(itemList);
+}
+
 ListItems WListBox::itemList() const
 {
   return _itemList;

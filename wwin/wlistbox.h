@@ -49,22 +49,17 @@ protected:
 
 public:
 
-  WListBox(WWidget *parent = nullptr) : WWidget(parent)
-  {
-    this->initWndClass(L"LISTBOX");
-  }
-  WListBox(ListItems itemList, WWidget *parent = nullptr) : WWidget(parent)
-  {
-    this->initWndClass(L"LISTBOX");
-    setItemList(itemList);
-  }
+  WListBox(WWidget *parent = nullptr);
+  WListBox(ListItems itemList, WWidget *parent = nullptr);
 
   ListItems itemList() const;
   WString getSelectedItem() const;
   void setItemList(const ListItems &itemList);
   void addListItem(const WString &item);
+
   int style(int prameterAnable = WListBoxParameters::sort,
             int parameterDisable = WListBoxParameters::multiplesel);
+
   virtual bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
   int on_select(std::function<void(Item )> callback );
