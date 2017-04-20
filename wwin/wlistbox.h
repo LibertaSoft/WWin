@@ -2,13 +2,12 @@
 #define WLISTBOX_H
 
 #include "wwidget.h"
-#include <list>
 #include <functional>
 #include <vector>
 
-typedef std::list<std::string> ListItems;
+typedef std::vector<WString> ListItems;
 
-enum class WListBoxParameters{
+enum WListBoxParameters {
   sort = LBS_SORT,
   notify = LBS_NOTIFY,
   noredraw = LBS_NOREDRAW,
@@ -29,24 +28,50 @@ enum class WListBoxParameters{
 
 class WListBox : public WWidget
 {
+public:
+  struct Item {
+      int id;
+      WString text;
+  //    std::variant UserData; to future
+    };
 private:
   ListItems _itemList;
-  std::vector< std::function<void(WMouseEvent*)> > _callbacks;
-private:
-  int style(int listParams = LBS_SORT);
+  int       _selectedIndex = 0;
+
+  std::vector< std::function<void(Item)> > _callbacksSelelect;
+  std::vector< std::function<void(Item)> > _callbacksDblClick;
 
 protected:
+  int style();
 
-  virtual bool mouseEvent(WMouseEvent *e);
+  virtual void __onSelChange();
+  virtual void __onDblClick();
 
 public:
-  WListBox(WWidget *parent = nullptr );
-  WListBox(ListItems itemList, WWidget *parent = nullptr );
+
+  WListBox(WWidget *parent = nullptr) : WWidget(parent)
+  {
+    _className = L"LISTBOX";
+    this->init();
+  }
+  WListBox(ListItems itemList, WWidget *parent = nullptr) : WWidget(parent)
+  {
+    _className = L"LISTBOX";
+    this->init();
+    setItemList(itemList);
+  }
 
   ListItems itemList() const;
+  WString getSelectedItem() const;
   void setItemList(const ListItems &itemList);
-
+  void addListItem(const WString &item);
+  int style(int prameterAnable = WListBoxParameters::sort,
+            int parameterDisable = WListBoxParameters::multiplesel);
   virtual bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+  int on_select(std::function<void(Item )> callback );
+  int on_dblClick(std::function<void(Item )> callback );
+
 };
 
 #endif // WLISTBOX_H

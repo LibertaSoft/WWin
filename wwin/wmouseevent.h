@@ -4,11 +4,12 @@
 #include "wwin/wevent.h"
 
 enum class WMouseButton : int {
-    LeftButton,
+    LeftButton,    
     RightButton,
     MiddleButton,
     BackButton,
-    NoButton
+    NoButton,
+    dblClick
 };
 namespace WMouseKeyModifiers {
     enum WMouseKeyModifiers {

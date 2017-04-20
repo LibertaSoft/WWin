@@ -87,7 +87,7 @@ ATOM WApplication::registerClass()
     wcl.lpfnWndProc = &WApplication::wndproc;
     wcl.style = CS_VREDRAW | CS_HREDRAW;
     wcl.hIcon = NULL;
-    wcl.hCursor = NULL;
+    wcl.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcl.lpszMenuName = NULL;
     wcl.cbClsExtra = 0;
     wcl.cbWndExtra = 0;

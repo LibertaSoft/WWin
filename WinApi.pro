@@ -18,7 +18,8 @@ HEADERS += \
     wwin/wstringlistmodel.h \
     wwin/wabstractitemmodel.h \
     wwin/wlineedit.h \
-    wwin/wstring.h
+    wwin/wstring.h \
+    wwin/wlistbox.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -33,4 +34,5 @@ SOURCES += main.cpp\
     wwin/wstringlistmodel.cpp \
     wwin/wabstractitemmodel.cpp \
     wwin/wlineedit.cpp \
-    wwin/wstring.cpp
+    wwin/wstring.cpp \
+    wwin/wlistbox.cpp

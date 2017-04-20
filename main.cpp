@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <wwin/wlineedit.h>
+#include <wwin/wlistbox.h>
 #include "wwin/wapplication.h"
 #include "wwin/wwidget.h"
 
@@ -59,12 +60,24 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     edit->setGeometry(10,80,250,20);
     edit->show();
 
+    ListItems items = {
+      L"Item 1",
+      L"Item 2",
+      L"Item 3",
+      L"Item 4"
+    };
+
+    WListBox *listbox = new WListBox(items, wgt);
+    listbox->setGeometry(10, 110, 250, 100);
+    listbox->show();
+
     WPushButton *btn2 = new WPushButton(L"My Button Привет 2", wgt);
     btn2->setGeometry(140,10,120,60);
     btn2->show();
     btn2->setFocus();
     btn2->on_click([&](WMouseEvent*e){
         WMessageBox::information(nullptr, L"Title", edit->value());
+        listbox->addListItem(edit->value());
         if( e->modifiers() & WMouseKeyModifiers::ControlModifier ){
             WMessageBox::information(nullptr, L"Title", L"Control is hold");
         }
@@ -72,6 +85,7 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
 
 
 
+//    listbox
 
     return app->run();
 }

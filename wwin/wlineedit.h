@@ -13,6 +13,15 @@ private:
 private:
     int style();
 
+protected:
+    //    void on_chenge(WKeyEvent& event);
+    //    void on_editingFinished(WKeyEvent& event);
+    //    void on_returnPressed(WKeyEvent& event);
+    //    void on_textChanged(std::string text);
+    //    void on_selectionChanged();
+    //    void on_cursorPositionChanged(int old, int new);
+
+    void onUpateValue();//    void on_chenge(WKeyEvent& event);
 public:
     WLineEdit(WWidget* parent);
     WLineEdit(WString value, WWidget *parent);
@@ -32,19 +41,13 @@ public:
 //    void undo();
 //    void selectAll();
 
-//    void on_chenge(WKeyEvent& event);
-//    void on_editingFinished(WKeyEvent& event);
-//    void on_returnPressed(WKeyEvent& event);
-//    void on_textChanged(std::string text);
-//    void on_selectionChanged();
-//    void on_cursorPositionChanged(int old, int new);
-
     bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
     enum EchoMode {
         Normal,
         Password
     };
+
 };
 
 #endif // WLINEEDIT_H

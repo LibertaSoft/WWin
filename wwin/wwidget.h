@@ -59,12 +59,13 @@ private:
     WWidget *parentWidget() const;
 
 
-    virtual int style();
+
 protected:
     WString _className = L"WWIDGET";
     WString _title;
     std::wstring _title2;
 
+    virtual int style();
     bool init();
 
     virtual bool event(WEvent *e);
