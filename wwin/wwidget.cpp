@@ -126,20 +126,19 @@ void WWidget::setGeometry(int x, int y, int width, int height)
 
 }
 
-std::string WWidget::title() const
+WString WWidget::title() const
 {
     return _title;
 }
 
-void WWidget::setTitle(const std::string &title)
+void WWidget::setTitle(const WString &title)
 {
     _title = title;
-    SetWindowText(this->hwnd(), WObject::tow(_title));
+    SetWindowText(this->hwnd(), _title.c_str());
 }
 
 bool WWidget::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-  std::cout << "WWidget::processEvent" << std::endl;
   if( message == WM_DESTROY ){
     PostQuitMessage( EXIT_SUCCESS );
     return true;

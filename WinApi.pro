@@ -15,7 +15,10 @@ HEADERS += \
     wwin/wevent.h \
     wwin/wmessagebox.h \
     wwin/wmouseevent.h \
-    wwin/wlineedit.h
+    wwin/wstringlistmodel.h \
+    wwin/wabstractitemmodel.h \
+    wwin/wlineedit.h \
+    wwin/wstring.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -27,4 +30,7 @@ SOURCES += main.cpp\
     wwin/wevent.cpp \
     wwin/wmessagebox.cpp \
     wwin/wmouseevent.cpp \
-    wwin/wlineedit.cpp
+    wwin/wstringlistmodel.cpp \
+    wwin/wabstractitemmodel.cpp \
+    wwin/wlineedit.cpp \
+    wwin/wstring.cpp

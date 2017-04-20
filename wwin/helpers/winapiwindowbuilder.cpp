@@ -1,6 +1,6 @@
 #include "winapiwindowbuilder.h"
 
-LPWSTR tow(const std::string &s)
+LPWSTR tow(const WString &s)
 {
     LPWSTR ws = new wchar_t[s.size()+1];
     copy( s.begin(), s.end(), ws );
@@ -8,7 +8,7 @@ LPWSTR tow(const std::string &s)
     return ws;
 }
 
-WinApiWindowBuilder::WinApiWindowBuilder(std::string className)
+WinApiWindowBuilder::WinApiWindowBuilder(WString className)
 {
     _className = className;
 }
@@ -22,13 +22,13 @@ WinApiWindowBuilder &WinApiWindowBuilder::geometry(int x, int y, int width, int 
     return *this;
 }
 
-WinApiWindowBuilder &WinApiWindowBuilder::className(std::string className)
+WinApiWindowBuilder &WinApiWindowBuilder::className(WString className)
 {
     _className = className;
     return *this;
 }
 
-WinApiWindowBuilder &WinApiWindowBuilder::title(std::string title)
+WinApiWindowBuilder &WinApiWindowBuilder::title(WString title)
 {
     _title = title;
     return *this;
@@ -68,8 +68,8 @@ HWND WinApiWindowBuilder::build()
 {
     return
     CreateWindow(
-        tow(_className),
-        tow(_title),
+        _className.c_str(),
+        _title.c_str(),
         _style,
         _x, _y, _width, _height,
         _parent,

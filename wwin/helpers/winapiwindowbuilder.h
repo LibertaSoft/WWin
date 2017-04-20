@@ -2,7 +2,7 @@
 #define WINAPIWINDOWBUILDER_H
 
 #include <windows.h>
-#include <string>
+#include "wwin/wstring.h"
 
 class WinApiWindowBuilder
 {
@@ -12,8 +12,8 @@ private:
     int _width  = 0;
     int _height = 0;
 
-    std::string _className;
-    std::string _title;
+    WString _className;
+    WString _title;
     HWND _parent;
 
     DWORD _style = 0;
@@ -25,11 +25,11 @@ private:
     HINSTANCE _hinstance;
 
 public:
-    WinApiWindowBuilder(std::string className = "");
+    WinApiWindowBuilder(WString className = L"");
 
     WinApiWindowBuilder& geometry(int x,int y ,int width, int height);
-    WinApiWindowBuilder& className(std::string className);
-    WinApiWindowBuilder& title(std::string title);
+    WinApiWindowBuilder& className(WString className);
+    WinApiWindowBuilder& title(WString title);
     WinApiWindowBuilder& parent(HWND parent);
     WinApiWindowBuilder& style(DWORD style);
     WinApiWindowBuilder& menu(HMENU menu);

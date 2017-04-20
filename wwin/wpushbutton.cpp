@@ -21,13 +21,13 @@ bool WPushButton::mouseEvent(WMouseEvent *e)
 WPushButton::WPushButton(WWidget *parent)
     : WWidget(parent)
 {
-    _className = "BUTTON";
+    _className = L"BUTTON";
     this->init();
 }
-WPushButton::WPushButton(std::string title, WWidget *parent)
+WPushButton::WPushButton(WString title, WWidget *parent)
     : WWidget(parent)
 {
-    _className = "BUTTON";
+    _className = L"BUTTON";
     _title = title;
     this->init();
 }
