@@ -7,7 +7,7 @@ WMessageBox::WMessageBox(WWidget *parent)
 
 }
 
-void WMessageBox::critical(WWidget *parent, std::string title, std::string message)
+void WMessageBox::critical(WWidget *parent, WString title, WString message)
 {
     HWND hwnd = nullptr;
     if(parent){
@@ -16,7 +16,7 @@ void WMessageBox::critical(WWidget *parent, std::string title, std::string messa
     MessageBox(hwnd, WObject::tow(message), WObject::tow(title), MB_OK | MB_ICONERROR);
 }
 
-void WMessageBox::information(WWidget *parent, std::string title, std::string message)
+void WMessageBox::information(WWidget *parent, WString title, WString message)
 {
     HWND hwnd = nullptr;
     if(parent){
@@ -25,7 +25,7 @@ void WMessageBox::information(WWidget *parent, std::string title, std::string me
     MessageBox(hwnd, WObject::tow(message), WObject::tow(title), MB_OK | MB_ICONINFORMATION);
 }
 
-void WMessageBox::question(WWidget *parent, std::string title, std::string message)
+void WMessageBox::question(WWidget *parent, WString title, WString message)
 {
     HWND hwnd = nullptr;
     if(parent){
@@ -35,7 +35,7 @@ void WMessageBox::question(WWidget *parent, std::string title, std::string messa
 }
 
 
-void WMessageBox::warning(WWidget *parent, std::string title, std::string message)
+void WMessageBox::warning(WWidget *parent, WString title, WString message)
 {
     HWND hwnd = nullptr;
     if(parent){

@@ -3,6 +3,7 @@
 
 #include "wwin/wobject.h"
 #include "wwin/wmouseevent.h"
+#include "wwin/wstring.h"
 
 enum WWidgetState{
     ForceMinimize = SW_FORCEMINIMIZE,
@@ -43,7 +44,7 @@ private:
     // Widget
     int  _windowIcon   = 0; // ICON from RC || file
     int  _windowParams = 0; // FullScreen || ! FullScreen
-    std::string _name;
+    WString _name;
 
     bool _isDisabled = false;
     bool _isFocused  = false;
@@ -60,8 +61,8 @@ private:
 
     virtual int style();
 protected:
-    std::string _className = "WWIDGET";
-    std::string _title;
+    WString _className = "WWIDGET";
+    WString _title;
 
     bool init();
 
@@ -78,8 +79,8 @@ public:
     void show();
 
     void setGeometry(int x, int y, int width, int height);
-    std::string title() const;
-    void setTitle(const std::string &title);
+    WString title() const;
+    void setTitle(const WString &title);
 
     bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
 

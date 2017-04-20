@@ -1,12 +1,12 @@
 #ifndef WABSTRACTITEMMODEL_H
 #define WABSTRACTITEMMODEL_H
 
-#include <string>
 #include <utility>
 
 #include "wwin/wobject.h"
+#include "wwin/wstring.h"
 
-typedef std::string WVariant;
+typedef WString WVariant;
 typedef std::pair<int,int> WModelIndex;
 
 class WAbstractItemModel : public WObject

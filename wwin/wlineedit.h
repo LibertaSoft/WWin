@@ -2,6 +2,7 @@
 #define WLINEEDIT_H
 
 #include "wwidget.h"
+#include "wstring.h"
 
 
 class WLineEdit : public WWidget
@@ -14,10 +15,10 @@ private:
 
 public:
     WLineEdit(WWidget* parent);
-    WLineEdit(std::string value, WWidget *parent);
+    WLineEdit(WString value, WWidget *parent);
 
-    void setText(const std::string &value);
-    std::string value() const;
+    void setText(const WString &value);
+    WString value() const;
 
 //    std::string selectedText() const;
 //    void setPlaceholder(std::string text);

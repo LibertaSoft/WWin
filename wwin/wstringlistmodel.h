@@ -2,12 +2,12 @@
 #define WSTRINGLISTMODEL_H
 
 #include <vector>
-#include <string>
 
+#include "wwin/wstring.h"
 #include "wwin/wobject.h"
 #include "wwin/wabstractitemmodel.h"
 
-typedef std::vector<std::string> WStringList;
+typedef std::vector<WString> WStringList;
 
 class WStringListModel : public WAbstractItemModel
 {

@@ -24,7 +24,7 @@ WPushButton::WPushButton(WWidget *parent)
     _className = "BUTTON";
     this->init();
 }
-WPushButton::WPushButton(std::string title, WWidget *parent)
+WPushButton::WPushButton(WString title, WWidget *parent)
     : WWidget(parent)
 {
     _className = "BUTTON";

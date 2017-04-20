@@ -126,12 +126,12 @@ void WWidget::setGeometry(int x, int y, int width, int height)
 
 }
 
-std::string WWidget::title() const
+WString WWidget::title() const
 {
     return _title;
 }
 
-void WWidget::setTitle(const std::string &title)
+void WWidget::setTitle(const WString &title)
 {
     _title = title;
     SetWindowText(this->hwnd(), WObject::tow(_title));

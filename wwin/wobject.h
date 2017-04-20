@@ -2,7 +2,7 @@
 #define WOBJECT_H
 
 #include <windows.h>
-#include <string>
+#include "wwin/wstring.h"
 #include <list>
 
 #include "wwin/wevent.h"
@@ -18,7 +18,7 @@ class WObject
 {
 private:
     WObject *_parent;
-    std::string _objectName;
+    WString _objectName;
 
     std::list<WObject> _childrens;
 
@@ -30,7 +30,7 @@ public:
 
     WObjectType::WObjectType _type = WObjectType::Object;
 
-    void setObjectName(std::string &name);
+    void setObjectName(WString &name);
 
     void setType(WObjectType::WObjectType type);
     WObjectType::WObjectType type() const;
@@ -46,13 +46,13 @@ public:
     virtual bool processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
     // опции и рекурсивно
-    WObject* findChild(const std::string &name) const;
+    WObject* findChild(const WString &name) const;
     std::list<WObject*> children() const;
-    std::list<WObject*> findChildren(const std::string &name) const;
+    std::list<WObject*> findChildren(const WString &name) const;
 
-//    std::string tr(const char *sourceText, constChar *disambiguation = nullptr, int n = -1);
-    static LPWSTR tow( const std::string& s );
-    static std::string tos(const TCHAR *s);
+//    WString tr(const char *sourceText, constChar *disambiguation = nullptr, int n = -1);
+    static LPWSTR tow( const WString& s );
+    static WString tos(const TCHAR *s);
 };
 
 #endif // WOBJECT_H

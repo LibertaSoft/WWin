@@ -31,9 +31,9 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
             // Error handling
         }
         ///
-        std::string string(&buffer[0]);
+        WString string(&buffer[0]);
     #else
-        std::string string(text);
+        WString string(text);
     #endif
     //*/
 
