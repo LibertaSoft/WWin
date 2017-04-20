@@ -44,29 +44,29 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     int y = WScreen::height() / 2 - height / 2;
 
     WWidget *wgt = new WWidget();
-    wgt->setTitle("WWinApi Lib Title");
+    wgt->setTitle(L"WWinApi Lib Заголовок");
     wgt->setGeometry(x,y,width,height);
     wgt->show();
 
-    WPushButton *btn = new WPushButton("My Button", wgt);
+    WPushButton *btn = new WPushButton(L"My Button", wgt);
     btn->setGeometry(10,10,120,60);
     btn->show();
     btn->on_click([](WMouseEvent*){
-        WMessageBox::information(nullptr, "Title", "Button 1 clicked");
+        WMessageBox::information(nullptr, L"Title", L"Button 1 clicked");
     });
 
-    WLineEdit *edit = new WLineEdit("hellow", wgt);
+    WLineEdit *edit = new WLineEdit(L"hellow", wgt);
     edit->setGeometry(10,80,250,20);
     edit->show();
 
-    WPushButton *btn2 = new WPushButton("My Button Привет 2", wgt);
+    WPushButton *btn2 = new WPushButton(L"My Button Привет 2", wgt);
     btn2->setGeometry(140,10,120,60);
     btn2->show();
     btn2->setFocus();
     btn2->on_click([&](WMouseEvent*e){
-        WMessageBox::information(nullptr, "Title", edit->value());
+        WMessageBox::information(nullptr, L"Title", edit->value());
         if( e->modifiers() & WMouseKeyModifiers::ControlModifier ){
-            WMessageBox::information(nullptr, "Title", "Control is hold");
+            WMessageBox::information(nullptr, L"Title", L"Control is hold");
         }
     });
 

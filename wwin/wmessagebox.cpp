@@ -13,7 +13,7 @@ void WMessageBox::critical(WWidget *parent, WString title, WString message)
     if(parent){
         parent->hwnd();
     }
-    MessageBox(hwnd, WObject::tow(message), WObject::tow(title), MB_OK | MB_ICONERROR);
+    MessageBox(hwnd, message.c_str(), title.c_str(), MB_OK | MB_ICONERROR);
 }
 
 void WMessageBox::information(WWidget *parent, WString title, WString message)
@@ -22,7 +22,7 @@ void WMessageBox::information(WWidget *parent, WString title, WString message)
     if(parent){
         parent->hwnd();
     }
-    MessageBox(hwnd, WObject::tow(message), WObject::tow(title), MB_OK | MB_ICONINFORMATION);
+    MessageBox(hwnd, message.c_str(), title.c_str(), MB_OK | MB_ICONINFORMATION);
 }
 
 void WMessageBox::question(WWidget *parent, WString title, WString message)
@@ -31,7 +31,7 @@ void WMessageBox::question(WWidget *parent, WString title, WString message)
     if(parent){
         parent->hwnd();
     }
-    MessageBox(hwnd, WObject::tow(message), WObject::tow(title), MB_OK | MB_ICONQUESTION);
+    MessageBox(hwnd, message.c_str(), title.c_str(), MB_OK | MB_ICONQUESTION);
 }
 
 
@@ -41,5 +41,5 @@ void WMessageBox::warning(WWidget *parent, WString title, WString message)
     if(parent){
         parent->hwnd();
     }
-    MessageBox(hwnd, WObject::tow(message), WObject::tow(title), MB_OK | MB_ICONWARNING);
+    MessageBox(hwnd, message.c_str(), title.c_str(), MB_OK | MB_ICONWARNING);
 }

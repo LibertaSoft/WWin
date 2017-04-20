@@ -51,8 +51,6 @@ public:
     std::list<WObject*> findChildren(const WString &name) const;
 
 //    WString tr(const char *sourceText, constChar *disambiguation = nullptr, int n = -1);
-    static LPWSTR tow( const WString& s );
-    static WString tos(const TCHAR *s);
 };
 
 #endif // WOBJECT_H

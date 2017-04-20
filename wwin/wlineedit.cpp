@@ -14,7 +14,7 @@ bool WLineEdit::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
     TCHAR *buf = new TCHAR[_maxLength];
     GetDlgItemText( hWnd, this->cid(), buf, _maxLength);
 
-    _title = WObject::tos(buf);
+    _title = buf;
 
     delete buf;
     return true;
@@ -29,13 +29,13 @@ void WLineEdit::setText(const WString &value)
 
 WLineEdit::WLineEdit(WWidget *parent) : WWidget(parent)
 {
-  _className = "EDIT";
+  _className = L"EDIT";
   this->init();
 }
 
 WLineEdit::WLineEdit(WString value, WWidget *parent) : WWidget(parent)
 {
-  _className = "EDIT";
+  _className = L"EDIT";
   _title = value;
   this->init();
 }

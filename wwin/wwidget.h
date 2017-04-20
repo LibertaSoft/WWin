@@ -61,8 +61,9 @@ private:
 
     virtual int style();
 protected:
-    WString _className = "WWIDGET";
+    WString _className = L"WWIDGET";
     WString _title;
+    std::wstring _title2;
 
     bool init();
 

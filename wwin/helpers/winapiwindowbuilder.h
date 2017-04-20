@@ -25,7 +25,7 @@ private:
     HINSTANCE _hinstance;
 
 public:
-    WinApiWindowBuilder(WString className = "");
+    WinApiWindowBuilder(WString className = L"");
 
     WinApiWindowBuilder& geometry(int x,int y ,int width, int height);
     WinApiWindowBuilder& className(WString className);

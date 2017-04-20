@@ -68,8 +68,8 @@ HWND WinApiWindowBuilder::build()
 {
     return
     CreateWindow(
-        tow(_className),
-        tow(_title),
+        _className.c_str(),
+        _title.c_str(),
         _style,
         _x, _y, _width, _height,
         _parent,

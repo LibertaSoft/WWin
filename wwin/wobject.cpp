@@ -44,18 +44,3 @@ bool WObject::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 
   return false;
 }
-
-LPWSTR WObject::tow(const WString &s)
-{
-    LPWSTR ws = new wchar_t[s.size()+1];
-    copy( s.begin(), s.end(), ws );
-    ws[s.size()] = 0;
-    return ws;
-}
-
-WString WObject::tos(const TCHAR *s)
-{
-  std::wstring arr_w( s );
-  WString arr_s( arr_w.begin(), arr_w.end() );
-  return arr_s;
-}

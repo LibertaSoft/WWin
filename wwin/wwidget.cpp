@@ -134,7 +134,7 @@ WString WWidget::title() const
 void WWidget::setTitle(const WString &title)
 {
     _title = title;
-    SetWindowText(this->hwnd(), WObject::tow(_title));
+    SetWindowText(this->hwnd(), _title.c_str());
 }
 
 bool WWidget::processEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
