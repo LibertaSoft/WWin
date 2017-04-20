@@ -108,6 +108,7 @@ public:
     WORD cid() const;
     void hwnd(HWND hwnd);
     void show();
+    void remove();
 
     void setGeometry(int x, int y, int width, int height);
     WString title() const;

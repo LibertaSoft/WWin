@@ -41,15 +41,7 @@ void WApplication::addComponent(WWidget *object)
 
 void WApplication::removeComponent(const WWidget* object)
 {
-//    for (auto it_d = begin(_objects); it_d != end(_objects);) {
-//        for (auto it_c = begin(*it_d); it_c != end(*it_d);){
-//            if(it_c->first == object->hwnd()) {
-//                it_c = _objects.erase(it_c);
-//            } else {
-//                ++it_c;
-//            }
-//        }
-//    }
+    (_objects[object->parentHwnd()]).erase(object->cid());
 }
 
 HINSTANCE WApplication::getHinstance()

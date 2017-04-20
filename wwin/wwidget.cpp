@@ -65,6 +65,12 @@ bool WWidget::initWndClass(WString className)
     return (x != nullptr);
 }
 
+void WWidget::remove()
+{
+    wApp->removeComponent(this);
+    DestroyWindow(this->hwnd());
+}
+
 bool WWidget::mouseReleaseEvent(WMouseEvent *e)
 {
     return e->isAccepted();
