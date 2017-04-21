@@ -7,8 +7,12 @@
 #include "wwidget.h"
 #include "wstring.h"
 
+/// ну так эксперимента ради...
 #define subscribers
 
+/**
+ * @brief WLineEdit Виджет строки ввода текста или пароля
+ */
 class WLineEdit : public WWidget
 {
 public:
@@ -18,11 +22,11 @@ public:
     };
 // callbacks
 private:
-    std::vector< std::function<void(WString)> > _cblChange;
+    std::vector< std::function<void(WString)> > _cblChange; /// < Список функций обратного вызова на событие изменения данных
 
 private:
-    int _maxLength = 255;
-    WLineEdit::EchoMode _echoMode = EchoMode::Normal;
+    int _maxLength = 255; /// < Максимальная длина строки в поле ввода
+    WLineEdit::EchoMode _echoMode = EchoMode::Normal; /// < Метод отображения тект/пароль
 private:
     int style();
 
