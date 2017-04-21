@@ -4,6 +4,11 @@
 #include <string>
 #include <windows.h>
 
+/**
+ * @brief WString Декларация класса строк.
+ * На данный момент используется std::wstring, но вероятно потребуется расширять класс
+ * и добавлять методы для работы со строками.
+ */
 typedef std::wstring WString;
 /*
 namespace WStringN {
