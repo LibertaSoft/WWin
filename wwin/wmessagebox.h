@@ -4,6 +4,9 @@
 #include "wwin/wstring.h"
 #include "wwin/wwidget.h"
 
+/**
+ * @brief WMessageBox Класс позволяющий отображать диалоговые окна с сообщениями
+ */
 class WMessageBox : public WWidget
 {
 public:
