@@ -13,8 +13,7 @@ typedef WString WVariant;
 typedef struct WModelIndex {
     int row = 0;
     int col = 0;
-    WModelIndex(){}
-    WModelIndex(int _row, int _col): row(_row), col(_col){}
+    WModelIndex(int _row = 0, int _col = 0): row(_row), col(_col){}
 } WModelIndex;
 
 class WAbstractItemModel : public WObject
