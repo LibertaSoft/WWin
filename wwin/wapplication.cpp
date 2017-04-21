@@ -5,11 +5,21 @@
 
 WApplication* WApplication::_appInstance = nullptr;
 
+/**
+ * @brief [Не используется] WApplication::WApplication Конструктор инициализирующий приложение
+ */
 WApplication::WApplication(int &, char **)
 {
     init();
 }
 
+/**
+ * @brief WApplication::WApplication Конструктор с расширенными параметрами инициализирующий работу приложения.
+ * @param hInstance
+ * @param hPrevInstance
+ * @param lpCmdLine
+ * @param nCmdShow
+ */
 WApplication::WApplication(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
     _hInstance = hInstance;
@@ -20,6 +30,16 @@ WApplication::WApplication(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR l
     init();
 }
 
+/**
+ * @brief WApplication::instance метод с параметрами для получения экземпляра приложения,
+ * т.к. приложение является Singletone'ом, этот метод используется для первоначальной инициализации
+ * экземпляра приложения.
+ * @param hInstance
+ * @param hPrevInstance
+ * @param lpCmdLine - параметры командной строки
+ * @param nCmdShow
+ * @return
+ */
 WApplication* WApplication::instance(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
     if( ! _appInstance ) {
@@ -29,26 +49,52 @@ WApplication* WApplication::instance(HINSTANCE hInstance, HINSTANCE hPrevInstanc
     return _appInstance;
 }
 
+/**
+ * @brief WApplication::instance метод для получения экземпляра приложение,
+ * т.к. приложение является Singletone'ом этот метод необходимо использовать всюду
+ * если вам необходим экземпляр приложения, так же можно воспользоваться макросом wApp
+ * @return
+ */
 WApplication* WApplication::instance()
 {
     return _appInstance;
 }
 
+/**
+ * @brief WApplication::addComponent метод для регистрации нового компонента в приложении
+ * необходимо для передачи компоненту всех событий приложения и их обработки.
+ * Самостоятельно вызывается классом WWidget
+ * @param object указатель на объект класса WWidget
+ */
 void WApplication::addComponent(WWidget *object)
 {
     (this->_objects[object->parentHwnd()])[object->cid()] = object;
 }
 
+/**
+ * @brief WApplication::removeComponent метод для удаления компонента
+ * из списка компонентов приложения, компоненту больше не будут доставляться события от приложения.
+ * @param object
+ */
 void WApplication::removeComponent(const WWidget* object)
 {
     (_objects[object->parentHwnd()]).erase(object->cid());
 }
 
+/**
+ * @brief WApplication::getHinstance метод позволяющий получить HINSTANCE приложения.
+ * @return HINSTANCE - приложения
+ */
 HINSTANCE WApplication::getHinstance()
 {
     return _hInstance;
 }
 
+/**
+ * @brief WApplication::run метод запускающий цикл событий и обработку сообщений.
+ * @return int - как результат работы приложения. Если приложение завершило работу
+ * корректно будет равен `0`, в противном случае вернётся значение отличное от нуля.
+ */
 int WApplication::run()
 {
     MSG msg;
@@ -61,6 +107,10 @@ int WApplication::run()
     return msg.wParam;
 }
 
+/**
+ * @brief WApplication::init инициализация приложения, вызывается в конструкторе.
+ * Региструрует базовый класс для окон WWIDGET
+ */
 void WApplication::init()
 {
     hideConsole();
@@ -70,6 +120,10 @@ void WApplication::init()
     return;
 }
 
+/**
+ * @brief WApplication::registerClass Регистрирует базовый класс для окон приложения WWIDGET.
+ * @return ATOM - результат регистрации класса в WINAPI
+ */
 ATOM WApplication::registerClass()
 {
     WNDCLASS wcl;
@@ -88,6 +142,10 @@ ATOM WApplication::registerClass()
     return RegisterClass( &wcl );
 }
 
+/**
+ * @brief WApplication::hideConsole метод для скрытия консоли
+ * @warning работает 50/50
+ */
 void WApplication::hideConsole()
 {
     //*
@@ -101,6 +159,15 @@ void WApplication::hideConsole()
     // */
 }
 
+/**
+ * @brief WApplication::wndproc основная процедура обработки сообщений.
+ * Вызывает WObject::nativeEvent для обработки сообщений.
+ * @param hWnd
+ * @param message
+ * @param wParam
+ * @param lParam
+ * @return
+ */
 LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   WORD cid = LOWORD(wParam);
@@ -120,11 +187,22 @@ LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
   return wParam;
 }
 
+/**
+ * @brief WApplication::components возвращает ссылку на компоненты окна по переданному HWND
+ * @param hwnd - HWND окна, список компонентов которого будет возвращён.
+ * @return WComponentsMap - список компонентов с ключём - CID(ComponentID)
+ */
 WComponentsMap &WApplication::components(HWND hwnd)
 {
     return _objects[hwnd];
 }
 
+/**
+ * @brief WApplication::component позволяет получить компонент по HWND и CID
+ * @param hwnd - HWND окна в котором располагается искомый компонент
+ * @param cid - CID(ComponentID) нужного компонента
+ * @return WObject указатель на искомый компонент
+ */
 WObject *WApplication::component(HWND hwnd, WORD cid)
 {
     return _objects[hwnd][cid];

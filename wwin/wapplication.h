@@ -9,17 +9,20 @@
 typedef std::unordered_map<WORD,WObject*> WComponentsMap;
 typedef std::unordered_map<HWND,WComponentsMap> WDialogsMap;
 
+/**
+ * @brief Класс WApplication контроллирует работоу GUI компонентов приложения и основные настройками.
+ */
 class WApplication
 {
 private:
-    static WApplication *_appInstance;
+    static WApplication *_appInstance; /// < Singletone приложения
 
     HINSTANCE _hInstance = nullptr;
     HINSTANCE _hPrevInstance = nullptr;
     LPSTR     _lpCmdLine = nullptr;
     int       _nCmdShow  = 0;
 
-    WDialogsMap _objects;
+    WDialogsMap _objects; /// < Все окна и компоненты приложения
 
     void init();
     ATOM registerClass();
