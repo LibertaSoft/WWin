@@ -14,13 +14,16 @@ namespace WObjectType {
     };
 }
 
+/**
+ * @brief WObject базовый класс для все не GUI компонентов приложения. (Таймер, и т.п.)
+ */
 class WObject
 {
 private:
-    WObject *_parent;
-    WString _objectName;
+    WObject *_parent; /// < Родитель клмпонента
+    WString _objectName; /// < [Не используется] имя компонента
 
-    std::list<WObject> _childrens;
+    std::list<WObject*> _childrens; /// < [Не используется] список всех дочерних компонентов.
 
 protected:
 
