@@ -66,6 +66,7 @@ protected:
     std::wstring _title2;
 
     virtual int style();
+    void setStyle(int style);
     bool initWndClass(WString className);
 
     virtual bool event(WEvent *e);

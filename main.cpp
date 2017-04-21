@@ -50,9 +50,11 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     wgt->setGeometry(x,y,width,height);
     wgt->show();
 
-    WLineEdit *edit = new WLineEdit(L"hellow", wgt);
+    WLineEdit *edit = new WLineEdit(L"hello", wgt);
     edit->setGeometry(10,80,250,20);
     edit->show();
+    edit->setEchoMode(WLineEdit::EchoMode::Password);
+    edit->on_change([](WString value){/* ... */});
 
     WListBox *listbox = new WListBox({
         L"Item 1",
@@ -108,8 +110,6 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
         WMessageBox::information(nullptr, L"Title", L"Button 1 clicked");
     });
     delete btn;
-
-
 
 //    listbox
 
