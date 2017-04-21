@@ -5,8 +5,11 @@
 #include <functional>
 #include <vector>
 
-typedef std::vector<WString> ListItems;
+typedef std::vector<WString> ListItems; /// < Глобавльное объявление типа с весьма неоднозначным именем
 
+/**
+ * @brief WListBoxParameters Перечисление (с)Кэп
+ */
 enum WListBoxParameters {
   sort = LBS_SORT,
   notify = LBS_NOTIFY,
@@ -26,20 +29,26 @@ enum WListBoxParameters {
   combobox= LBS_COMBOBOX,
 };
 
+/**
+ * @brief WListBox Примитивный класс списка
+ */
 class WListBox : public WWidget
 {
 public:
+    /**
+   * @brief Item структура описывающая элемент списка
+   */
   struct Item {
       int id;
       WString text;
       //std::variant UserData; to future
     };
 private:
-  ListItems _itemList;
-  int       _selectedIndex = 0;
+  ListItems _itemList; /// < Список элементов
+  int       _selectedIndex = 0; /// < Индекс выделенного элемента
 
-  std::vector< std::function<void(Item)> > _callbacksSelelect;
-  std::vector< std::function<void(Item)> > _callbacksDblClick;
+  std::vector< std::function<void(Item)> > _callbacksSelelect; /// Коллбэки на событие выбора
+  std::vector< std::function<void(Item)> > _callbacksDblClick; /// Коллбэки на событие клика
 
 protected:
   int style();
