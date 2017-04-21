@@ -3,6 +3,9 @@
 
 #include "wwin/wobject.h"
 
+/**
+ * @brief Класс WScreen позволяет получить информцию о экране
+ */
 class WScreen : public WObject
 {
     WScreen();
