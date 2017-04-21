@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-int WWidget::_componentCount = 0;
+int WWidget::_componentCount = 1000;
 
 HWND WWidget::hwnd() const
 {
