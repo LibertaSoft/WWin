@@ -19,7 +19,9 @@ HEADERS += \
     wwin/wabstractitemmodel.h \
     wwin/wlineedit.h \
     wwin/wstring.h \
-    wwin/wlistbox.h
+    wwin/wlistbox.h \
+    wwin/wlistview.h \
+    wwin/wabstractitemview.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -35,4 +37,6 @@ SOURCES += main.cpp\
     wwin/wabstractitemmodel.cpp \
     wwin/wlineedit.cpp \
     wwin/wstring.cpp \
-    wwin/wlistbox.cpp
+    wwin/wlistbox.cpp \
+    wwin/wlistview.cpp \
+    wwin/wabstractitemview.cpp
