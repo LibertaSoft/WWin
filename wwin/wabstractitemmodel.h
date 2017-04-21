@@ -8,10 +8,14 @@
 #include "wwin/wstring.h"
 
 class WAbstractItemView;
-//#include "wwin/wabstractitemview.h"
-
 typedef WString WVariant;
-typedef std::pair<int,int> WModelIndex;
+
+typedef struct WModelIndex {
+    int row = 0;
+    int col = 0;
+    WModelIndex(){}
+    WModelIndex(int _row, int _col): row(_row), col(_col){}
+} WModelIndex;
 
 class WAbstractItemModel : public WObject
 {

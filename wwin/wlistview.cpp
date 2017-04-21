@@ -9,8 +9,8 @@ void WListView::addItem(WString item)
 
 void WListView::updateItem(const WModelIndex index, const WString item)
 {
-    SendMessage(this->hwnd(), LB_DELETESTRING, (WPARAM)index.first, 0);
-    SendMessage(this->hwnd(), LB_INSERTSTRING, (WPARAM)index.first, (LPARAM)item.c_str());
+    SendMessage(this->hwnd(), LB_DELETESTRING, (WPARAM)index.row, 0);
+    SendMessage(this->hwnd(), LB_INSERTSTRING, (WPARAM)index.row, (LPARAM)item.c_str());
 }
 
 void WListView::addItemList(WStringList list)

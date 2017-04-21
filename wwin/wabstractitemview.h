@@ -9,7 +9,7 @@ class WAbstractItemView : public WWidget
 private:
     WAbstractItemModel *_abstractModel;
 protected:
-    WModelIndex _selectedIndex;
+    WModelIndex _selectedIndex = {0,0};
 
 private:
     WModelIndex currentIndex() const;

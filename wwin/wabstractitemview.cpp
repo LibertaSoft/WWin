@@ -19,8 +19,8 @@ void WAbstractItemView::setModel(WAbstractItemModel *model)
 
 void WAbstractItemView::dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight, const std::vector<int> roles)
 {
-    for (int row = topLeft.first; row < bottomRight.first; ++row) {
-        for (int col = topLeft.second; col < bottomRight.second; ++col) {
+    for (int row = topLeft.row; row < bottomRight.row; ++row) {
+        for (int col = topLeft.col; col < bottomRight.col; ++col) {
             WModelIndex index = {row, col};
             this->update(index);
         }

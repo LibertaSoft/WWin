@@ -25,24 +25,24 @@ WStringList WStringListModel::stringList() const
 
 WVariant WStringListModel::data(WModelIndex index)
 {
-    return _stringList[index.first];
+    return _stringList[index.row];
 }
 
 bool WStringListModel::setData(WModelIndex index, WVariant data)
 {
-    if( index.first < 0 || index.first > this->rowCount() ){
+    if( index.row < 0 || index.row > this->rowCount() ){
         _stringList.push_back(data);
         this->dataChanhed({_stringList.size()-1,0}, {_stringList.size(),1});
     } else {
-        _stringList[index.first] = data;
-        this->dataChanhed({index.first,0}, {index.first+1,1});
+        _stringList[index.row] = data;
+        this->dataChanhed({index.row,0}, {index.row+1,1});
     }
     return true;
 }
 
 bool WStringListModel::removeRow(WModelIndex index)
 {
-    _stringList.erase(_stringList.begin() + index.first, _stringList.begin() + index.first + 1);
+    _stringList.erase(_stringList.begin() + index.row, _stringList.begin() + index.row + 1);
     return true;
 }
 
