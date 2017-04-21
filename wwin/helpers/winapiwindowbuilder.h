@@ -4,6 +4,9 @@
 #include <windows.h>
 #include "wwin/wstring.h"
 
+/**
+ * @brief WinApiWindowBuilder Класс реализующий паттерн Builder для конструирования окна
+ */
 class WinApiWindowBuilder
 {
 private:
