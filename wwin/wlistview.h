@@ -7,12 +7,18 @@
 #include "wwin/wstringlistmodel.h"
 #include "wwin/wabstractitemview.h"
 
+/**
+ * @brief WListView Виджет для отображения модели списка.
+ * Работает на основе системы Model-View реализованной в WWin.
+ */
 class WListView : public WAbstractItemView
 {
 private:
-    WStringListModel *_model = nullptr;
+    WStringListModel *_model = nullptr; /// < Модель строк для списка \todo Добавить иконки, как-то
 
+    /// Список функций обратного вызова для события выбора элемента
     std::vector< std::function<void(WModelIndex)> > _cblSelectItem;
+    /// Список функций обратного вызова для события двойного клика на элемента \todo работает только обычный клик, странно
     std::vector< std::function<void(WModelIndex)> > _cblDoubleClick;
 
     void addItem(WString item);
