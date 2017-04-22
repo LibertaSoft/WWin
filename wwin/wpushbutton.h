@@ -5,9 +5,13 @@
 #include <vector>
 #include "wwin/wwidget.h"
 
+/**
+ * @brief WPushButton Класс самой обычной кнопки
+ */
 class WPushButton : public WWidget
 {
 private:
+    /// Функции обратного вызова на событие клика
     std::vector< std::function<void(WMouseEvent*)> > _callbacks;
 
     int style() override;
