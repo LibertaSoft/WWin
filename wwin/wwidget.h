@@ -4,7 +4,9 @@
 #include "wwin/wobject.h"
 #include "wwin/wmouseevent.h"
 #include "wwin/wstring.h"
-
+/**
+ * @brief WWidgetState перечисление с состояниями окна виджета
+ */
 enum WWidgetState{
     ForceMinimize = SW_FORCEMINIMIZE,
     Hide = SW_HIDE,
@@ -21,6 +23,14 @@ enum WWidgetState{
     ShowNormal = SW_SHOWNORMAL
 };
 
+/**
+ * @brief WWidget класс являющийся базовым для всех виджетов системы.
+ *
+ * Если Вы хотите реализовать свой виджет, то Вам необходимо унаследовать этот класс
+ * и переопределить, как минимум, методы:
+ * - style()
+ * - nativeEvent()
+ */
 class WWidget : public WObject
 {
 private:
@@ -30,40 +40,39 @@ private:
     int _width = 0;
     int _height = 0;
 
-    int _maxWidth = 16777215;
-    int _maxHeight = 16777215;
+    int _maxWidth = 16777215;  /// < [Не используется] размеры для системы Layout'ов
+    int _maxHeight = 16777215; /// < [Не используется] размеры для системы Layout'ов
 
-    int _minWidth = 0;
-    int _minHeight = 0;
+    int _minWidth = 0;   /// < [Не используется] размеры для системы Layout'ов
+    int _minHeight = 0;  /// < [Не используется] размеры для системы Layout'ов
 
-    int _contentMargins_top    = 0;
-    int _contentMargins_right  = 0;
-    int _contentMargins_bottom = 0;
-    int _contentMargins_left   = 0;
+    int _contentMargins_top    = 0; /// < [Не используется] отступы для системы Layout'ов
+    int _contentMargins_right  = 0; /// < [Не используется] отступы для системы Layout'ов
+    int _contentMargins_bottom = 0; /// < [Не используется] отступы для системы Layout'ов
+    int _contentMargins_left   = 0; /// < [Не используется] отступы для системы Layout'ов
 
     // Widget
-    int  _windowIcon   = 0; // ICON from RC || file
-    int  _windowParams = 0; // FullScreen || ! FullScreen
-    WString _name;
+    int  _windowIcon   = 0; /// < [Не используется] ICON from RC || file
+    int  _windowParams = 0; /// < [Не используется] FullScreen || ! FullScreen
+    WString _name; /// < [Не используется]
 
-    bool _isDisabled = false;
-    bool _isFocused  = false;
-    bool _isVisible  = false;
+    bool _isDisabled = false; /// < [Не используется]
+    bool _isFocused  = false; /// < [Не используется]
+    bool _isVisible  = false; /// < [Не используется]
 
 //    WLayout* _layout = nullptr;
 
-    HWND _hwnd = nullptr;
-    int _cid = 0;
-    static int _componentCount;
+    HWND _hwnd = nullptr; /// < Хендлер окна
+    int _cid = 0; /// < ID компонента
+    static int _componentCount; /// < Количество компонентов в системе
 
     WWidget *parentWidget() const;
 
 
 
 protected:
-    WString _className = L"WWIDGET";
-    WString _title;
-    std::wstring _title2;
+    WString _className = L"WWIDGET"; /// < Название класса окна
+    WString _title; /// < Заголовок окна
 
     virtual int style();
     void setStyle(int style);

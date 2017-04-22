@@ -5,18 +5,30 @@
 
 #include <iostream>
 
-int WWidget::_componentCount = 0;
+int WWidget::_componentCount = 0; /// < Количество компонентов в системе
 
+/**
+ * @brief WWidget::hwnd получить хендл окна виджета
+ * @return
+ */
 HWND WWidget::hwnd() const
 {
     return _hwnd;
 }
 
+/**
+ * @brief WWidget::hwnd установить хендл окнна виджета
+ * @param hwnd
+ */
 void WWidget::hwnd(HWND hwnd)
 {
     _hwnd = hwnd;
 }
 
+/**
+ * @brief WWidget::parentHwnd получить хендл родительского окна
+ * @return
+ */
 HWND WWidget::parentHwnd() const
 {
     HWND p_hwnd = HWND_DESKTOP;
@@ -27,6 +39,10 @@ HWND WWidget::parentHwnd() const
     return p_hwnd;
 }
 
+/**
+ * @brief WWidget::parentWidget получить родительский виджет
+ * @return родительский виджет или nullptr
+ */
 WWidget* WWidget::parentWidget() const
 {
     WObject* parent = WObject::parent();
@@ -36,16 +52,31 @@ WWidget* WWidget::parentWidget() const
     return nullptr;
 }
 
+/**
+ * @brief WWidget::cid Получить ID компонента
+ * @return id компонента
+ */
 WORD WWidget::cid() const
 {
     return _cid;
 }
 
+/**
+ * @brief WWidget::style Стиль виджета.
+ * Стили для главного окна приложения
+ * @return
+ */
 int WWidget::style()
 {
     return WS_OVERLAPPEDWINDOW | WS_SYSMENU | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
 }
 
+/**
+ * @brief WWidget::setStyle установить стиль виджета
+ * @warning Не работает
+ * \todo реализовать метод
+ * @param style2
+ */
 void WWidget::setStyle(int style2)
 {
 //    SetWindowLong(this->hwnd(), GWL_STYLE, style);
@@ -58,7 +89,12 @@ void WWidget::setStyle(int style2)
 //    UpdateWindow( this->parentHwnd() );
 //    MessageBox(this->hwnd(), L"TEST", L"TEST", MB_OK);
 }
-
+/**
+ * @brief WWidget::initWndClass инициализировать окно класса.
+ * @warning Обязательно должен быть вызван в конструкторе при унаследовании данного класса.
+ * @param className - класс окна
+ * @return успех инициализации окна
+ */
 bool WWidget::initWndClass(WString className)
 {
     _className = className;
@@ -78,21 +114,41 @@ bool WWidget::initWndClass(WString className)
     return (x != nullptr);
 }
 
+/**
+ * @brief WWidget::mouseReleaseEvent событие отпускания кнопки мыши
+ * @param e - экземпляр WMouseEvent
+ * @return WEvent::isAccepted()
+ */
 bool WWidget::mouseReleaseEvent(WMouseEvent *e)
 {
     return e->isAccepted();
 }
 
+/**
+ * @brief WWidget::mouseReleaseEvent событие двойного клика
+ * @param e - экземпляр WMouseEvent
+ * @return WEvent::isAccepted()
+ */
 bool WWidget::mouseDoubleClickEvent(WMouseEvent *e)
 {
     return e->isAccepted();
 }
 
+/**
+ * @brief WWidget::mouseReleaseEvent событие изменения виджета
+ * @param e - экземпляр WEvent
+ * @return WEvent::isAccepted()
+ */
 bool WWidget::changeEvent(WEvent *e)
 {
     return e->isAccepted();
 }
 
+/**
+ * @brief WWidget::mouseReleaseEvent обработка потока событий
+ * @param e - экземпляр WEvent
+ * @return WEvent::isAccepted()
+ */
 bool WWidget::event(WEvent *e)
 {
     if( e->type() == WEvent::Type::MouseReleaseEvent ){
@@ -101,6 +157,11 @@ bool WWidget::event(WEvent *e)
     return WObject::event(e);
 }
 
+/**
+ * @brief WWidget::WWidget Конструктор с инииализацией базового класса и компонента окна
+ * @param parent - родительское окно
+ * @param params - параметры окна
+ */
 WWidget::WWidget(WWidget *parent, int params)
     : WObject(parent), _windowParams(params)
 {
@@ -112,12 +173,19 @@ WWidget::WWidget(WWidget *parent, int params)
     }
 }
 
+/**
+ * @brief WWidget::~WWidget Деструктор с удалением компонента из системы
+ */
 WWidget::~WWidget()
 {
     wApp->removeComponent(this);
     DestroyWindow(this->hwnd());
 }
 
+/**
+ * @brief WWidget::show отобразить виджет
+ * @warning Если WWidget::initWndClass ещё небыло вызвано и _hwnd не установлен, вызовет самостоятельно
+ */
 void WWidget::show()
 {
     if( ! this->hwnd() ) {
@@ -127,6 +195,13 @@ void WWidget::show()
     UpdateWindow( this->hwnd() );
 }
 
+/**
+ * @brief WWidget::setGeometry установить размеры и положение виджета
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ */
 void WWidget::setGeometry(int x, int y, int width, int height)
 {
     _x = x;
@@ -151,17 +226,34 @@ void WWidget::setGeometry(int x, int y, int width, int height)
 
 }
 
+/**
+ * @brief WWidget::title получить заголовок виджета
+ * @return WString - заголовок виджета
+ */
 WString WWidget::title() const
 {
     return _title;
 }
 
+/**
+ * @brief WWidget::setTitle Установить заголовок виджета
+ * @param title - заголовок виджета
+ */
 void WWidget::setTitle(const WString &title)
 {
     _title = title;
     SetWindowText(this->hwnd(), _title.c_str());
 }
 
+/**
+ * @brief WWidget::nativeEvent Обработка нативных системных событий и их преобразование
+ * в систему событий WWin
+ * @param hWnd
+ * @param message
+ * @param wParam
+ * @param lParam
+ * @return
+ */
 bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   if( message == WM_DESTROY ){
@@ -187,6 +279,9 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
   return WObject::nativeEvent(hWnd, message, wParam, lParam);
 }
 
+/**
+ * @brief WWidget::setFocus Установить фокус на виджет
+ */
 void WWidget::setFocus()
 {
     SetFocus( this->hwnd() );
