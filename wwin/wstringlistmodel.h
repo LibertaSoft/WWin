@@ -7,12 +7,19 @@
 #include "wwin/wobject.h"
 #include "wwin/wabstractitemmodel.h"
 
+/**
+ * @brief WStringList если понадобится отдельно - нужно вынести в отдельный класс
+ */
 typedef std::vector<WString> WStringList;
 
+/**
+ * @brief WStringListModel Модель со списком строк.
+ * Является реализацией модели на системе Model-View реализованной в WWin
+ */
 class WStringListModel : public WAbstractItemModel
 {
 private:
-    WStringList _stringList;
+    WStringList _stringList; /// < список строк
 
 public:
     WStringListModel(WObject *parent = nullptr);
