@@ -51,7 +51,7 @@ public:
     WLineEdit::EchoMode echoMode() const;
 
 //    void copy() const;
-//    void cut();
+//    void cut(); 324
 //    void paste();
 //    void redo();
 //    void undo();

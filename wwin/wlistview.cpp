@@ -64,6 +64,11 @@ WListView::WListView(WStringList stringList, WWidget *parent)
     this->addItemList(stringList);
 }
 
+WListView::~WListView()
+{
+    delete _model;
+}
+
 /**
  * @brief WListView::setModel Метод для установки модели для View
  * @param model
@@ -73,6 +78,9 @@ void WListView::setModel(WStringListModel *model)
     WAbstractItemView::setModel(model);
     if( _model ){
         delete _model;
+    }
+    if( model == nullptr ) {
+        model = new WStringListModel;
     }
     _model = model;
     this->clear();

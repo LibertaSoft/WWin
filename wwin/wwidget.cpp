@@ -80,12 +80,14 @@ int WWidget::style()
 void WWidget::setStyle(int style2)
 {
 //    SetWindowLong(this->hwnd(), GWL_STYLE, style);
-//    SendMessage(this->hwnd(), GWL_STYLE, ES_PASSWORD, 0);
-    DWORD style = GetWindowLong(this->hwnd(), GWL_STYLE);
-    SetWindowLong(this->hwnd(), GWL_STYLE, style | ES_PASSWORD);
+//    SendMessage(this->hwnd(), ES_, (WPARAM)GWL_STYLE, 0);
+//        SetDlgItemInt(this->hwnd(), this->cid(), ES_PASSWORD, false);
+  ///  SendMessage ((HWND) lParam, BM_SETCHECK, !SendMessage ((HWND) lParam, BM_GETCHECK, 0, 0), 0) ;
+//    DWORD style = GetWindowLong(this->hwnd(), GWL_STYLE);
+//    SetWindowLong(this->hwnd(), GWL_STYLE, style | ES_PASSWORD);
 //    SetWindowLongPtr(this->hwnd(), GWL_EXSTYLE, 0);
 //    UpdateWindow(this->hwnd());
-    SetWindowPos(this->hwnd(), nullptr, _x, _y, _width, _height, 0);
+//    SetWindowPos(this->hwnd(), nullptr, _x, _y, _width, _height, 0);
 //    UpdateWindow( this->parentHwnd() );
 //    MessageBox(this->hwnd(), L"TEST", L"TEST", MB_OK);
 }

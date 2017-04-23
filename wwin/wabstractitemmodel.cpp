@@ -1,6 +1,8 @@
 #include "wabstractitemmodel.h"
 #include "wabstractitemview.h"
 
+#include <iostream>
+
 /**
  * @brief WAbstractItemModel::WAbstractItemModel Конструктор класса
  * @param parent
@@ -18,7 +20,9 @@ WAbstractItemModel::WAbstractItemModel(WObject *parent)
 void WAbstractItemModel::dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight, const std::vector<int> roles)
 {
     for(WAbstractItemView* listener : _updateListeners){
-        listener->dataChanhed(topLeft, bottomRight, roles);
+        if( listener != nullptr ) {
+            listener->dataChanhed(topLeft, bottomRight, roles);
+        }
     }
 }
 
@@ -29,6 +33,8 @@ void WAbstractItemModel::dataChanhed(const WModelIndex topLeft, const WModelInde
  */
 void WAbstractItemModel::__addUpdateListener(WAbstractItemView *view)
 {
-    _updateListeners.push_back( view );
+    if( view != nullptr ){
+        _updateListeners.push_back( view );
+    }
 }
 

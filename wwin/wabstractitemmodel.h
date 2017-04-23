@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <vector>
+#include <list>
 
 #include "wwin/wobject.h"
 #include "wwin/wstring.h"
@@ -36,12 +37,12 @@ typedef struct WModelIndex {
 class WAbstractItemModel : public WObject
 {
 private:
-    std::vector<WAbstractItemView*> _updateListeners; /// < список View слушающийх сообщения об обновлении модели
+    std::list<WAbstractItemView*> _updateListeners; /// < список View слушающийх сообщения об обновлении модели
 
 public:
     WAbstractItemModel(WObject* parent);
 
-    virtual void dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight,
+    void dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight,
                              const std::vector<int> roles = std::vector<int>());
 
     virtual bool setData(WModelIndex index, WVariant data) = 0;

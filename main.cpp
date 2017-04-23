@@ -14,7 +14,7 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     WApplication *app = WApplication::instance(hInstace, hPrevInst, lpCmdString, nCmdShow);
 
 
-        /*/
+    /*
     TCHAR * text;
     #ifdef UNICODE
         // Simple C
@@ -54,7 +54,7 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     edit->setGeometry(10,80,250,20);
     edit->show();
     edit->setEchoMode(WLineEdit::EchoMode::Password);
-    edit->on_change([](WString value){/* ... */});
+    edit->on_change([](WString){/* ... */});
 
     WListBox *listbox = new WListBox({
         L"Item 1",
@@ -89,6 +89,10 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
     listview2->setGeometry(270,120,186,100);
     listview2->show();
     listview2->setModel(listview_model);
+    listview2->on_doubleClick([&](WModelIndex index){
+        auto item = listview_model->data(index);
+        WMessageBox::warning(nullptr, L"Title", item);
+    });
 
     WPushButton *btn2 = new WPushButton(L"Мой батон", wgt);
     btn2->setGeometry(140,10,120,60);

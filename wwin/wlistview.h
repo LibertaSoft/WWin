@@ -28,13 +28,11 @@ private:
 public:
     WListView(WWidget *parent = nullptr);
     WListView(WStringList stringList, WWidget *parent = nullptr);
+    ~WListView();
 
     void setModel(WStringListModel *model);
 
     virtual void update(const WModelIndex index) override;
-
-    virtual void dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight,
-                             const std::vector<int> roles = std::vector<int>()) override;
 
     // Subscribes
 public:
