@@ -22,7 +22,8 @@ HEADERS += \
     wwin/wlistbox.h \
     wwin/wlistview.h \
     wwin/wabstractitemview.h \
-    testwindow.h
+    testwindow.h \
+    wwin/wabstractbutton.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -41,4 +42,5 @@ SOURCES += main.cpp\
     wwin/wlistbox.cpp \
     wwin/wlistview.cpp \
     wwin/wabstractitemview.cpp \
-    testwindow.cpp
+    testwindow.cpp \
+    wwin/wabstractbutton.cpp
