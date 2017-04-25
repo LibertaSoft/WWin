@@ -26,8 +26,7 @@ public:
 
     virtual void setModel(WAbstractItemModel *model);
 
-    virtual void dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight,
-                             const std::vector<int> roles = std::vector<int>());
+    virtual void dataChanged(const WModelIndex topLeft, const WModelIndex bottomRight);
 
     virtual void update(const WModelIndex index) = 0;
 };

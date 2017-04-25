@@ -1,4 +1,5 @@
 #include "wabstractitemview.h"
+#include <functional>
 
 /**
  * @brief WAbstractItemView::currentIndex получить индекс текущего элемента
@@ -38,7 +39,7 @@ void WAbstractItemView::setModel(WAbstractItemModel *model)
  * @param bottomRight - Индекс конца изменившегося фрагмента
  * @param roles - [Не используется] роли
  */
-void WAbstractItemView::dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight, const std::vector<int> roles)
+void WAbstractItemView::dataChanged(const WModelIndex topLeft, const WModelIndex bottomRight)
 {
     for (int row = topLeft.row; row < bottomRight.row; ++row) {
         for (int col = topLeft.col; col < bottomRight.col; ++col) {

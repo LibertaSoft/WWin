@@ -123,6 +123,10 @@ public:
     WString title() const;
     void setTitle(const WString &title);
 
+    void setEnable(const bool enable);
+    void disable();
+    void enable();
+
     bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
 
     void setFocus();

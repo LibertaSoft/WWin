@@ -1,8 +1,6 @@
 #include "wabstractitemmodel.h"
 #include "wabstractitemview.h"
 
-#include <iostream>
-
 /**
  * @brief WAbstractItemModel::WAbstractItemModel Конструктор класса
  * @param parent
@@ -17,11 +15,11 @@ WAbstractItemModel::WAbstractItemModel(WObject *parent)
  * @param bottomRight - конец диапозона данных
  * @param roles - [Не используется] роли данных
  */
-void WAbstractItemModel::dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight, const std::vector<int> roles)
+void WAbstractItemModel::dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight)
 {
-    for(WAbstractItemView* listener : _updateListeners){
+    for(auto listener : _updateListeners){
         if( listener != nullptr ) {
-            listener->dataChanhed(topLeft, bottomRight, roles);
+            listener->dataChanged(topLeft, bottomRight);
         }
     }
 }

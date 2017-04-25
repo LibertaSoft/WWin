@@ -4,12 +4,13 @@
 #include <utility>
 #include <vector>
 #include <list>
+#include <functional>
 
 #include "wwin/wobject.h"
 #include "wwin/wstring.h"
 
 class WAbstractItemView; /// < Для избежания циклической заивисимости
-typedef WString WVariant; /// < В будущем надо будет заменить на нормальный класс, реализующий Variant
+typedef WString WVariant; /// < \todo заменить на нормальный класс, реализующий Variant
 
 /**
  * @brief WModelIndex структура описывающая позицию в модели
@@ -37,13 +38,12 @@ typedef struct WModelIndex {
 class WAbstractItemModel : public WObject
 {
 private:
-    std::list<WAbstractItemView*> _updateListeners; /// < список View слушающийх сообщения об обновлении модели
+    std::list< WAbstractItemView* > _updateListeners; /// < список View слушающийх сообщения об обновлении модели
 
 public:
     WAbstractItemModel(WObject* parent);
 
-    void dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight,
-                             const std::vector<int> roles = std::vector<int>());
+    void dataChanhed(const WModelIndex topLeft, const WModelIndex bottomRight);
 
     virtual bool setData(WModelIndex index, WVariant data) = 0;
     virtual WVariant data(WModelIndex index) = 0;
@@ -52,7 +52,7 @@ public:
     virtual int rowCount(WModelIndex parent = {0,0}) const = 0;
     virtual int columnCount(WModelIndex parent = {0,0}) const = 0;
 
-    void __addUpdateListener(WAbstractItemView *view);
+    void __addUpdateListener(WAbstractItemView*);
 };
 
 #endif // WABSTRACTITEMMODEL_H

@@ -46,7 +46,12 @@ WStringList WStringListModel::stringList() const
  */
 WVariant WStringListModel::data(WModelIndex index)
 {
-    return _stringList[index.row];
+    if( (_stringList.size() < index.row) || (_stringList.size() > index.row) ) {
+        return _stringList[index.row];
+    } else {
+        return WVariant(L"NULL");
+    }
+
 }
 
 /**

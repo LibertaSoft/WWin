@@ -36,7 +36,9 @@ void WMessageBox::information(WWidget *parent, WString title, WString message)
     if(parent){
         parent->hwnd();
     }
-    MessageBox(hwnd, message.c_str(), title.c_str(), MB_OK | MB_ICONINFORMATION);
+//    parent->disable();
+    MessageBox(hwnd, message.c_str(), title.c_str(), MB_OK | MB_TOPMOST );
+//    parent->enable();
 }
 
 /**

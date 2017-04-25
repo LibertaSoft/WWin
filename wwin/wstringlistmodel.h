@@ -28,7 +28,7 @@ public:
     void setStringList(const WStringList& strings);
     WStringList stringList() const;
 
-    virtual WVariant data(WModelIndex index);
+    virtual WVariant data(WModelIndex index) override;
     virtual bool setData(WModelIndex index, WVariant data);
     virtual bool removeRow(WModelIndex index);
 

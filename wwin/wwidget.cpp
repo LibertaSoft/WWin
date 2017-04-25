@@ -3,8 +3,6 @@
 #include "wwin/helpers/winapiwindowbuilder.h"
 #include "wwin/wscreen.h"
 
-#include <iostream>
-
 int WWidget::_componentCount = 0; /// < Количество компонентов в системе
 
 /**
@@ -245,6 +243,21 @@ void WWidget::setTitle(const WString &title)
 {
     _title = title;
     SetWindowText(this->hwnd(), _title.c_str());
+}
+
+void WWidget::setEnable(const bool enable)
+{
+    EnableWindow( this->hwnd(), enable );
+}
+
+void WWidget::disable()
+{
+    this->setEnable(false);
+}
+
+void WWidget::enable()
+{
+    this->setEnable(true);
 }
 
 /**

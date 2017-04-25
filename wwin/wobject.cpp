@@ -2,7 +2,6 @@
 #include "wwin/wapplication.h"
 
 #include <windows.h>
-#include <iostream>
 
 /**
  * @brief WObject::WObject Конструктор объекта

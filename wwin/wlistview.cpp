@@ -1,5 +1,4 @@
 #include "wlistview.h"
-#include <iostream>
 
 /**
  * @brief WListView::addItem Добавление пункта в LISTBOX
