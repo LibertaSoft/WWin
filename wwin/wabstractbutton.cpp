@@ -1,4 +1,5 @@
 #include "wabstractbutton.h"
+#include <iostream>
 
 void WAbstractButton::checkStateSet()
 {}
@@ -9,7 +10,7 @@ void WAbstractButton::checkStateSet()
  * Подклассы могут переопределять данный метод для реализации кликабельной зоны различных форм и размеров.
  * \return
  */
-bool WAbstractButton::hitButton(const x, const y) const
+bool WAbstractButton::hitButton(const int x, const int y) const
 {
     return true;
 }
@@ -135,5 +136,45 @@ void WAbstractButton::toggle()
     for(auto callback : _cblToggled){
         callback( new WMouseEvent, this->isChecked() );
     }
+}
+
+/**
+ * @brief WAbstractButton::mouseReleaseEvent событие отпускания кнопки
+ * @param event - экземпляр WMouseEvent
+ * @return WEvent::isAccepted
+ */
+bool WAbstractButton::mouseReleaseEvent(WMouseEvent *event)
+{
+
+    for(auto callback : _cblReleased){
+        callback(event);
+    }
+    for(auto callback : _cblClicked){
+        callback(event, this->isChecked());
+    }
+
+    event->accept();
+    return event->isAccepted();
+}
+
+bool WAbstractButton::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    std::cout << "message: " << message << std::endl;
+    if(message != WM_COMMAND){
+      return WWidget::nativeEvent(hWnd, message, wParam, lParam);
+    }
+
+    if( HIWORD( wParam ) == BN_CLICKED ) {
+        return this->event(new WMouseEvent); /// _cblClicked
+    }
+    std::cout << "HwParam: " << HIWORD(wParam) << std::endl;
+    if( HIWORD( wParam ) == BN_PUSHED ) { /// \fixme Not fire
+        return this->event(new WMouseEvent); /// _cblPressed
+    }
+    if( HIWORD( wParam ) == BN_UNPUSHED ) { /// \fixme Not fire
+        return this->event(new WMouseEvent); /// _cblReleased
+    }
+
+    return WWidget::nativeEvent(hWnd, message, wParam, lParam);
 }
 

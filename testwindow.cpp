@@ -65,7 +65,7 @@ void TestWindow::initUi()
     btn2->setGeometry(140,10,120,60);
     btn2->show();
     btn2->setFocus();
-    btn2->on_click([=](WMouseEvent*e){
+    btn2->on_clicked([=](WMouseEvent*e, bool checked){
         listview_model->setData({-1,0}, edit->value());
 
         listbox->addListItem(edit->value());
@@ -77,7 +77,7 @@ void TestWindow::initUi()
     WPushButton *btn = new WPushButton(L"My Button", wgt);
     btn->setGeometry(10,10,120,60);
     btn->show();
-    btn->on_click([&](WMouseEvent*){
+    btn->on_clicked([&](WMouseEvent*, bool checked){
         WMessageBox::information(wgt, L"Title", L"Button 1 clicked");
     });
 //    delete btn;

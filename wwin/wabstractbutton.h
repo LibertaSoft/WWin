@@ -34,7 +34,7 @@ private: // Callbacks
 
 protected: // Можно переопределять для изменения поведения при разных состояниях
     virtual void checkStateSet();
-    virtual bool hitButton(const x, const y) const;
+    virtual bool hitButton(const int x, const int y) const;
     virtual void nextCheckState();
 
 public: // event sobscribers
@@ -61,6 +61,11 @@ public:
 
     // void setIcon(WIcon &icon);
     // WIcon icon() const;
+
+public:
+    // bool event(WEvent *event);
+    bool mouseReleaseEvent(WMouseEvent *event);
+    bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 #endif // WABSTRACTBUTTON_H
