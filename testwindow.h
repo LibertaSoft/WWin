@@ -8,6 +8,7 @@
 #include "wwin/wwidget.h"
 
 #include "wwin/wpushbutton.h"
+#include "wwin/wcheckbox.h"
 #include "wwin/wscreen.h"
 #include "wwin/wmessagebox.h"
 

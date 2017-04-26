@@ -170,21 +170,29 @@ void WApplication::hideConsole()
  */
 LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-  WORD cid = LOWORD(wParam);
-  WObject* component = wApp->component(hWnd, cid);
+    WORD cid = LOWORD(wParam);
+    /*
+    if( message == WM_LBUTTONDOWN ){
+        cid = 5;
+        SendMessage(hWnd, WM_COMMAND, BN_PUSHED | cid, 0);
+        // CreateWindowEx()
+    }
+    //*/
+    WObject* component = wApp->component(hWnd, cid);
 
-  if( message == WM_DESTROY ){
-    PostQuitMessage( EXIT_SUCCESS );
-  }
-  bool accept = false;
-  if( component ) {
-      accept = component->nativeEvent(hWnd, message, wParam, lParam);
-  }
+    if( message == WM_DESTROY ){
+        PostQuitMessage( EXIT_SUCCESS );
+    }
 
-  if( ! accept ){
-    return DefWindowProc( hWnd, message, wParam, lParam );
-  }
-  return wParam;
+    bool accept = false;
+    if( component ) {
+        accept = component->nativeEvent(hWnd, message, wParam, lParam);
+    }
+
+    if( ! accept ){
+        return DefWindowProc( hWnd, message, wParam, lParam );
+    }
+    return wParam;
 }
 
 /**

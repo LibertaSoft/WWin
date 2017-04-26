@@ -41,7 +41,7 @@ public: // event sobscribers
     void on_pressed(std::function<void(WMouseEvent*)> callback);
     void on_releaseed(std::function<void(WMouseEvent*)> callback);
     void on_clicked(std::function<void(WMouseEvent*, bool checked)> callback);
-    void on_Toggleed(std::function<void(WMouseEvent*, bool checked)> callback);
+    void on_toggleed(std::function<void(WMouseEvent*, bool checked)> callback);
 
 public:
     WAbstractButton(WWidget *parent);

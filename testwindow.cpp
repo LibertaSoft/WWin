@@ -80,7 +80,22 @@ void TestWindow::initUi()
     btn->on_clicked([&](WMouseEvent*, bool checked){
         WMessageBox::information(wgt, L"Title", L"Button 1 clicked");
     });
-//    delete btn;
+    delete btn;
+
+    WCheckBox *chbox1 = new WCheckBox(wgt);
+    chbox1->setTitle(L"WCheckBox 1");
+    chbox1->setGeometry(10,210,120,20);
+    chbox1->show();
+    chbox1->on_toggleed([=](WMouseEvent*,bool ckd){
+        WMessageBox::information(nullptr, L"WCheckBox 1", (ckd)?L"Cheked":L"Unchecked");
+    });
+    WCheckBox *chbox2 = new WCheckBox(wgt);
+    chbox2->setTitle(L"WCheckBox 2");
+    chbox2->setGeometry(10,230,120,20);
+    chbox2->show();
+    chbox2->on_toggleed([=](WMouseEvent*,bool ckd){
+        WMessageBox::information(nullptr, L"WCheckBox 2", (ckd)?L"Cheked":L"Unchecked");
+    });
 }
 
 

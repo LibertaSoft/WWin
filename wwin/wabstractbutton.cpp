@@ -23,7 +23,14 @@ void WAbstractButton::nextCheckState()
 {
     if( this->isCheckable() ){
         this->setChecked( ! this->isChecked() );
+        WPARAM state = ( this->isChecked() )? BST_CHECKED : BST_UNCHECKED;
+        SendMessage(this->hwnd(), BM_SETCHECK, state, 0);
+        for(auto callback : _cblToggled){
+            callback( new WMouseEvent, this->isChecked() );
+        }
     }
+
+    // BM_SETSTYLE <? Стили
 }
 
 /*!
@@ -61,7 +68,7 @@ void WAbstractButton::on_clicked(std::function<void (WMouseEvent *, bool)> callb
  * Срабатывает при изменении состояния кнопки
  * \param callback - функция обработчик
  */
-void WAbstractButton::on_Toggleed(std::function<void (WMouseEvent *, bool)> callback)
+void WAbstractButton::on_toggleed(std::function<void (WMouseEvent *, bool)> callback)
 {
     _cblToggled.push_back( callback );
 }
@@ -159,19 +166,25 @@ bool WAbstractButton::mouseReleaseEvent(WMouseEvent *event)
 
 bool WAbstractButton::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    std::cout << "message: " << message << std::endl;
+    // std::cout << "message: " << message << std::endl;
+    if( message == WM_LBUTTONDOWN ){
+        return this->event(new WMouseEvent);
+    }
+
     if(message != WM_COMMAND){
       return WWidget::nativeEvent(hWnd, message, wParam, lParam);
     }
 
     if( HIWORD( wParam ) == BN_CLICKED ) {
+        this->nextCheckState();
         return this->event(new WMouseEvent); /// _cblClicked
     }
-    std::cout << "HwParam: " << HIWORD(wParam) << std::endl;
     if( HIWORD( wParam ) == BN_PUSHED ) { /// \fixme Not fire
+        std::cout << "PUSHED: " << this->cid() << std::endl;
         return this->event(new WMouseEvent); /// _cblPressed
     }
     if( HIWORD( wParam ) == BN_UNPUSHED ) { /// \fixme Not fire
+        std::cout << "UNPUSHED: " << this->cid() << std::endl;
         return this->event(new WMouseEvent); /// _cblReleased
     }
 
