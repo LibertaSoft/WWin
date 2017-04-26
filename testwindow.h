@@ -11,6 +11,7 @@
 #include "wwin/wcheckbox.h"
 #include "wwin/wradiobutton.h"
 #include "wwin/wbuttongroup.h"
+#include "wwin/wplaintextedit.h"
 #include "wwin/wscreen.h"
 #include "wwin/wmessagebox.h"
 

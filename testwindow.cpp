@@ -122,6 +122,21 @@ void TestWindow::initUi()
     btngrp->addButton(rbtn2);
     btngrp->addButton(rbtn3);
     btngrp->addButton(rbtn4);
+
+    WPlainTextEdit *ptedit1 = new WPlainTextEdit(wgt);
+    ptedit1->setGeometry(470,10,200,200);
+    ptedit1->show();
+
+    WPlainTextEdit *ptedit2 = new WPlainTextEdit(wgt);
+    ptedit2->setGeometry(680,10,200,200);
+    ptedit2->show();
+
+    ptedit1->on_changed([=](WString text){
+        ptedit2->setTitle(text);
+    });
+    ptedit2->on_changed([=](WString text){
+        ptedit1->setTitle(text);
+    });
 }
 
 
