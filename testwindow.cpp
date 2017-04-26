@@ -96,6 +96,21 @@ void TestWindow::initUi()
     chbox2->on_toggleed([=](WMouseEvent*,bool ckd){
         WMessageBox::information(nullptr, L"WCheckBox 2", (ckd)?L"Cheked":L"Unchecked");
     });
+
+    WRadioButton *rbtn1 = new WRadioButton(wgt);
+    rbtn1->setTitle(L"WRadioButton 1");
+    rbtn1->setGeometry(130,210,130,20);
+    rbtn1->show();
+    rbtn1->on_toggleed([=](WMouseEvent*,bool ckd){
+        WMessageBox::information(nullptr, L"WRadioButton 1", (ckd)?L"Cheked":L"Unchecked");
+    });
+    WRadioButton *rbtn2 = new WRadioButton(wgt);
+    rbtn2->setTitle(L"WRadioButton 2");
+    rbtn2->setGeometry(130,230,130,20);
+    rbtn2->show();
+    rbtn2->on_toggleed([=](WMouseEvent*,bool ckd){
+        WMessageBox::information(nullptr, L"WRadioButton 2", (ckd)?L"Cheked":L"Unchecked");
+    });
 }
 
 
