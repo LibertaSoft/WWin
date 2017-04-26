@@ -3,6 +3,9 @@
 
 #include "wwin/wabstractbutton.h"
 
+/*!
+ * \brief WCheckBox Класс виджета переключателя(Checkbox)
+ */
 class WCheckBox : public WAbstractButton
 {
 public:

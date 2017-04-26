@@ -38,8 +38,8 @@ protected: // Можно переопределять для изменения 
     virtual void nextCheckState();
 
 public: // event sobscribers
-    void on_pressed(std::function<void(WMouseEvent*)> callback);
-    void on_releaseed(std::function<void(WMouseEvent*)> callback);
+    // void on_pressed(std::function<void(WMouseEvent*)> callback); [Не отлавливается нужное событие WINAPI]
+    // void on_releaseed(std::function<void(WMouseEvent*)> callback); [Не отлавливается нужное событие WINAPI]
     void on_clicked(std::function<void(WMouseEvent*, bool checked)> callback);
     void on_toggleed(std::function<void(WMouseEvent*, bool checked)> callback);
 

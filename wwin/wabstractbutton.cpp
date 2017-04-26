@@ -38,20 +38,24 @@ void WAbstractButton::nextCheckState()
  * Срабатывает до клика и до отпускания(release)
  * \param callback - функция обработчик
  */
+/*
 void WAbstractButton::on_pressed(std::function<void (WMouseEvent *)> callback)
 {
     _cblPressed.push_back( callback );
 }
+//*/
 
 /*!
  * \brief WAbstractButton::on_releaseed Добавляет метод обработки нажатия кнопки.
  * Срабатывает после нажатия(press) и перед кликом
  * \param callback - функция обработчик
  */
+/*
 void WAbstractButton::on_releaseed(std::function<void (WMouseEvent *)> callback)
 {
     _cblReleased.push_back( callback );
 }
+//*/
 
 /*!
  * \brief WAbstractButton::on_clicked Добавляет метод обработки клика на кнопку.
