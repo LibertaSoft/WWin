@@ -7,14 +7,19 @@
 #include <list>
 #include <functional>
 
+/*!
+ * \brief WPlainTextEdit класс для простого текстового редактора без форматирования
+ */
 class WPlainTextEdit : public WWidget
 {
 private:
-    int _maxLength = 35536;
+    unsigned long _maxLength = 65536; /// < Максимальная длина текста
     std::list< std::function<void(WString)> > _cblChanged;
 
 public:
     WPlainTextEdit(WWidget *parent);
+
+    void setPlainText(WString text);
 
     void on_changed(std::function<void(WString)> callback);
 

@@ -1,11 +1,18 @@
 #include "wbuttongroup.h"
 
+/*!
+ * \brief WButtonGroup::WButtonGroup конструктор с  инициализацией
+ * \param parent
+ */
 WButtonGroup::WButtonGroup(WObject parent = nullptr)
     : WObject(parent)
 {
 
 }
 
+/*!
+ * \brief WButtonGroup::~WButtonGroup Виртуальный деструктор с отвязкой кнопок от группы
+ */
 WButtonGroup::~WButtonGroup()
 {
     for(WAbstractButton* btn : _buttons){
@@ -13,11 +20,17 @@ WButtonGroup::~WButtonGroup()
     }
 }
 
+/*!
+ * \brief WButtonGroup::addButton Добавить кнопку в группу
+ * \param button - указатель на добавляемую кнопку
+ * \param id - [Не используется] какой-то id
+ */
 void WButtonGroup::addButton(WAbstractButton *button, int id)
 {
     _buttons.push_back( button );
     _mapping[id] = button;
 
+    // При переключении состояния, нужно обновить состояния всех остальных кнопок
     button->on_toggleed([=](WMouseEvent*,bool checked){
         if( checked == false ){
             button->setChecked(true);
@@ -32,36 +45,66 @@ void WButtonGroup::addButton(WAbstractButton *button, int id)
     });
 }
 
+/*!
+ * \brief WButtonGroup::button Получить кнопку по её id
+ * \param id - id кнопки
+ * \return WAbstractButton* - Указатель на кнопку
+ */
 WAbstractButton *WButtonGroup::button(int id)
 {
     return _mapping[id];
 }
 
+/*!
+ * \brief WButtonGroup::buttons получить список кнопок
+ * \return
+ */
 std::list<WAbstractButton *> WButtonGroup::buttons() const
 {
     return _buttons;
 }
 
+/*!
+ * \brief WButtonGroup::checkedButton получить указатель на выделенную кнопку
+ * \return
+ */
 WAbstractButton *WButtonGroup::checkedButton() const
 {
     return _checkedButton;
 }
 
+/*!
+ * \brief WButtonGroup::checkedId получить id выделенной кнопки
+ * \return
+ */
 int WButtonGroup::checkedId() const
 {
     return _checkedId;
 }
 
+/*!
+ * \brief WButtonGroup::exclusive Включен ли режим для активации лишь одной кнопки из набора
+ * \return
+ */
 bool WButtonGroup::exclusive() const
 {
     return _exclusive;
 }
 
+/*!
+ * \brief WButtonGroup::setExclusive Установить режим для активации лишь одной кнопки из набора
+ * \param exclusive
+ */
 void WButtonGroup::setExclusive(bool exclusive)
 {
     _exclusive = exclusive;
 }
 
+/*!
+ * \brief WButtonGroup::id получить id кнопки по указателю на неё
+ * \param button
+ * \return
+ */
 int WButtonGroup::id(WAbstractButton *button) const
 {
     for(auto btn : _mapping){
@@ -72,6 +115,10 @@ int WButtonGroup::id(WAbstractButton *button) const
     return -1;
 }
 
+/*!
+ * \brief WButtonGroup::removeButton Удалить кнопку из группы
+ * \param button
+ */
 void WButtonGroup::removeButton(WAbstractButton *button)
 {
     // Защита от дурака

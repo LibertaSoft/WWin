@@ -1,4 +1,5 @@
 #include "testwindow.h"
+#include <iostream>
 
 TestWindow::TestWindow(WWidget *parent)
     : WWidget(parent)
@@ -132,10 +133,10 @@ void TestWindow::initUi()
     ptedit2->show();
 
     ptedit1->on_changed([=](WString text){
-        ptedit2->setTitle(text);
+        ptedit2->setPlainText(text);
     });
     ptedit2->on_changed([=](WString text){
-        ptedit1->setTitle(text);
+        ptedit1->setPlainText(text);
     });
 }
 
