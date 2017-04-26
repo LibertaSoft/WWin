@@ -9,7 +9,7 @@
  */
 int WPushButton::style()
 {
-    return BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD;
+    return BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD;
 }
 
 /**

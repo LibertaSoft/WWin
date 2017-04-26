@@ -25,7 +25,8 @@ HEADERS += \
     testwindow.h \
     wwin/wabstractbutton.h \
     wwin/wcheckbox.h \
-    wwin/wradiobutton.h
+    wwin/wradiobutton.h \
+    wwin/wbuttongroup.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -47,4 +48,5 @@ SOURCES += main.cpp\
     testwindow.cpp \
     wwin/wabstractbutton.cpp \
     wwin/wcheckbox.cpp \
-    wwin/wradiobutton.cpp
+    wwin/wradiobutton.cpp \
+    wwin/wbuttongroup.cpp

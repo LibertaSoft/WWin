@@ -6,6 +6,8 @@
 
 #include "wwidget.h"
 
+class WButtonGroup;
+
 /*!
  * \brief QAbstractButton Класс является базовым классом для виджетов кнопок,
  * реализует общий функционал для кнопок.
@@ -24,7 +26,7 @@ private:
     int  _autoRepeatDelay = 1000;  /// < [Не используется] Время до срабатывания первого авто-повтора
     int  _autoRepeatInterval = 1000; /// < [Не используется] Интервал срабатывания авто-повтора
 
-    // WButtonGroup* _buttonGroup; /// < [Не используется] Указатель на группу к которой относится кнопка
+    WButtonGroup* _buttonGroup; /// < [Не используется] Указатель на группу к которой относится кнопка
 
 private: // Callbacks
     std::vector< std::function<void(WMouseEvent*)> > _cblPressed;
@@ -45,13 +47,15 @@ public: // event sobscribers
 
 public:
     WAbstractButton(WWidget *parent);
+    virtual ~WAbstractButton();
 
     bool isCheckable() const;
     void setCheckable(bool checkable);
     bool isChecked() const;
-    void setChecked(bool checked);
+    void setChecked(const bool checked);
 
-    // WButtonGroup group() const;
+    void setButtonGroup(WButtonGroup* group);
+    WButtonGroup *group() const;
 
     void click();
     void toggle();

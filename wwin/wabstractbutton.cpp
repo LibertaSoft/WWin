@@ -1,4 +1,5 @@
 #include "wabstractbutton.h"
+#include "wbuttongroup.h"
 #include <iostream>
 
 void WAbstractButton::checkStateSet()
@@ -23,8 +24,6 @@ void WAbstractButton::nextCheckState()
 {
     if( this->isCheckable() ){
         this->setChecked( ! this->isChecked() );
-        WPARAM state = ( this->isChecked() )? BST_CHECKED : BST_UNCHECKED;
-        SendMessage(this->hwnd(), BM_SETCHECK, state, 0);
         for(auto callback : _cblToggled){
             callback( new WMouseEvent, this->isChecked() );
         }
@@ -83,8 +82,17 @@ void WAbstractButton::on_toggleed(std::function<void (WMouseEvent *, bool)> call
  */
 WAbstractButton::WAbstractButton(WWidget *parent)
     : WWidget(parent)
-{
+{}
 
+/*!
+ * \brief WAbstractButton::~WAbstractButton Виртуальный деструктор, с удалением кнопки из группы
+ * чтобы избежать обращения по некорректному указателю
+ */
+WAbstractButton::~WAbstractButton()
+{
+    if( this->group() != nullptr ){
+        this->group()->removeButton(this);
+    }
 }
 
 /*!
@@ -131,9 +139,21 @@ bool WAbstractButton::isChecked() const
  * \brief WAbstractButton::setChecked установить состояние(checked) кнопки
  * \param checked
  */
-void WAbstractButton::setChecked(bool checked)
+void WAbstractButton::setChecked(const bool checked)
 {
     _checked = checked;
+    WPARAM state = (checked) ? BST_CHECKED : BST_UNCHECKED;
+    SendMessage(this->hwnd(), BM_SETCHECK, state, 0);
+}
+
+void WAbstractButton::setButtonGroup(WButtonGroup *group)
+{
+    _buttonGroup = group;
+}
+
+WButtonGroup* WAbstractButton::group() const
+{
+    return _buttonGroup;
 }
 
 /*!

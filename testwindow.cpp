@@ -9,15 +9,15 @@ TestWindow::TestWindow(WWidget *parent)
 void TestWindow::initUi()
 {
     auto wgt = this;
-    int width  = 480;
-    int height = 320;
+    int width  = 920;
+    int height = 570;
     int x = WScreen::width()  / 2 - width  / 2;
     int y = WScreen::height() / 2 - height / 2;
 
     wgt->setTitle(L"WWinApi Lib Заголовок");
     wgt->setGeometry(x,y,width,height);
 
-    WLineEdit *edit = new WLineEdit(L"hello", wgt);
+    WLineEdit *edit = new WLineEdit(L"Hello", wgt);
     edit->setGeometry(10,80,250,20);
     edit->show();
     edit->setEchoMode(WLineEdit::EchoMode::Password);
@@ -108,9 +108,20 @@ void TestWindow::initUi()
     rbtn2->setTitle(L"WRadioButton 2");
     rbtn2->setGeometry(130,230,130,20);
     rbtn2->show();
-    rbtn2->on_toggleed([=](WMouseEvent*,bool ckd){
-        WMessageBox::information(nullptr, L"WRadioButton 2", (ckd)?L"Cheked":L"Unchecked");
-    });
+    WRadioButton *rbtn3 = new WRadioButton(wgt);
+    rbtn3->setTitle(L"WRadioButton 3");
+    rbtn3->setGeometry(130,250,130,20);
+    rbtn3->show();
+    WRadioButton *rbtn4 = new WRadioButton(wgt);
+    rbtn4->setTitle(L"WRadioButton 3");
+    rbtn4->setGeometry(130,270,130,20);
+    rbtn4->show();
+
+    WButtonGroup *btngrp = new WButtonGroup(wgt);
+    btngrp->addButton(rbtn1);
+    btngrp->addButton(rbtn2);
+    btngrp->addButton(rbtn3);
+    btngrp->addButton(rbtn4);
 }
 
 
