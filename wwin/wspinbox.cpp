@@ -162,9 +162,8 @@ bool WSpinBox::event(WEvent *e)
  */
 bool WSpinBox::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-  if( EN_CHANGE == HIWORD(wParam) )
-  {
-    return this->event( new WEvent(WEvent::Type::WindowTitleChange) );
-  }
-  return WWidget::nativeEvent(hWnd, message, wParam, lParam);
+    if( EN_CHANGE == HIWORD(wParam) ){
+        return this->event( new WEvent(WEvent::Type::WindowTitleChange) );
+    }
+    return WWidget::nativeEvent(hWnd, message, wParam, lParam);
 }
