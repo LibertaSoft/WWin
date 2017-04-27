@@ -68,8 +68,6 @@ private:
 
     WWidget *parentWidget() const;
 
-
-
 protected:
     WString _className = L"WWIDGET"; /// < Название класса окна
     WString _title; /// < Заголовок окна
@@ -77,6 +75,7 @@ protected:
     virtual int style();
     void setStyle(int style);
     bool initWndClass(WString className);
+    static int nextCid();
 
     virtual bool event(WEvent *e);
     virtual bool mouseReleaseEvent(WMouseEvent *e);

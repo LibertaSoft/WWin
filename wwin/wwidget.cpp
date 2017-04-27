@@ -50,6 +50,11 @@ WWidget* WWidget::parentWidget() const
     return nullptr;
 }
 
+int WWidget::nextCid()
+{
+    return _componentCount++;
+}
+
 /**
  * @brief WWidget::cid Получить ID компонента
  * @return id компонента

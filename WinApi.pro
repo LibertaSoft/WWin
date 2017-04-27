@@ -4,6 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 LIBS += -lgdi32
+#if COMMON_CONTROLS
+LIBS += -lcomctl32
+#endif COMMON_CONTROLS
 
 HEADERS += \
     wwin/wapplication.h \
@@ -27,7 +30,8 @@ HEADERS += \
     wwin/wcheckbox.h \
     wwin/wradiobutton.h \
     wwin/wbuttongroup.h \
-    wwin/wplaintextedit.h
+    wwin/wplaintextedit.h \
+    wwin/wspinbox.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -51,4 +55,5 @@ SOURCES += main.cpp\
     wwin/wcheckbox.cpp \
     wwin/wradiobutton.cpp \
     wwin/wbuttongroup.cpp \
-    wwin/wplaintextedit.cpp
+    wwin/wplaintextedit.cpp \
+    wwin/wspinbox.cpp

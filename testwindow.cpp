@@ -138,6 +138,13 @@ void TestWindow::initUi()
     ptedit2->on_changed([=](WString text){
         ptedit1->setPlainText(text);
     });
+
+    WSpinBox *sbox1 = new WSpinBox(wgt);
+    sbox1->setGeometry(10,10,100,20);
+    sbox1->show();
+    sbox1->on_changed([=](int value){
+        WMessageBox::information(nullptr, L"Title", std::to_wstring(value));
+    });
 }
 
 
