@@ -139,11 +139,15 @@ void TestWindow::initUi()
         ptedit1->setPlainText(text);
     });
 
+    WProgressBar *pbar = new WProgressBar(wgt);
+    pbar->setGeometry(10,500,300,20);
+    pbar->show();
+
     WSpinBox *sbox1 = new WSpinBox(wgt);
     sbox1->setGeometry(10,10,100,20);
     sbox1->show();
     sbox1->on_changed([=](int value){
-        WMessageBox::information(nullptr, L"Title", std::to_wstring(value));
+        pbar->setValue(value);
     });
 }
 

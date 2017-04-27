@@ -13,6 +13,7 @@
 #include "wwin/wbuttongroup.h"
 #include "wwin/wplaintextedit.h"
 #include "wwin/wspinbox.h"
+#include "wwin/wprogressbar.h"
 #include "wwin/wscreen.h"
 #include "wwin/wmessagebox.h"
 

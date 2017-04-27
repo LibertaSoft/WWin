@@ -31,7 +31,8 @@ HEADERS += \
     wwin/wradiobutton.h \
     wwin/wbuttongroup.h \
     wwin/wplaintextedit.h \
-    wwin/wspinbox.h
+    wwin/wspinbox.h \
+    wwin/wprogressbar.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -56,4 +57,5 @@ SOURCES += main.cpp\
     wwin/wradiobutton.cpp \
     wwin/wbuttongroup.cpp \
     wwin/wplaintextedit.cpp \
-    wwin/wspinbox.cpp
+    wwin/wspinbox.cpp \
+    wwin/wprogressbar.cpp

@@ -32,6 +32,7 @@ public:
 
     WinApiWindowBuilder& geometry(int x,int y ,int width, int height);
     WinApiWindowBuilder& className(WString className);
+    WinApiWindowBuilder& classExtra(LONG classex);
     WinApiWindowBuilder& title(WString title);
     WinApiWindowBuilder& parent(HWND parent);
     WinApiWindowBuilder& style(DWORD style);
