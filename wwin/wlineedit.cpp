@@ -160,7 +160,7 @@ int WLineEdit::style()
     int style = WS_VISIBLE | WS_CHILD | WS_BORDER | ES_LEFT | ES_AUTOHSCROLL;
 
     if( _echoMode == WLineEdit::EchoMode::Password ) {
-        style |= ES_PASSWORD;
+        style = style | ES_PASSWORD;
     }
 
     return style;

@@ -16,6 +16,7 @@
 #include "wwin/wprogressbar.h"
 #include "wwin/wscreen.h"
 #include "wwin/wmessagebox.h"
+#include "wwin/wlabel.h"
 
 class TestWindow : public WWidget
 {

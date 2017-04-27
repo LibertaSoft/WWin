@@ -137,7 +137,7 @@ ATOM WApplication::registerClass()
     wcl.lpszMenuName = NULL;
     wcl.cbClsExtra = 0;
     wcl.cbWndExtra = 0;
-    wcl.hbrBackground = ( HBRUSH )GetStockObject( WHITE_BRUSH );
+    wcl.hbrBackground = ( HBRUSH )COLOR_WINDOW;//( HBRUSH )GetStockObject( COLOR_GRAYTEXT );
 
     return RegisterClass( &wcl );
 }

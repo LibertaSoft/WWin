@@ -149,6 +149,11 @@ void TestWindow::initUi()
     sbox1->on_changed([=](int value){
         pbar->setValue(value);
     });
+
+    WLabel *lbl1 = new WLabel(L"Static text", wgt);
+    lbl1->setGeometry(270, 230, 300, 300);
+    lbl1->setImage(L"D:\\resources\\bmp24_sm.bmp");
+    lbl1->show();
 }
 
 
