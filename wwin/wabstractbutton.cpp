@@ -90,7 +90,7 @@ WAbstractButton::WAbstractButton(WWidget *parent)
  */
 WAbstractButton::~WAbstractButton()
 {
-    if( this->group() != nullptr ){
+    if( _buttonGroup ){
         this->group()->removeButton(this);
     }
 }

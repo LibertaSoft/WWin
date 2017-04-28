@@ -55,6 +55,7 @@ int WSpinBox::value() const
 void WSpinBox::setValue(int value)
 {
     _value = value;
+    this->setTitle( std::to_wstring(_value) );
 }
 
 /*!

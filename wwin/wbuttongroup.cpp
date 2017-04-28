@@ -1,4 +1,5 @@
 #include "wbuttongroup.h"
+#include <iostream>
 
 /*!
  * \brief WButtonGroup::WButtonGroup конструктор с  инициализацией
@@ -126,7 +127,7 @@ void WButtonGroup::removeButton(WAbstractButton *button)
         return;
     }
     // Если удаляемая кнопка является чекнутой
-    if( button == _checkedButton ){
+    if( _checkedButton && (button == _checkedButton) ){
         _checkedButton = nullptr;
     }
     // Какое-то костыльное удаление

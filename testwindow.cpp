@@ -149,11 +149,19 @@ void TestWindow::initUi()
     sbox1->on_changed([=](int value){
         pbar->setValue(value);
     });
+    sbox1->setValue(35);
 
     WLabel *lbl1 = new WLabel(L"Static text", wgt);
     lbl1->setGeometry(270, 230, 300, 300);
     lbl1->setImage(L"D:\\resources\\bmp24_sm.bmp");
     lbl1->show();
+
+    WLabel *lbl2 = new WLabel(
+        L"Рыбным текстом называется текст, служащий для временного наполнения макета в публикациях или производстве веб-сайтов, пока финальный текст еще не создан. Рыбный текст также известен как текст-заполнитель или же текст-наполнитель. Иногда текст-«рыба» также используется композиторами при написании музыки."
+        , wgt
+    );
+    lbl2->setGeometry(10, 300, 250, 160);
+    lbl2->show();
 }
 
 

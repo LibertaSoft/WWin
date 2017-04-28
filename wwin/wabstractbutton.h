@@ -26,7 +26,7 @@ private:
     int  _autoRepeatDelay = 1000;  /// < [Не используется] Время до срабатывания первого авто-повтора
     int  _autoRepeatInterval = 1000; /// < [Не используется] Интервал срабатывания авто-повтора
 
-    WButtonGroup* _buttonGroup; /// < [Не используется] Указатель на группу к которой относится кнопка
+    WButtonGroup* _buttonGroup = nullptr; /// < Указатель на группу к которой относится кнопка
 
 private: // Callbacks
     std::vector< std::function<void(WMouseEvent*)> > _cblPressed;
