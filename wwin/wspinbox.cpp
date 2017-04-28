@@ -86,7 +86,7 @@ void WSpinBox::show()
 
     if( ! _spinHwnd ){
         _spinCid  = WWidget::nextCid();
-        _spinHwnd = CreateUpDownControl(
+        _spinHwnd = CreateUpDownControl( /// Using Windows Common Controls
               WS_CHILD
             | WS_VISIBLE
             | WS_BORDER

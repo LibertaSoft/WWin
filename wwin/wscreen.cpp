@@ -1,6 +1,7 @@
 #include "wscreen.h"
 
 #include <windows.h>
+#include <iostream>
 
 /**
  * @brief WScreen::WScreen Конструктор класса
@@ -16,8 +17,11 @@ WScreen::WScreen()
  */
 int WScreen::width()
 {
-    HDC scr = GetDC( NULL );
-    return GetDeviceCaps( scr, HORZRES );
+    HMONITOR monitor = MonitorFromWindow(0, MONITOR_DEFAULTTONEAREST);
+    MONITORINFO info;
+    info.cbSize = sizeof(MONITORINFO);
+    GetMonitorInfo(monitor, &info);
+    return info.rcMonitor.right - info.rcMonitor.left;
 }
 
 /**
@@ -26,7 +30,11 @@ int WScreen::width()
  */
 int WScreen::height()
 {
-    HDC scr = GetDC( NULL );
-    return GetDeviceCaps( scr, VERTRES );
+    HMONITOR monitor = MonitorFromWindow(0, MONITOR_DEFAULTTONEAREST);
+    MONITORINFO info;
+
+    info.cbSize = sizeof(MONITORINFO);
+    GetMonitorInfo(monitor, &info);
+    return info.rcMonitor.bottom - info.rcMonitor.top;
 }
 

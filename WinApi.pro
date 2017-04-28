@@ -3,10 +3,8 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-LIBS += -lgdi32
-#if COMMON_CONTROLS
-LIBS += -lcomctl32
-#endif COMMON_CONTROLS
+LIBS += -lgdi32 # Пока нигде, но понадобится для картинок
+LIBS += -lcomctl32 # Некоторые виджеты типа WSpinBox
 
 HEADERS += \
     wwin/wapplication.h \
