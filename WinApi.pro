@@ -6,6 +6,15 @@ CONFIG -= qt
 LIBS += -lgdi32 # Пока нигде, но понадобится для картинок
 LIBS += -lcomctl32 # Некоторые виджеты типа WSpinBox
 
+contains( LIBS, -lcomctl32 ) {
+    DEFINES += WWIN_COMMON_CONTROLS
+    HEADERS += wwin/wspinbox.h
+    SOURCES += wwin/wspinbox.cpp
+}
+contains( LIBS, -lgdi32 ) {
+    DEFINES += WWIN_GDI
+}
+
 HEADERS += \
     wwin/wapplication.h \
     wwin/wobject.h \
@@ -29,7 +38,6 @@ HEADERS += \
     wwin/wradiobutton.h \
     wwin/wbuttongroup.h \
     wwin/wplaintextedit.h \
-    wwin/wspinbox.h \
     wwin/wprogressbar.h \
     wwin/wlabel.h \
     wwin/wimage.h
@@ -57,7 +65,6 @@ SOURCES += main.cpp\
     wwin/wradiobutton.cpp \
     wwin/wbuttongroup.cpp \
     wwin/wplaintextedit.cpp \
-    wwin/wspinbox.cpp \
     wwin/wprogressbar.cpp \
     wwin/wlabel.cpp \
     wwin/wimage.cpp
