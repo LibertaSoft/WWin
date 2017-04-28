@@ -31,7 +31,8 @@ HEADERS += \
     wwin/wplaintextedit.h \
     wwin/wspinbox.h \
     wwin/wprogressbar.h \
-    wwin/wlabel.h
+    wwin/wlabel.h \
+    wwin/wimage.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -58,4 +59,5 @@ SOURCES += main.cpp\
     wwin/wplaintextedit.cpp \
     wwin/wspinbox.cpp \
     wwin/wprogressbar.cpp \
-    wwin/wlabel.cpp
+    wwin/wlabel.cpp \
+    wwin/wimage.cpp

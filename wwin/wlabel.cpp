@@ -29,15 +29,21 @@ WLabel::WLabel(WString text, WWidget *parent)
  */
 void WLabel::setImage(WString imagepath)
 {
-    _isImage = true;
-    this->setStyle( this->style() );
-    HANDLE img = LoadImage(wApp->getHinstance(), imagepath.c_str(), IMAGE_BITMAP, 0,0, LR_LOADFROMFILE);
-    if( ! img ){
-        // Catch error
-        std::cout << "Error load image: " << img << std::endl;
-        _isImage = false;
+    this->setImage( WImage(imagepath) );
+}
+
+/*!
+ * \brief WLabel::setImage установить изображение в виджет
+ * \param image
+ */
+void WLabel::setImage(WImage image)
+{
+    if( ! image.isNull() ){
+        _image = image;
+        _isImage = true;
+        this->setStyle( this->style() );
+        SendMessage(this->hwnd(), (UINT)STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)_image.handle());
     }
-    SendMessage(this->hwnd(), (UINT)STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)img);
 }
 
 /*!

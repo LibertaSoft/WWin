@@ -2,6 +2,7 @@
 #define WLABEL_H
 
 #include "wwin/wwidget.h"
+#include "wwin/wimage.h"
 
 /*!
  * \brief WLabel класс позволяет отображать надпии и изображения
@@ -9,13 +10,15 @@
 class WLabel : public WWidget
 {
 private:
-    bool _isImage = false;
+    bool _isImage = false; /// < Картинка ли в виджете
+    WImage _image; /// < Картинка
 
 public:
     WLabel(WWidget *parent);
     WLabel(WString text, WWidget *parent);
 
     void setImage(WString imagepath);
+    void setImage(WImage image);
 
     // WWidget interface
 protected:
