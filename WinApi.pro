@@ -66,7 +66,9 @@ HEADERS += \
     wwin/wstringlistmodel.h \
     wwin/wstring.h \
     testwindow.h \
-    wwin/wimage.h
+    wwin/wimage.h \
+    wwin/wstandardpaths.h \
+    wwin/wstringlist.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -77,4 +79,6 @@ SOURCES += main.cpp\
     wwin/wstringlistmodel.cpp \
     wwin/wstring.cpp \
     testwindow.cpp \
-    wwin/wimage.cpp
+    wwin/wimage.cpp \
+    wwin/wstandardpaths.cpp \
+    wwin/wstringlist.cpp

@@ -15,6 +15,7 @@ class WListView : public WAbstractItemView
 {
 private:
     WStringListModel *_model = nullptr; /// < Модель строк для списка \todo Добавить иконки, как-то
+    bool _mineModel = false;
 
     /// Список функций обратного вызова для события выбора элемента
     std::vector< std::function<void(WModelIndex)> > _cblSelectItem;
@@ -34,8 +35,9 @@ public:
 
     virtual void update(const WModelIndex index) override;
 
+    WStringListModel* model() const;
+
     // Subscribes
-public:
     int on_select(std::function<void(WModelIndex)> callback );
     int on_doubleClick(std::function<void(WModelIndex)> callback );
 

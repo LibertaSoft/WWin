@@ -111,8 +111,38 @@ int WApplication::run()
  * @brief WApplication::init инициализация приложения, вызывается в конструкторе.
  * Региструрует базовый класс для окон WWIDGET
  */
+WString WApplication::applicationName() const
+{
+    return _applicationName;
+}
+
+void WApplication::setApplicationName(WString applicationName)
+{
+    _applicationName = applicationName;
+}
+
+WString WApplication::userName() const
+{
+    return _userName;
+}
+
+WString WApplication::applicationVersion() const
+{
+    return _applicationVersion;
+}
+
+void WApplication::setApplicationVersion(const WString &applicationVersion)
+{
+    _applicationVersion = applicationVersion;
+}
+
 void WApplication::init()
 {
+    wchar_t buffer[255];
+    DWORD len = 255;
+    GetEnvironmentVariable(L"USERNAME", buffer, len);
+    _userName = WString(buffer);
+
     hideConsole();
     if( ! this->registerClass() ){
         return;

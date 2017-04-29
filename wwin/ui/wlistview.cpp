@@ -48,6 +48,7 @@ WListView::WListView(WWidget *parent)
 {
     this->initWndClass(L"LISTBOX");
     _model = new WStringListModel(parent);
+    _mineModel = true;
 }
 
 /**
@@ -60,6 +61,7 @@ WListView::WListView(WStringList stringList, WWidget *parent)
 {
     this->initWndClass(L"LISTBOX");
     _model = new WStringListModel(stringList, parent);
+    _mineModel = true;
     this->addItemList(stringList);
 }
 
@@ -75,8 +77,9 @@ WListView::~WListView()
 void WListView::setModel(WStringListModel *model)
 {
     WAbstractItemView::setModel(model);
-    if( _model ){
+    if( _model && _mineModel ){
         delete _model;
+        _mineModel = false;
     }
     if( model == nullptr ) {
         model = new WStringListModel;
@@ -94,6 +97,11 @@ void WListView::setModel(WStringListModel *model)
 void WListView::update(const WModelIndex index)
 {
     this->updateItem(index, _model->data(index));
+}
+
+WStringListModel *WListView::model() const
+{
+    return _model;
 }
 
 /**

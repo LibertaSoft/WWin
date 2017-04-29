@@ -4,13 +4,9 @@
 #include <vector>
 
 #include "wwin/wstring.h"
+#include "wwin/wstringlist.h"
 #include "wwin/wobject.h"
 #include "wwin/ui/wabstractitemmodel.h"
-
-/**
- * @brief WStringList если понадобится отдельно - нужно вынести в отдельный класс
- */
-typedef std::vector<WString> WStringList;
 
 /**
  * @brief WStringListModel Модель со списком строк.

@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <unordered_map>
 #include "wwin/ui/wwidget.h"
+#include "wwin/wstring.h"
 
 #define wApp WApplication::instance()
 typedef std::unordered_map<WORD,WObject*> WComponentsMap;
@@ -16,6 +17,10 @@ class WApplication
 {
 private:
     static WApplication *_appInstance; /// < Singletone приложения
+
+    WString _applicationName = L"WWinApplication";
+    WString _applicationVersion = L"0.0.0";
+    WString _userName = L"Unknown";
 
     HINSTANCE _hInstance = nullptr;
     HINSTANCE _hPrevInstance = nullptr;
@@ -34,6 +39,7 @@ private:
 
     WApplication(int &argc, char** argv);
     WApplication(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
+
 public:
     static WApplication *instance(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
     static WApplication *instance(void);
@@ -44,6 +50,12 @@ public:
     HINSTANCE getHinstance();
 
     int run();
+
+    WString applicationName() const;
+    void setApplicationName(WString applicationName);
+    WString userName() const;
+    WString applicationVersion() const;
+    void setApplicationVersion(const WString &applicationVersion);
 };
 
 #endif // WAPPLICATION_H

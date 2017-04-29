@@ -1,4 +1,5 @@
 #include "testwindow.h"
+#include "wwin/wstandardpaths.h"
 #include <iostream>
 
 TestWindow::TestWindow(WWidget *parent)
@@ -49,7 +50,7 @@ void TestWindow::initUi()
     }, wgt);
     listview->setModel(listview_model);
     listview->on_select([=](WModelIndex index){
-        auto item = listview_model->data(index);
+        auto item = listview->model()->data(index);
         WMessageBox::information(nullptr, L"Title", item);
     });
 
@@ -58,7 +59,7 @@ void TestWindow::initUi()
     listview2->show();
     listview2->setModel(listview_model);
     listview2->on_doubleClick([=](WModelIndex index){
-        auto item = listview_model->data(index);
+        auto item = listview2->model()->data(index);
         WMessageBox::warning(nullptr, L"Title", item);
     });
 
@@ -162,6 +163,11 @@ void TestWindow::initUi()
     );
     lbl2->setGeometry(10, 300, 250, 160);
     lbl2->show();
+
+    WStringListModel *m2 = new WStringListModel();
+    m2->setStringList( WStandardPaths::locateAll(WStandardPaths::StandardLocation::ConfigLocation, L"test32.txt") );
+    listview2->setModel( m2 );
+
 }
 
 
