@@ -2,7 +2,7 @@
 #define WMESSAGEBOX_H
 
 #include "wwin/wstring.h"
-#include "wwin/wwidget.h"
+#include "wwin/ui/wwidget.h"
 
 /**
  * @brief WMessageBox Класс позволяющий отображать диалоговые окна с сообщениями

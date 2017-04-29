@@ -1,7 +1,7 @@
 #ifndef WRADIOBUTTON_H
 #define WRADIOBUTTON_H
 
-#include "wwin/wabstractbutton.h"
+#include "wwin/ui/wabstractbutton.h"
 
 /*!
  * \brief WRadioButton Класс виджета переключателя c текстовой надписью

@@ -5,7 +5,7 @@
 
 #include "wwin/wstring.h"
 #include "wwin/wobject.h"
-#include "wwin/wabstractitemmodel.h"
+#include "wwin/ui/wabstractitemmodel.h"
 
 /**
  * @brief WStringList если понадобится отдельно - нужно вынести в отдельный класс

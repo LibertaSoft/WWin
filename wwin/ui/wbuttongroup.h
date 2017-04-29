@@ -2,7 +2,7 @@
 #define WBUTTONGROUP_H
 
 #include "wwin/wobject.h"
-#include "wwin/wabstractbutton.h"
+#include "wwin/ui/wabstractbutton.h"
 
 #include <list>
 #include <map>

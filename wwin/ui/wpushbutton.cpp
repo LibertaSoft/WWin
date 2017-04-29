@@ -1,6 +1,6 @@
 #include "wpushbutton.h"
 
-#include "wwin/wmessagebox.h"
+#include "wwin/ui/wmessagebox.h"
 #include <iostream>
 
 /**

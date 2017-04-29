@@ -1,7 +1,7 @@
 #ifndef WPROGRESSBAR_H
 #define WPROGRESSBAR_H
 
-#include "wwin/wwidget.h"
+#include "wwin/ui/wwidget.h"
 #include <list>
 #include <functional>
 

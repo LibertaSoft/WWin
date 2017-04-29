@@ -1,7 +1,7 @@
 #ifndef WLABEL_H
 #define WLABEL_H
 
-#include "wwin/wwidget.h"
+#include "wwin/ui/wwidget.h"
 #include "wwin/wimage.h"
 
 /*!

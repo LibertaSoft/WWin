@@ -3,9 +3,9 @@
 
 #include <functional>
 
-#include "wwin/wwidget.h"
+#include "wwin/ui/wwidget.h"
 #include "wwin/wstringlistmodel.h"
-#include "wwin/wabstractitemview.h"
+#include "wwin/ui/wabstractitemview.h"
 
 /**
  * @brief WListView Виджет для отображения модели списка.

@@ -1,8 +1,8 @@
 #ifndef WABSTRACTITEMVIEW_H
 #define WABSTRACTITEMVIEW_H
 
-#include "wwin/wwidget.h"
-#include "wwin/wabstractitemmodel.h"
+#include "wwin/ui/wwidget.h"
+#include "wwin/ui/wabstractitemmodel.h"
 
 /**
  * @brief WAbstractItemView Базовый класс для всех View

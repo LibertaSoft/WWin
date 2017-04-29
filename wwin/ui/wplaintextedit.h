@@ -1,7 +1,7 @@
 #ifndef WPLAINTEXTEDIT_H
 #define WPLAINTEXTEDIT_H
 
-#include "wwin/wwidget.h"
+#include "wwin/ui/wwidget.h"
 #include "wwin/wstring.h"
 
 #include <list>

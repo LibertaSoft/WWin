@@ -1,5 +1,5 @@
 #include "wspinbox.h"
-#include "wapplication.h"
+#include "../wapplication.h"
 
 #include <commctrl.h>
 

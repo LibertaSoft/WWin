@@ -1,7 +1,7 @@
 #include "wwidget.h"
 #include "wwin/wapplication.h"
 #include "wwin/helpers/winapiwindowbuilder.h"
-#include "wwin/wscreen.h"
+#include "wwin/ui/wscreen.h"
 
 int WWidget::_componentCount = 0; /// < Количество компонентов в системе
 

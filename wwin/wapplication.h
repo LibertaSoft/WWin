@@ -3,7 +3,7 @@
 
 #include <windows.h>
 #include <unordered_map>
-#include "wwin/wwidget.h"
+#include "wwin/ui/wwidget.h"
 
 #define wApp WApplication::instance()
 typedef std::unordered_map<WORD,WObject*> WComponentsMap;

@@ -1,7 +1,7 @@
 #ifndef WCHECKBOX_H
 #define WCHECKBOX_H
 
-#include "wwin/wabstractbutton.h"
+#include "wwin/ui/wabstractbutton.h"
 
 /*!
  * \brief WCheckBox Класс виджета переключателя(Checkbox)

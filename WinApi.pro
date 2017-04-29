@@ -3,68 +3,78 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
+MODULES += ui
+
 LIBS += -lgdi32 # Пока нигде, но понадобится для картинок
 LIBS += -lcomctl32 # Некоторые виджеты типа WSpinBox
 
-contains( LIBS, -lcomctl32 ) {
-    DEFINES += WWIN_COMMON_CONTROLS
-    HEADERS += wwin/wspinbox.h
-    SOURCES += wwin/wspinbox.cpp
-}
 contains( LIBS, -lgdi32 ) {
     DEFINES += WWIN_GDI
+}
+
+contains( MODULES, ui ){
+    HEADERS += \
+        wwin/wgui.h \
+        wwin/ui/wwidget.h \
+        wwin/ui/wscreen.h \
+        wwin/ui/wpushbutton.h \
+        wwin/ui/wmessagebox.h \
+        wwin/ui/wabstractitemmodel.h \
+        wwin/ui/wlineedit.h \
+        wwin/ui/wlistbox.h \
+        wwin/ui/wlistview.h \
+        wwin/ui/wabstractitemview.h \
+        wwin/ui/wabstractbutton.h \
+        wwin/ui/wcheckbox.h \
+        wwin/ui/wradiobutton.h \
+        wwin/ui/wbuttongroup.h \
+        wwin/ui/wplaintextedit.h \
+        wwin/ui/wprogressbar.h \
+        wwin/ui/wlabel.h
+
+    SOURCES += \
+        wwin/ui/wwidget.cpp \
+        wwin/ui/wscreen.cpp \
+        wwin/ui/wpushbutton.cpp \
+        wwin/ui/wmessagebox.cpp \
+        wwin/ui/wabstractitemmodel.cpp \
+        wwin/ui/wlineedit.cpp \
+        wwin/ui/wlistbox.cpp \
+        wwin/ui/wlistview.cpp \
+        wwin/ui/wabstractitemview.cpp \
+        wwin/ui/wabstractbutton.cpp \
+        wwin/ui/wcheckbox.cpp \
+        wwin/ui/wradiobutton.cpp \
+        wwin/ui/wbuttongroup.cpp \
+        wwin/ui/wplaintextedit.cpp \
+        wwin/ui/wprogressbar.cpp \
+        wwin/ui/wlabel.cpp
+
+    contains( LIBS, -lcomctl32 ) {
+        DEFINES += WWIN_COMMON_CONTROLS
+        HEADERS += wwin/ui/wspinbox.h
+        SOURCES += wwin/ui/wspinbox.cpp
+    }
 }
 
 HEADERS += \
     wwin/wapplication.h \
     wwin/wobject.h \
-    wwin/wwidget.h \
     wwin/helpers/winapiwindowbuilder.h \
-    wwin/wscreen.h \
-    wwin/wpushbutton.h \
     wwin/wevent.h \
-    wwin/wmessagebox.h \
     wwin/wmouseevent.h \
     wwin/wstringlistmodel.h \
-    wwin/wabstractitemmodel.h \
-    wwin/wlineedit.h \
     wwin/wstring.h \
-    wwin/wlistbox.h \
-    wwin/wlistview.h \
-    wwin/wabstractitemview.h \
     testwindow.h \
-    wwin/wabstractbutton.h \
-    wwin/wcheckbox.h \
-    wwin/wradiobutton.h \
-    wwin/wbuttongroup.h \
-    wwin/wplaintextedit.h \
-    wwin/wprogressbar.h \
-    wwin/wlabel.h \
     wwin/wimage.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
     wwin/wobject.cpp \
-    wwin/wwidget.cpp \
     wwin/helpers/winapiwindowbuilder.cpp \
-    wwin/wscreen.cpp \
-    wwin/wpushbutton.cpp \
     wwin/wevent.cpp \
-    wwin/wmessagebox.cpp \
     wwin/wmouseevent.cpp \
     wwin/wstringlistmodel.cpp \
-    wwin/wabstractitemmodel.cpp \
-    wwin/wlineedit.cpp \
     wwin/wstring.cpp \
-    wwin/wlistbox.cpp \
-    wwin/wlistview.cpp \
-    wwin/wabstractitemview.cpp \
     testwindow.cpp \
-    wwin/wabstractbutton.cpp \
-    wwin/wcheckbox.cpp \
-    wwin/wradiobutton.cpp \
-    wwin/wbuttongroup.cpp \
-    wwin/wplaintextedit.cpp \
-    wwin/wprogressbar.cpp \
-    wwin/wlabel.cpp \
     wwin/wimage.cpp

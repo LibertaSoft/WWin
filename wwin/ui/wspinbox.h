@@ -1,7 +1,7 @@
 #ifndef WSPINBOX_H
 #define WSPINBOX_H
 
-#include "wwin/wwidget.h"
+#include "wwin/ui/wwidget.h"
 #include <vector>
 #include <functional>
 

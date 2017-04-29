@@ -3,7 +3,7 @@
 
 #include <functional>
 #include <vector>
-#include "wwin/wabstractbutton.h"
+#include "wwin/ui/wabstractbutton.h"
 
 /**
  * @brief WPushButton Класс самой обычной кнопки
