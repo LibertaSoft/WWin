@@ -60,6 +60,7 @@ int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, i
 - Умные указатели *(планируется)*
 - Списки инициализации
 - Enum классы
+
 В том числе в библиотеке активно используются структуры данных из стандартной библиотеки `STL`, такие как:
 - std::string
 - std::vector
