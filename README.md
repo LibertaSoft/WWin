@@ -1,10 +1,57 @@
 # WWin
 Qt-like library for WINAPI | Похожая на Qt библиотека написанная от нефиг делать на WINAPI
 
-Эта библиотека пишется для удовлетворения своего любопытсва.
+Эта библиотека пишется для удовлетворения собственного любопытсва.
 Она не ставит себе целью превзойти Qt или догнать его,
 из Qt буруться лишь лучшие, необходимые и интересные для реализации идеи,
 а так-же сохраняется стиль наименования методов для упрощённого понимания.
+
+## Быстрый старт
+1. Клонируете репозиторий
+2. Скачиваете и запускаете IDE Qt Creator
+3. Открываете проект
+4. Пробуете скомпилировать.
+
+## Простейшее приложение
+```c++
+#include "wwin/wapplication.h"
+#include "wwin/wgui.h"
+
+int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, int nCmdShow)
+{
+    WApplication *app = WApplication::instance(hInstace, hPrevInst, lpCmdString, nCmdShow);
+
+	// Центрирование окна на экране
+	int width  = 260;
+	int height = 80;
+	int x = WScreen::width()  / 2 - width  / 2;
+	int y = WScreen::height() / 2 - height / 2;
+
+	// Создание окна приложения
+	WWidget *w = new WWidget(nullptr);
+	w->setTitle(L"Hello World");
+	w->setGeometry(x,y,width,height);
+	w->show();
+
+	// Создание поля ввода
+	WLineEdit *edit = new WLineEdit(L"Введи своё имя...", w);
+	edit->setGeometry(10,10,160,20);
+	edit->show();
+
+	// Создание кнопки
+	WPushButton *btn = new WPushButton(L"Ввод", w);
+	btn->setGeometry(180,10,60,20);
+	btn->show();
+	btn->on_clicked([&](WMouseEvent*, bool){
+		WMessageBox::information(w, L"Окно приветствия", L"Привет " + edit->value() );
+	});
+
+    return app->run();
+}
+
+```
+
+## Подробнее
 
 Библиотека WWin не реализует систему сигналов-и-слотов в Qt,
 вместо этого в ней частично реализован паттерн Observer, для подписки на события
