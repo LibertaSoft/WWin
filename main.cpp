@@ -1,4 +1,4 @@
-#include "wwin/wapplication.h"
+#include <WApplication>
 #include "testwindow.h"
 
 int WINAPI WinMain(HINSTANCE hInstace, HINSTANCE hPrevInst, LPSTR lpCmdString, int nCmdShow)

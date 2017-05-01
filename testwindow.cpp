@@ -1,5 +1,5 @@
 #include "testwindow.h"
-#include "wwin/wstandardpaths.h"
+#include <WStandardPaths>
 #include <iostream>
 
 TestWindow::TestWindow(WWidget *parent)

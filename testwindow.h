@@ -1,7 +1,7 @@
 #ifndef TESTWINDOW_H
 #define TESTWINDOW_H
 
-#include "wwin/wgui.h"
+#include <WGui>
 
 class TestWindow : public WWidget
 {

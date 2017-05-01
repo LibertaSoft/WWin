@@ -8,6 +8,8 @@ MODULES += ui
 LIBS += -lgdi32 # Пока нигде, но понадобится для картинок
 LIBS += -lcomctl32 # Некоторые виджеты типа WSpinBox
 
+INCLUDEPATH += wwin wwin/ui
+
 contains( LIBS, -lgdi32 ) {
     DEFINES += WWIN_GDI
 }
