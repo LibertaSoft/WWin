@@ -20,6 +20,11 @@ WStringListModel::WStringListModel(const WStringList &strings, WObject *parent)
     this->setStringList(strings);
 }
 
+WStringListModel::~WStringListModel()
+{
+    this->dataChanhed({0,0}, {_stringList.size(),1});
+}
+
 /**
  * @brief WStringListModel::setStringList Установить список строк в модель
  * @param strings - список строк
@@ -51,7 +56,6 @@ WVariant WStringListModel::data(WModelIndex index)
     } else {
         return WVariant(L"NULL");
     }
-
 }
 
 /**

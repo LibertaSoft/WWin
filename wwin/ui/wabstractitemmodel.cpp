@@ -36,3 +36,8 @@ void WAbstractItemModel::__addUpdateListener(WAbstractItemView *view)
     }
 }
 
+void WAbstractItemModel::__removeUpdateListener(WAbstractItemView *view)
+{
+    _updateListeners.remove(view);
+}
+

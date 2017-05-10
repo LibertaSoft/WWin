@@ -67,7 +67,9 @@ WListView::WListView(WStringList stringList, WWidget *parent)
 
 WListView::~WListView()
 {
-    delete _model;
+    if( _mineModel ){
+        delete _model;
+    }
 }
 
 /**
@@ -76,17 +78,20 @@ WListView::~WListView()
  */
 void WListView::setModel(WStringListModel *model)
 {
-    WAbstractItemView::setModel(model);
-    if( _model && _mineModel ){
+    _model->__removeUpdateListener(this);
+    if( _model && _mineModel ) {
         delete _model;
+        _model = nullptr;
         _mineModel = false;
     }
     if( model == nullptr ) {
         model = new WStringListModel;
+        _mineModel = true;
     }
     _model = model;
     this->clear();
     this->addItemList( model->stringList() );
+    WAbstractItemView::setModel(model);
 }
 
 /**
@@ -96,7 +101,9 @@ void WListView::setModel(WStringListModel *model)
  */
 void WListView::update(const WModelIndex index)
 {
-    this->updateItem(index, _model->data(index));
+    if( _model ){
+        this->updateItem(index, _model->data(index));
+    }
 }
 
 WStringListModel *WListView::model() const

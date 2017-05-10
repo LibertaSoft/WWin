@@ -166,7 +166,8 @@ void TestWindow::initUi()
 
     WStringListModel *m2 = new WStringListModel();
     m2->setStringList( WStandardPaths::locateAll(WStandardPaths::StandardLocation::ConfigLocation, L"test32.txt") );
-    listview2->setModel( m2 );
+
+    listview2->setModel( m2 ); // Обновление модели
 
 }
 

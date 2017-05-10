@@ -20,6 +20,7 @@ private:
 public:
     WStringListModel(WObject *parent = nullptr);
     WStringListModel(const WStringList &strings, WObject *parent = nullptr);
+    virtual ~WStringListModel();
 
     void setStringList(const WStringList& strings);
     WStringList stringList() const;

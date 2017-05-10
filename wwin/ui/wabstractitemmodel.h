@@ -52,7 +52,8 @@ public:
     virtual int rowCount(WModelIndex parent = {0,0}) const = 0;
     virtual int columnCount(WModelIndex parent = {0,0}) const = 0;
 
-    void __addUpdateListener(WAbstractItemView*);
+    void __addUpdateListener(WAbstractItemView* view);
+    void __removeUpdateListener(WAbstractItemView* view);
 };
 
 #endif // WABSTRACTITEMMODEL_H

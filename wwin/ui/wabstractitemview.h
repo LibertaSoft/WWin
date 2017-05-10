@@ -16,7 +16,7 @@
 class WAbstractItemView : public WWidget
 {
 private:
-    WAbstractItemModel *_abstractModel; /// < [Не используется] Указатель на модель
+    WAbstractItemModel *_abstractModel = nullptr; /// < Указатель на модель
 protected:
     WModelIndex _selectedIndex = {0,0}; /// < Индекс выделенного элемента \todo сделать группу выделения
 

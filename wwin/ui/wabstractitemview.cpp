@@ -20,8 +20,8 @@ WAbstractItemView::WAbstractItemView(WWidget *parent)
 
 /**
  * @brief WAbstractItemView::setModel Метод для утановки модели.
+ * Можно передать nullptr для отписки от модели
  * @warning Обязательно должен быть вызван при переопределении.
- * @warning Никогда не передавайте сюда nullptr !!!
  * @param model
  */
 void WAbstractItemView::setModel(WAbstractItemModel *model)
@@ -29,6 +29,8 @@ void WAbstractItemView::setModel(WAbstractItemModel *model)
     if( model != nullptr ) {
         _abstractModel = model;
         model->__addUpdateListener( this );
+    } else {
+        _abstractModel->__removeUpdateListener( this );
     }
 }
 
