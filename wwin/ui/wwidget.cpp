@@ -3,6 +3,8 @@
 #include "wwin/helpers/winapiwindowbuilder.h"
 #include "wwin/ui/wscreen.h"
 
+#include <iostream>
+
 int WWidget::_componentCount = 0; /// < Количество компонентов в системе
 
 /**
@@ -298,6 +300,9 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         WSize newSize(rect.right-rect.left, rect.bottom - rect.top);
 
         return this->event( new WResizeEvent(newSize, oldSize) );
+    }
+    if(WM_MOVE == message || WM_MOVING == message){
+        std::cout << "Move" << std::endl;
     }
     if (WM_PAINT == message) {
         /// \todo repaint something

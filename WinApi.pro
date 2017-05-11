@@ -72,7 +72,8 @@ HEADERS += \
     wwin/wstandardpaths.h \
     wwin/wstringlist.h \
     wwin/wsize.h \
-    wwin/wresizeevent.h
+    wwin/wresizeevent.h \
+    wwin/wpoint.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -87,4 +88,5 @@ SOURCES += main.cpp\
     wwin/wstandardpaths.cpp \
     wwin/wstringlist.cpp \
     wwin/wsize.cpp \
-    wwin/wresizeevent.cpp
+    wwin/wresizeevent.cpp \
+    wwin/wpoint.cpp
