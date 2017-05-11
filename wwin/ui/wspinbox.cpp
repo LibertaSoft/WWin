@@ -151,20 +151,3 @@ bool WSpinBox::event(WEvent *e)
     }
     return WWidget::event(e);
 }
-
-
-/**
- * @brief WSpinBox::nativeEvent - Обработка нативных событий системы и интерпретация их в систему событий WWin
- * @param hWnd
- * @param message
- * @param wParam
- * @param lParam
- * @return bool - is accepted event
- */
-bool WSpinBox::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    if( EN_CHANGE == HIWORD(wParam) ){
-        return this->event( new WEvent(WEvent::Type::WindowTitleChange) );
-    }
-    return WWidget::nativeEvent(hWnd, message, wParam, lParam);
-}

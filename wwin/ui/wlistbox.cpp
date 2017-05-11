@@ -62,6 +62,7 @@ void WListBox::addListItem(const WString &item)
  * @param lParam
  * @return
  */
+/*
 bool WListBox::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
   if( message != WM_COMMAND )
@@ -80,6 +81,7 @@ bool WListBox::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 
   return WWidget::nativeEvent(hWnd, message, wParam, lParam);
 }
+//*/
 
 /**
  * @brief WListBox::on_select Подписка на событие выбора
@@ -145,6 +147,14 @@ bool WListBox::mouseDoubleClickEvent(WMouseEvent *e)
   }
   e->accept();
   return e->isAccepted();
+}
+
+bool WListBox::event(WEvent *e)
+{
+    if( e->type() == WEvent::Type::ChangeEvent ){
+        return this->changeEvent(e);
+    }
+    return WWidget::event(e);
 }
 
 /**

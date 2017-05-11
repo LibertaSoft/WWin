@@ -12,11 +12,13 @@ public:
     enum class Type : int {
         None,
         MouseReleaseEvent,
+        MouseDoubleClickEvent,
         WindowTitleChange,
         KeyEvent,
         PaintEvent,
         ResizeEvent,
         MoveEvent,
+        ChangeEvent,
         ShowEvent,
         HideEvent,
         WheelEvent,
@@ -33,6 +35,7 @@ public:
     bool isAccepted() const;
     void setAccepted(bool accepted);
     WEvent::Type type();
+    void setType(WEvent::Type type);
 };
 
 #endif // WEVENT_H

@@ -275,6 +275,7 @@ void WWidget::enable()
 /**
  * @brief WWidget::nativeEvent Обработка нативных системных событий и их преобразование
  * в систему событий WWin
+ * \warning порядок событий важен
  * @param hWnd
  * @param message
  * @param wParam
@@ -320,8 +321,37 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
         return this->event( new WMoveEvent(newPos, oldPos) );
     }
-    if (WM_PAINT == message) {
+    if(WM_PAINT == message) {
         /// \todo repaint something
+    }
+    if(WM_COMMAND == message){
+        // Lists
+        if(HIWORD(wParam) == LBN_SELCHANGE) {
+            return this->event(new WEvent( WEvent::Type::ChangeEvent ));
+        }
+        if(HIWORD(wParam) == LBN_DBLCLK) {
+            WMouseEvent* e = new WMouseEvent;
+            e->setType(WEvent::Type::MouseDoubleClickEvent);
+            return this->event(e);
+        }
+
+        // Buttons
+        if( HIWORD( wParam ) == BN_CLICKED ) {
+            return this->event(new WMouseEvent);
+        }
+        if( HIWORD( wParam ) == BN_PUSHED ) {
+            /// \todo fixme Not fire
+            return this->event(new WMouseEvent);
+        }
+        if( HIWORD( wParam ) == BN_UNPUSHED ) {
+            /// \todo fixme Not fire
+            return this->event(new WMouseEvent);
+        }
+
+        // Edits
+        if( EN_CHANGE == HIWORD(wParam) ){
+            return this->event( new WEvent(WEvent::Type::WindowTitleChange) );
+        }
     }
 
     return WObject::nativeEvent(hWnd, message, wParam, lParam);

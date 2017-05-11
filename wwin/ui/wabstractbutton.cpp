@@ -176,6 +176,7 @@ void WAbstractButton::toggle()
  */
 bool WAbstractButton::mouseReleaseEvent(WMouseEvent *event)
 {
+    this->nextCheckState();
 
     for(auto callback : _cblReleased){
         callback(event);
@@ -187,31 +188,3 @@ bool WAbstractButton::mouseReleaseEvent(WMouseEvent *event)
     event->accept();
     return event->isAccepted();
 }
-
-bool WAbstractButton::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    // std::cout << "message: " << message << std::endl;
-    if( message == WM_LBUTTONDOWN ){
-        return this->event(new WMouseEvent);
-    }
-
-    if(message != WM_COMMAND){
-      return WWidget::nativeEvent(hWnd, message, wParam, lParam);
-    }
-
-    if( HIWORD( wParam ) == BN_CLICKED ) {
-        this->nextCheckState();
-        return this->event(new WMouseEvent); /// _cblClicked
-    }
-    if( HIWORD( wParam ) == BN_PUSHED ) { /// \fixme Not fire
-        std::cout << "PUSHED: " << this->cid() << std::endl;
-        return this->event(new WMouseEvent); /// _cblPressed
-    }
-    if( HIWORD( wParam ) == BN_UNPUSHED ) { /// \fixme Not fire
-        std::cout << "UNPUSHED: " << this->cid() << std::endl;
-        return this->event(new WMouseEvent); /// _cblReleased
-    }
-
-    return WWidget::nativeEvent(hWnd, message, wParam, lParam);
-}
-

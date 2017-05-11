@@ -30,7 +30,6 @@ protected:
 
     // WObject interface
 public:
-    virtual bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
     virtual bool event(WEvent *e) override;
 
 };

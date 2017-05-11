@@ -65,8 +65,6 @@ public subscribers:
 //    void on_selectionChanged();
 //    void on_cursorPositionChanged(int old, int _new);
 
-public:
-    bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 #endif // WLINEEDIT_H
