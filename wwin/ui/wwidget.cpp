@@ -280,6 +280,7 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         return true;
     }
     if(WM_SIZING == message || WM_SIZE == message) {
+        /// \warning Странно себя ведёт, срабатывает для разных виджетов
         RECT rect;
         if( ! GetWindowRect(hWnd, &rect) ){
             /// \todo process error
