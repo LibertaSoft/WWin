@@ -4,11 +4,14 @@
 #include "wwin/wevent.h"
 #include "wwin/wpoint.h"
 
+/*!
+ * \brief WMoveEvent класс собтия перемещения
+ */
 class WMoveEvent : public WEvent
 {
 private:
-    WPoint _oldPos;
-    WPoint _pos;
+    WPoint _oldPos; /// < старая позиция
+    WPoint _pos;    /// < новая позиция
 
 public:
     WMoveEvent();
