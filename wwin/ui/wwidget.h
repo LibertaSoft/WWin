@@ -2,8 +2,10 @@
 #define WWIDGET_H
 
 #include "wwin/wobject.h"
-#include "wwin/wmouseevent.h"
 #include "wwin/wstring.h"
+
+#include "wwin/wmouseevent.h"
+#include "wwin/wresizeevent.h"
 /**
  * @brief WWidgetState перечисление с состояниями окна виджета
  */
@@ -35,17 +37,21 @@ class WWidget : public WObject
 {
 private:
     // Geometry
+    /// \todo change to WRect ?
     int _x = 0;
     int _y = 0;
     int _width = 0;
     int _height = 0;
 
+    /// \todo change to WSize
     int _maxWidth = 16777215;  /// < [Не используется] размеры для системы Layout'ов
     int _maxHeight = 16777215; /// < [Не используется] размеры для системы Layout'ов
 
+    /// \todo change to WSize
     int _minWidth = 0;   /// < [Не используется] размеры для системы Layout'ов
     int _minHeight = 0;  /// < [Не используется] размеры для системы Layout'ов
 
+    /// \todo change too WRect or WMargins
     int _contentMargins_top    = 0; /// < [Не используется] отступы для системы Layout'ов
     int _contentMargins_right  = 0; /// < [Не используется] отступы для системы Layout'ов
     int _contentMargins_bottom = 0; /// < [Не используется] отступы для системы Layout'ов
@@ -77,7 +83,7 @@ protected:
     bool initWndClass(WString className);
     static int nextCid();
 
-    virtual bool event(WEvent *e);
+    virtual bool event(WEvent *e) override;
     virtual bool mouseReleaseEvent(WMouseEvent *e);
     virtual bool mouseDoubleClickEvent(WMouseEvent *e);
     virtual bool changeEvent(WEvent *e);
@@ -85,6 +91,8 @@ protected:
     virtual bool keyPressEvent(WKeyEvent *e);
     virtual bool keyReleaseEvent(WKeyEvent *e);
     //*/
+    virtual bool resizeEvent(WResizeEvent *e);
+//    virtual bool moveEvent(WMoveEvent *e);
 
     /*
     virtual bool wheelEvent(WWheelEvent *e);
@@ -98,8 +106,6 @@ protected:
     virtual bool enterEvent(WEvent *e);
 
     virtual bool paintEvent(WPaintEvent *e);
-    virtual bool resizeEvent(WResizeEvent *e);
-    virtual bool moveEvent(WMoveEvent *e);
 
     virtual bool dragEnter(WDragEvent *e);
     virtual bool dragLeave(WDragEvent *e);

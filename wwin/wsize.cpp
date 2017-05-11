@@ -89,6 +89,8 @@ void WSize::scale(int width, int height, WSize::AspectRatioMode mode)
  * \param height - высота
  * \param mode - режим масштабирования
  *
+ * \todo fixme Неправильное масштабирование
+ *
  * Если режим IgnoreAspectRatio, размер устанавливается как (width, height).
  * Если режим KeepAspectRatio, текущий размер масштабируется до прямоугольника
  * где наибольшая из сторон умещается в (width, height), сохраняя пропорции.

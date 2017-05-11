@@ -134,16 +134,6 @@ int WListView::on_doubleClick(std::function<void (WModelIndex)> callback)
 }
 
 /**
- * @brief WListView::event Обработчик событий, вызывающий все другие Event'ы
- * @param e - экземпляр события
- * @return
- */
-bool WListView::event(WEvent *e)
-{
-    return e->isAccepted();
-}
-
-/**
  * @brief WListView::nativeEvent Обработчик событий системы транслирующий нативные события в систему событий WWin
  * @param hWnd
  * @param message

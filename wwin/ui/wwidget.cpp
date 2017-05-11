@@ -140,15 +140,23 @@ bool WWidget::changeEvent(WEvent *e)
     return e->isAccepted();
 }
 
+bool WWidget::resizeEvent(WResizeEvent *e)
+{
+    return e->isAccepted();
+}
+
 /**
- * @brief WWidget::mouseReleaseEvent обработка потока событий
+ * @brief WWidget::event обработка потока событий
  * @param e - экземпляр WEvent
  * @return WEvent::isAccepted()
  */
 bool WWidget::event(WEvent *e)
 {
     if( e->type() == WEvent::Type::MouseReleaseEvent ){
-        this->mouseReleaseEvent( static_cast<WMouseEvent*>(e) );
+        return this->mouseReleaseEvent( static_cast<WMouseEvent*>(e) );
+    }
+    if( e->type() == WEvent::Type::ResizeEvent ){
+        return this->resizeEvent( static_cast<WResizeEvent*>(e) );
     }
     return WObject::event(e);
 }
@@ -267,27 +275,34 @@ void WWidget::enable()
  */
 bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-  if( message == WM_DESTROY ){
-    PostQuitMessage( EXIT_SUCCESS );
-    return true;
-  }
-  if(WM_SIZE == message || WM_MOVE == message) {
-    RECT rect;
-    if( ! GetWindowRect(hWnd, &rect) ){
-      /// \todo process error
+    if( message == WM_DESTROY ){
+        PostQuitMessage( EXIT_SUCCESS );
+        return true;
+    }
+    if(WM_SIZING == message || WM_SIZE == message) {
+        RECT rect;
+        if( ! GetWindowRect(hWnd, &rect) ){
+            /// \todo process error
+            //return false;
+        }
+
+        WSize oldSize(_width, _height);
+
+        /// \todo export to WWidget::event(WResizeEvent*)
+        _x = rect.left;
+        _y = rect.top;
+        _width = rect.right-rect.left;
+        _height = rect.bottom - rect.top;
+
+        WSize newSize(rect.right-rect.left, rect.bottom - rect.top);
+
+        return this->event( new WResizeEvent(newSize, oldSize) );
+    }
+    if (WM_PAINT == message) {
+        /// \todo repaint something
     }
 
-    _x = rect.left;
-    _y = rect.top;
-    _width = rect.right-rect.left;
-    _height = rect.bottom - rect.top;
-    return true;
-  }
-  if (WM_PAINT) {
-    /// \todo repaint something
-  }
-
-  return WObject::nativeEvent(hWnd, message, wParam, lParam);
+    return WObject::nativeEvent(hWnd, message, wParam, lParam);
 }
 
 /**

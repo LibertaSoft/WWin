@@ -43,7 +43,6 @@ public:
 
     // WObject interface
 public:
-    virtual bool event(WEvent *e) override;
     virtual bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
 
     // WWidget interface

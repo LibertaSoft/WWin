@@ -51,7 +51,7 @@ WObject *WObject::parent() const
  */
 bool WObject::event(WEvent *e)
 {
-  return e->isAccepted();
+    return e->isAccepted();
 }
 
 /**

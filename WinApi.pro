@@ -70,7 +70,9 @@ HEADERS += \
     testwindow.h \
     wwin/wimage.h \
     wwin/wstandardpaths.h \
-    wwin/wstringlist.h
+    wwin/wstringlist.h \
+    wwin/wsize.h \
+    wwin/wresizeevent.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -83,4 +85,6 @@ SOURCES += main.cpp\
     testwindow.cpp \
     wwin/wimage.cpp \
     wwin/wstandardpaths.cpp \
-    wwin/wstringlist.cpp
+    wwin/wstringlist.cpp \
+    wwin/wsize.cpp \
+    wwin/wresizeevent.cpp

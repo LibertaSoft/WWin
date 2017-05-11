@@ -15,6 +15,7 @@ public:
         WindowTitleChange,
         KeyEvent,
         PaintEvent,
+        ResizeEvent,
         ShowEvent,
         HideEvent,
         WheelEvent,

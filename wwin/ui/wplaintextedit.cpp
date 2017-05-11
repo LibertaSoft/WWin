@@ -85,5 +85,5 @@ bool WPlainTextEdit::event(WEvent *e)
     if( e->type() == WEvent::Type::WindowTitleChange ){
         return changeEvent(e);
     }
-    return e->isAccepted();
+    return WWidget::event(e);
 }
