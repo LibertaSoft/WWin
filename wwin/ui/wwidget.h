@@ -6,6 +6,7 @@
 
 #include "wwin/wmouseevent.h"
 #include "wwin/wresizeevent.h"
+#include "wwin/wmoveevent.h"
 /**
  * @brief WWidgetState перечисление с состояниями окна виджета
  */
@@ -92,7 +93,7 @@ protected:
     virtual bool keyReleaseEvent(WKeyEvent *e);
     //*/
     virtual bool resizeEvent(WResizeEvent *e);
-//    virtual bool moveEvent(WMoveEvent *e);
+    virtual bool moveEvent(WMoveEvent *e);
 
     /*
     virtual bool wheelEvent(WWheelEvent *e);

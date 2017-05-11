@@ -16,6 +16,7 @@ public:
         KeyEvent,
         PaintEvent,
         ResizeEvent,
+        MoveEvent,
         ShowEvent,
         HideEvent,
         WheelEvent,

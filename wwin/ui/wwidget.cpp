@@ -3,8 +3,6 @@
 #include "wwin/helpers/winapiwindowbuilder.h"
 #include "wwin/ui/wscreen.h"
 
-#include <iostream>
-
 int WWidget::_componentCount = 0; /// < Количество компонентов в системе
 
 /**
@@ -147,6 +145,11 @@ bool WWidget::resizeEvent(WResizeEvent *e)
     return e->isAccepted();
 }
 
+bool WWidget::moveEvent(WMoveEvent *e)
+{
+    return e->isAccepted();
+}
+
 /**
  * @brief WWidget::event обработка потока событий
  * @param e - экземпляр WEvent
@@ -159,6 +162,9 @@ bool WWidget::event(WEvent *e)
     }
     if( e->type() == WEvent::Type::ResizeEvent ){
         return this->resizeEvent( static_cast<WResizeEvent*>(e) );
+    }
+    if( e->type() == WEvent::Type::MoveEvent ){
+        return this->moveEvent( static_cast<WMoveEvent*>(e) );
     }
     return WObject::event(e);
 }
@@ -286,7 +292,7 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         RECT rect;
         if( ! GetWindowRect(hWnd, &rect) ){
             /// \todo process error
-            //return false;
+            return false;
         }
 
         WSize oldSize(_width, _height);
@@ -302,7 +308,17 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         return this->event( new WResizeEvent(newSize, oldSize) );
     }
     if(WM_MOVE == message || WM_MOVING == message){
-        std::cout << "Move" << std::endl;
+        WPoint oldPos( _x, _y);
+
+        RECT rect;
+        if( ! GetWindowRect(hWnd, &rect) ){
+            /// \todo process error
+            return false;
+        }
+
+        WPoint newPos(rect.left, rect.top);
+
+        return this->event( new WMoveEvent(newPos, oldPos) );
     }
     if (WM_PAINT == message) {
         /// \todo repaint something
