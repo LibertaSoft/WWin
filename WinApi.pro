@@ -74,7 +74,8 @@ HEADERS += \
     wwin/wsize.h \
     wwin/wresizeevent.h \
     wwin/wpoint.h \
-    wwin/wmoveevent.h
+    wwin/wmoveevent.h \
+    wwin/wcolor.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -91,4 +92,5 @@ SOURCES += main.cpp\
     wwin/wsize.cpp \
     wwin/wresizeevent.cpp \
     wwin/wpoint.cpp \
-    wwin/wmoveevent.cpp
+    wwin/wmoveevent.cpp \
+    wwin/wcolor.cpp
