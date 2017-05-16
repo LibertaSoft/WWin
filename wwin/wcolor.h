@@ -31,6 +31,8 @@ public:
 
     WColor toHsv() const;
     WColor toRgb() const;
+    WColor toHsl() const;
+    WColor toCmyk() const;
 
 private:
     Spec _cspec = Spec::Invalid;

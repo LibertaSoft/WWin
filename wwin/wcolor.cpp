@@ -280,3 +280,91 @@ WColor WColor::toRgb() const
     return color;
 }
 
+WColor WColor::toHsl() const
+{
+    if ( ! this->isValid() || _cspec == WColor::Spec::Hsl )
+        return *this;
+
+    if (_cspec != WColor::Spec::Rgb)
+        return this->toRgb().toHsl();
+
+    WColor color;
+    color._cspec = WColor::Spec::Hsl;
+    color._color.ahsl.alpha = _color.argb.alpha;
+    color._color.ahsl.pad = 0;
+
+    const double r = _color.argb.red   / double(USHRT_MAX);
+    const double g = _color.argb.green / double(USHRT_MAX);
+    const double b = _color.argb.blue  / double(USHRT_MAX);
+    const double max = std::fmax( r, std::fmax(g, b) );
+    const double min = std::fmax( r, std::fmax(g, b) );
+    const double delta = max - min;
+    const double delta2 = max + min;
+    const double lightness = double(0.5) * delta2;
+    color._color.ahsl.lightness = std::roundl(lightness * USHRT_MAX);
+    if ( wFuzzyIsNull(delta) ) {
+        // achromatic case, hue is undefined
+        color._color.ahsl.hue = USHRT_MAX;
+        color._color.ahsl.saturation = 0;
+    } else {
+        // chromatic case
+        double hue = 0;
+        if (lightness < double(0.5))
+            color._color.ahsl.saturation = std::roundl((delta / delta2) * USHRT_MAX);
+        else
+            color._color.ahsl.saturation = std::roundl((delta / (double(2.0) - delta2)) * USHRT_MAX);
+
+        if ( wFuzzyCompare(r, max) ) {
+            hue = ( (g - b) /delta );
+        } else if ( wFuzzyCompare(g, max) ) {
+            hue = ( double(2.0) + (b - r) / delta );
+        } else if ( wFuzzyCompare(b, max) ) {
+            hue = ( double(4.0) + (r - g) / delta );
+        } else {
+            /// \todo fix ASSERT_X(false, "QColor::toHsv", "internal error");
+        }
+        hue *= double(60.0);
+        if (hue < double(0.0))
+            hue += double(360.0);
+        color._color.ahsl.hue = std::roundl(hue * 100);
+    }
+
+    return color;
+}
+
+WColor WColor::toCmyk() const
+{
+    if ( ! this->isValid() || _cspec == WColor::Spec::Cmyk )
+        return *this;
+    if (_cspec != WColor::Spec::Rgb)
+        return this->toRgb().toCmyk();
+
+    WColor color;
+    color._cspec = WColor::Spec::Cmyk;
+    color._color.acmyk.alpha = _color.argb.alpha;
+
+    // rgb -> cmy
+    const double r = _color.argb.red   / double(USHRT_MAX);
+    const double g = _color.argb.green / double(USHRT_MAX);
+    const double b = _color.argb.blue  / double(USHRT_MAX);
+    double c = double(1.0) - r;
+    double m = double(1.0) - g;
+    double y = double(1.0) - b;
+
+    // cmy -> cmyk
+    const double k = std::fmin(c, std::fmin(m, y));
+
+    if ( ! wFuzzyIsNull(k - 1) ) {
+        c = (c - k) / (double(1.0) - k);
+        m = (m - k) / (double(1.0) - k);
+        y = (y - k) / (double(1.0) - k);
+    }
+
+    color._color.acmyk.cyan    = std::roundl(c * USHRT_MAX);
+    color._color.acmyk.magenta = std::roundl(m * USHRT_MAX);
+    color._color.acmyk.yellow  = std::roundl(y * USHRT_MAX);
+    color._color.acmyk.black   = std::roundl(k * USHRT_MAX);
+
+    return color;
+}
+
