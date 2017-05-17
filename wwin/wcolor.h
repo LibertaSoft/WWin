@@ -16,17 +16,17 @@ public:
 
     bool isValid() const;
 
-    //void getRgb(int *r, int *g, int *b, int *a = nullptr) const;
+    void getRgb(int *r, int *g, int *b, int *a = nullptr) const;
     void setRgb(int r, int g, int b, int a = 255);
     void setRgb(WRgb rgb);
 
-    //void getHsv(int *h, int *s, int *v, int *a = nullptr) const;
+    void getHsv(int *h, int *s, int *v, int *a = nullptr) const;
     void setHsv(int h, int s, int v, int a = 255);
 
-    //void getCmyk(int *c, int *m, int *y, int *k, int *a = nullptr);
+    void getCmyk(int *c, int *m, int *y, int *k, int *a = nullptr);
     void setCmyk(int c, int m, int y, int k, int a = 255);
 
-    //void getHsl(int *h, int *s, int *l, int *a = nullptr) const;
+    void getHsl(int *h, int *s, int *l, int *a = nullptr) const;
     void setHsl(int h, int s, int l, int a = 255);
 
     WColor toHsv() const;

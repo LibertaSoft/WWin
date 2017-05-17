@@ -47,6 +47,26 @@ bool WColor::isValid() const
     return _cspec != WColor::Spec::Invalid;
 }
 
+void WColor::getRgb(int *r, int *g, int *b, int *a) const
+{
+    if (!r || !g || !b) {
+        return;
+    }
+
+    if (_cspec != WColor::Spec::Invalid && _cspec != WColor::Spec::Rgb) {
+        this->toRgb().getRgb(r, g, b, a);
+        return;
+    }
+
+    *r = _color.argb.red   >> 8;
+    *g = _color.argb.green >> 8;
+    *b = _color.argb.blue  >> 8;
+
+    if (a) {
+        *a = _color.argb.alpha >> 8;
+    }
+}
+
 void WColor::setRgb(int r, int g, int b, int a)
 {
     _cspec = Spec::Rgb;
@@ -67,6 +87,26 @@ void WColor::setRgb(WRgb rgb)
     _color.argb.pad   = 0;
 }
 
+void WColor::getHsv(int *h, int *s, int *v, int *a) const
+{
+    if (!h || !s || !v) {
+        return;
+    }
+
+    if (_cspec != WColor::Spec::Invalid && _cspec != WColor::Spec::Hsv) {
+        this->toHsv().getHsv(h, s, v, a);
+        return;
+    }
+
+    *h = _color.ahsv.hue == USHRT_MAX ? -1 : _color.ahsv.hue / 100;
+    *s = _color.ahsv.saturation >> 8;
+    *v = _color.ahsv.value      >> 8;
+
+    if (a) {
+        *a = _color.ahsv.alpha >> 8;
+    }
+}
+
 void WColor::setHsv(int h, int s, int v, int a)
 {
     _cspec = Spec::Hsv;
@@ -77,6 +117,27 @@ void WColor::setHsv(int h, int s, int v, int a)
     _color.ahsv.pad        = 0;
 }
 
+void WColor::getCmyk(int *c, int *m, int *y, int *k, int *a)
+{
+    if (!c || !m || !y || !k) {
+        return;
+    }
+
+    if (_cspec != WColor::Spec::Invalid && _cspec != WColor::Spec::Cmyk) {
+        this->toCmyk().getCmyk(c, m, y, k, a);
+        return;
+    }
+
+    *c = _color.acmyk.cyan >> 8;
+    *m = _color.acmyk.magenta >> 8;
+    *y = _color.acmyk.yellow >> 8;
+    *k = _color.acmyk.black >> 8;
+
+    if (a) {
+        *a = _color.acmyk.alpha >> 8;
+    }
+}
+
 void WColor::setCmyk(int c, int m, int y, int k, int a)
 {
     _cspec = Spec::Cmyk;
@@ -85,6 +146,26 @@ void WColor::setCmyk(int c, int m, int y, int k, int a)
     _color.acmyk.magenta = m;
     _color.acmyk.yellow  = y;
     _color.acmyk.black   = k;
+}
+
+void WColor::getHsl(int *h, int *s, int *l, int *a) const
+{
+    if (!h || !s || !l) {
+        return;
+    }
+
+    if (_cspec != WColor::Spec::Invalid && _cspec != WColor::Spec::Hsl) {
+        toHsl().getHsl(h, s, l, a);
+        return;
+    }
+
+    *h = _color.ahsl.hue == USHRT_MAX ? -1 : _color.ahsl.hue / 100;
+    *s = _color.ahsl.saturation >> 8;
+    *l = _color.ahsl.lightness  >> 8;
+
+    if (a) {
+        *a = _color.ahsl.alpha >> 8;
+    }
 }
 
 void WColor::setHsl(int h, int s, int l, int a)
