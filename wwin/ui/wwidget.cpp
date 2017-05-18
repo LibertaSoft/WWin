@@ -336,7 +336,9 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         return this->event( new WMoveEvent(newPos, oldPos) );
     }
     if(WM_PAINT == message) {
-        WRect r(_x, _y, _width, _height);
+        RECT wr;
+        GetClientRect(this->hwnd(), &wr);
+        WRect r(0, 0, wr.right, wr.bottom);
         return this->event( new WPaintEvent(r) );
     }
     if(WM_COMMAND == message){

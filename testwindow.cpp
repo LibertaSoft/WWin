@@ -183,7 +183,7 @@ bool TestWindow::paintEvent(WPaintEvent *e)
   WPainter p;
   p.begin(this);
   WRect r = e->rect();
-  p.drawLine(r.left(),r.top(),r.right(), r.bottom());
+  p.drawLine(r.left(),r.top(),r.right(),r.bottom());
   p.end();
   return e->isAccepted();
 }
