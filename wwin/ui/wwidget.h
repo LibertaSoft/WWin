@@ -7,6 +7,8 @@
 #include "wwin/wmouseevent.h"
 #include "wwin/wresizeevent.h"
 #include "wwin/wmoveevent.h"
+#include <wpaintdevice.h>
+#include <wpaintevent.h>
 /**
  * @brief WWidgetState перечисление с состояниями окна виджета
  */
@@ -34,7 +36,7 @@ enum WWidgetState{
  * - style()
  * - nativeEvent()
  */
-class WWidget : public WObject
+class WWidget : public WObject, public WPaintDevice
 {
 private:
     // Geometry
@@ -94,7 +96,7 @@ protected:
     //*/
     virtual bool resizeEvent(WResizeEvent *e);
     virtual bool moveEvent(WMoveEvent *e);
-
+    virtual bool paintEvent(WPaintEvent *e);
     /*
     virtual bool wheelEvent(WWheelEvent *e);
     virtual bool mouseMoveEvent(WMouseEvent *e);
@@ -106,7 +108,7 @@ protected:
 
     virtual bool enterEvent(WEvent *e);
 
-    virtual bool paintEvent(WPaintEvent *e);
+
 
     virtual bool dragEnter(WDragEvent *e);
     virtual bool dragLeave(WDragEvent *e);

@@ -2,13 +2,13 @@
 #define WAPPLICATION_H
 
 #include <windows.h>
-#include <unordered_map>
+#include <map>
 #include "wwin/ui/wwidget.h"
 #include "wwin/wstring.h"
 
 #define wApp WApplication::instance()
-typedef std::unordered_map<WORD,WObject*> WComponentsMap;
-typedef std::unordered_map<HWND,WComponentsMap> WDialogsMap;
+typedef std::map<WORD,WObject*> WComponentsMap;
+typedef std::map<HWND,WComponentsMap> WDialogsMap;
 
 /**
  * @brief Класс WApplication контроллирует работоу GUI компонентов приложения и основные настройками.

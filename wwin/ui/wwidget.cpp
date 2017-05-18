@@ -3,6 +3,8 @@
 #include "wwin/helpers/winapiwindowbuilder.h"
 #include "wwin/ui/wscreen.h"
 
+#include <iostream>
+
 int WWidget::_componentCount = 0; /// < Количество компонентов в системе
 
 /**
@@ -21,6 +23,7 @@ HWND WWidget::hwnd() const
 void WWidget::hwnd(HWND hwnd)
 {
     _hwnd = hwnd;
+    WPaintDevice::initPaintDevice(_hwnd);
 }
 
 /**
@@ -105,9 +108,12 @@ bool WWidget::initWndClass(WString className)
          .menu( reinterpret_cast<HMENU>( this->cid() ) )
          .build();
     this->hwnd(x);
-    wApp->addComponent(this);
 
-    return (x != nullptr);
+    if( x != nullptr ){
+        wApp->addComponent(this);
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -147,7 +153,12 @@ bool WWidget::resizeEvent(WResizeEvent *e)
 
 bool WWidget::moveEvent(WMoveEvent *e)
 {
-    return e->isAccepted();
+  return e->isAccepted();
+}
+
+bool WWidget::paintEvent(WPaintEvent *e)
+{
+  return e->isAccepted();
 }
 
 /**
@@ -165,6 +176,9 @@ bool WWidget::event(WEvent *e)
     }
     if( e->type() == WEvent::Type::MoveEvent ){
         return this->moveEvent( static_cast<WMoveEvent*>(e) );
+    }
+    if( e->type() == WEvent::Type::PaintEvent ){
+        return this->paintEvent( static_cast<WPaintEvent*>(e) );
     }
     return WObject::event(e);
 }
@@ -322,7 +336,12 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         return this->event( new WMoveEvent(newPos, oldPos) );
     }
     if(WM_PAINT == message) {
-        /// \todo repaint something
+        WRect r;
+        r.x1 = _x;
+        r.x2 = _width;
+        r.y1 = _y;
+        r.y2 = _height;
+        return this->event( new WPaintEvent(r) );
     }
     if(WM_COMMAND == message){
         // Lists
