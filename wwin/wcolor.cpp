@@ -1,9 +1,8 @@
 #include "wcolor.h"
 #include <cmath>
+#include <climits>
 
 /* Тут многА копипасты из исходников Qt::QColor которые я не понимаю */
-
-constexpr const unsigned short USHRT_MAX = 32767 *2 +1;
 
 constexpr static inline bool wFuzzyIsNull(double d){
     return std::abs(d) <= 0.000000000001;
