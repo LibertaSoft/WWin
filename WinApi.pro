@@ -78,7 +78,8 @@ HEADERS += \
     wwin/wcolor.h \
     wwin/wpaintdevice.h \
     wwin/wpainter.h \
-    wwin/wpaintevent.h
+    wwin/wpaintevent.h \
+    wwin/wrect.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -99,4 +100,5 @@ SOURCES += main.cpp\
     wwin/wcolor.cpp \
     wwin/wpaintdevice.cpp \
     wwin/wpainter.cpp \
-    wwin/wpaintevent.cpp
+    wwin/wpaintevent.cpp \
+    wwin/wrect.cpp

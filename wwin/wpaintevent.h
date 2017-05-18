@@ -2,13 +2,7 @@
 #define WPAINTEVENT_H
 
 #include "wwin/wevent.h"
-
-struct WRect {
-  int x1 = 0;
-  int x2 = 0;
-  int y1 = 0;
-  int y2 = 0;
-};
+#include "wwin/wrect.h"
 
 class WPaintEvent : public WEvent
 {
