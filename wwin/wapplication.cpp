@@ -68,7 +68,13 @@ WApplication* WApplication::instance()
  */
 void WApplication::addComponent(WWidget *object)
 {
-    (this->_objects[object->parentHwnd()])[object->cid()] = object;
+    HWND hwnd = nullptr;
+    if( object->parentHwnd() == nullptr ){
+      hwnd = object->hwnd();
+    } else {
+      hwnd = object->parentHwnd();
+    }
+    (this->_objects[hwnd])[object->cid()] = object;
 }
 
 /**
@@ -78,7 +84,13 @@ void WApplication::addComponent(WWidget *object)
  */
 void WApplication::removeComponent(const WWidget* object)
 {
-    (_objects[object->parentHwnd()]).erase(object->cid());
+    HWND hwnd = nullptr;
+    if( object->parentHwnd() == nullptr ){
+      hwnd = object->hwnd();
+    } else {
+      hwnd = object->parentHwnd();
+    }
+    (_objects[hwnd]).erase(object->cid());
 }
 
 /**
@@ -218,7 +230,6 @@ LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
     if( component ) {
         accept = component->nativeEvent(hWnd, message, wParam, lParam);
     }
-
     if( ! accept ){
         return DefWindowProc( hWnd, message, wParam, lParam );
     }

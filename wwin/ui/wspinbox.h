@@ -46,9 +46,6 @@ protected:
 
     bool changeEvent(WEvent *event);
     bool event(WEvent *event);
-
-public:
-    bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 #endif // WSPINBOX_H

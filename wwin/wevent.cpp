@@ -51,3 +51,8 @@ WEvent::Type WEvent::type()
     return _type;
 }
 
+void WEvent::setType(WEvent::Type type)
+{
+    _type = type;
+}
+

@@ -67,9 +67,7 @@ public:
     // WIcon icon() const;
 
 public:
-    // bool event(WEvent *event);
     bool mouseReleaseEvent(WMouseEvent *event);
-    bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 #endif // WABSTRACTBUTTON_H

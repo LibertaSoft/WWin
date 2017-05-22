@@ -26,6 +26,7 @@ private:
     void updateItem(const WModelIndex index, const WString item);
     void addItemList(WStringList list);
     void clear();
+
 public:
     WListView(WWidget *parent = nullptr);
     WListView(WStringList stringList, WWidget *parent = nullptr);
@@ -41,16 +42,12 @@ public:
     int on_select(std::function<void(WModelIndex)> callback );
     int on_doubleClick(std::function<void(WModelIndex)> callback );
 
-    // WObject interface
-public:
-    virtual bool event(WEvent *e) override;
-    virtual bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
-
     // WWidget interface
 protected:
     virtual int style() override;
     virtual bool mouseDoubleClickEvent(WMouseEvent *e) override;
     virtual bool changeEvent(WEvent *e) override;
+    virtual bool event(WEvent *e) override;
 };
 
 #endif // WLISTVIEW_H

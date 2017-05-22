@@ -1,5 +1,7 @@
 #include "wlistview.h"
 
+#include <iostream>
+
 /**
  * @brief WListView::addItem Добавление пункта в LISTBOX
  * @param item
@@ -134,43 +136,6 @@ int WListView::on_doubleClick(std::function<void (WModelIndex)> callback)
 }
 
 /**
- * @brief WListView::event Обработчик событий, вызывающий все другие Event'ы
- * @param e - экземпляр события
- * @return
- */
-bool WListView::event(WEvent *e)
-{
-    return e->isAccepted();
-}
-
-/**
- * @brief WListView::nativeEvent Обработчик событий системы транслирующий нативные события в систему событий WWin
- * @param hWnd
- * @param message
- * @param wParam
- * @param lParam
- * @return WEvent is accepted
- */
-bool WListView::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    if( message != WM_COMMAND )
-    {
-      return WWidget::nativeEvent(hWnd, message, wParam, lParam);
-    }
-
-    if(HIWORD(wParam) == LBN_SELCHANGE)
-    {
-      return changeEvent(new WEvent);
-    }
-    if(HIWORD(wParam) == LBN_DBLCLK)
-    {
-      return mouseDoubleClickEvent(new WMouseEvent);
-    }
-
-    return WWidget::nativeEvent(hWnd, message, wParam, lParam);
-}
-
-/**
  * @brief WListView::style Стиль виджета списка
  * @return WINAPI стиль
  */
@@ -210,4 +175,19 @@ bool WListView::changeEvent(WEvent *e)
 
     e->accept();
     return e->isAccepted();
+}
+
+bool WListView::event(WEvent *e)
+{
+    if( e->type() == WEvent::Type::ChangeEvent ){
+        return this->changeEvent(e);
+    }
+    std::cout << (int)e->type() << std::endl;
+    if( e->type() == WEvent::Type::MouseReleaseEvent ){
+        return this->mouseReleaseEvent( static_cast<WMouseEvent*>(e) );
+    }
+    if( e->type() == WEvent::Type::MouseDoubleClickEvent ){
+        return this->mouseDoubleClickEvent( static_cast<WMouseEvent*>(e) );
+    }
+    return WWidget::event(e);
 }

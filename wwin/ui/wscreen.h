@@ -11,9 +11,7 @@ class WScreen : public WObject
 private:
     WScreen();
 
-
 public:
-
     static int width();
     static int height();
 };

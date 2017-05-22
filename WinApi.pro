@@ -8,7 +8,7 @@ MODULES += ui
 LIBS += -lgdi32 # Пока нигде, но понадобится для картинок
 LIBS += -lcomctl32 # Некоторые виджеты типа WSpinBox
 
-INCLUDEPATH += wwin wwin/ui
+INCLUDEPATH += wwin/include
 
 contains( LIBS, -lgdi32 ) {
     DEFINES += WWIN_GDI
@@ -70,7 +70,16 @@ HEADERS += \
     testwindow.h \
     wwin/wimage.h \
     wwin/wstandardpaths.h \
-    wwin/wstringlist.h
+    wwin/wstringlist.h \
+    wwin/wsize.h \
+    wwin/wresizeevent.h \
+    wwin/wpoint.h \
+    wwin/wmoveevent.h \
+    wwin/wcolor.h \
+    wwin/wpaintdevice.h \
+    wwin/wpainter.h \
+    wwin/wpaintevent.h \
+    wwin/wrect.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -83,4 +92,13 @@ SOURCES += main.cpp\
     testwindow.cpp \
     wwin/wimage.cpp \
     wwin/wstandardpaths.cpp \
-    wwin/wstringlist.cpp
+    wwin/wstringlist.cpp \
+    wwin/wsize.cpp \
+    wwin/wresizeevent.cpp \
+    wwin/wpoint.cpp \
+    wwin/wmoveevent.cpp \
+    wwin/wcolor.cpp \
+    wwin/wpaintdevice.cpp \
+    wwin/wpainter.cpp \
+    wwin/wpaintevent.cpp \
+    wwin/wrect.cpp

@@ -1,6 +1,7 @@
 #include "testwindow.h"
 #include <WStandardPaths>
 #include <iostream>
+#include "wwin/wpainter.h"
 
 TestWindow::TestWindow(WWidget *parent)
     : WWidget(parent)
@@ -154,7 +155,7 @@ void TestWindow::initUi()
 
     WLabel *lbl1 = new WLabel(L"Static text", wgt);
     lbl1->setGeometry(270, 230, 300, 300);
-    lbl1->setImage(L"D:\\resources\\bmp24_sm.bmp");
+    lbl1->setImage(L".\\bmp24_sm.bmp");
     lbl1->show();
 
     WLabel *lbl2 = new WLabel(
@@ -169,6 +170,22 @@ void TestWindow::initUi()
 
     listview2->setModel( m2 ); // Обновление модели
 
+
+
+/// \todo    WPaintDevice
+/// \todo      HDC ->..
+/// \todo    WWidget <- WPaintDevice
+    /// \todo    WPainter(WPaintDeveice*)
+}
+
+bool TestWindow::paintEvent(WPaintEvent *e)
+{
+  WPainter p;
+  p.begin(this);
+  WRect r = e->rect();
+  p.drawLine(r.left(),r.top(),r.right(),r.bottom());
+  p.end();
+  return e->isAccepted();
 }
 
 

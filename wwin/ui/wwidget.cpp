@@ -3,6 +3,8 @@
 #include "wwin/helpers/winapiwindowbuilder.h"
 #include "wwin/ui/wscreen.h"
 
+#include <iostream>
+
 int WWidget::_componentCount = 0; /// < Количество компонентов в системе
 
 /**
@@ -21,6 +23,7 @@ HWND WWidget::hwnd() const
 void WWidget::hwnd(HWND hwnd)
 {
     _hwnd = hwnd;
+    WPaintDevice::initPaintDevice(_hwnd);
 }
 
 /**
@@ -105,9 +108,12 @@ bool WWidget::initWndClass(WString className)
          .menu( reinterpret_cast<HMENU>( this->cid() ) )
          .build();
     this->hwnd(x);
-    wApp->addComponent(this);
 
-    return (x != nullptr);
+    if( x != nullptr ){
+        wApp->addComponent(this);
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -140,15 +146,39 @@ bool WWidget::changeEvent(WEvent *e)
     return e->isAccepted();
 }
 
+bool WWidget::resizeEvent(WResizeEvent *e)
+{
+    return e->isAccepted();
+}
+
+bool WWidget::moveEvent(WMoveEvent *e)
+{
+  return e->isAccepted();
+}
+
+bool WWidget::paintEvent(WPaintEvent *e)
+{
+  return e->isAccepted();
+}
+
 /**
- * @brief WWidget::mouseReleaseEvent обработка потока событий
+ * @brief WWidget::event обработка потока событий
  * @param e - экземпляр WEvent
  * @return WEvent::isAccepted()
  */
 bool WWidget::event(WEvent *e)
 {
     if( e->type() == WEvent::Type::MouseReleaseEvent ){
-        this->mouseReleaseEvent( static_cast<WMouseEvent*>(e) );
+        return this->mouseReleaseEvent( static_cast<WMouseEvent*>(e) );
+    }
+    if( e->type() == WEvent::Type::ResizeEvent ){
+        return this->resizeEvent( static_cast<WResizeEvent*>(e) );
+    }
+    if( e->type() == WEvent::Type::MoveEvent ){
+        return this->moveEvent( static_cast<WMoveEvent*>(e) );
+    }
+    if( e->type() == WEvent::Type::PaintEvent ){
+        return this->paintEvent( static_cast<WPaintEvent*>(e) );
     }
     return WObject::event(e);
 }
@@ -259,6 +289,7 @@ void WWidget::enable()
 /**
  * @brief WWidget::nativeEvent Обработка нативных системных событий и их преобразование
  * в систему событий WWin
+ * \warning порядок событий важен
  * @param hWnd
  * @param message
  * @param wParam
@@ -267,27 +298,80 @@ void WWidget::enable()
  */
 bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-  if( message == WM_DESTROY ){
-    PostQuitMessage( EXIT_SUCCESS );
-    return true;
-  }
-  if(WM_SIZE == message || WM_MOVE == message) {
-    RECT rect;
-    if( ! GetWindowRect(hWnd, &rect) ){
-      /// \todo process error
+    if( message == WM_DESTROY ){
+        PostQuitMessage( EXIT_SUCCESS );
+        return true;
+    }
+    if(WM_SIZING == message || WM_SIZE == message) {
+        /// \warning Странно себя ведёт, срабатывает для разных виджетов
+        RECT rect;
+        if( ! GetWindowRect(hWnd, &rect) ){
+            /// \todo process error
+            return false;
+        }
+
+        WSize oldSize(_width, _height);
+
+        /// \todo export to WWidget::event(WResizeEvent*)
+        _x = rect.left;
+        _y = rect.top;
+        _width = rect.right-rect.left;
+        _height = rect.bottom - rect.top;
+
+        WSize newSize(rect.right-rect.left, rect.bottom - rect.top);
+
+        return this->event( new WResizeEvent(newSize, oldSize) );
+    }
+    if(WM_MOVE == message || WM_MOVING == message){
+        WPoint oldPos( _x, _y);
+
+        RECT rect;
+        if( ! GetWindowRect(hWnd, &rect) ){
+            /// \todo process error
+            return false;
+        }
+
+        WPoint newPos(rect.left, rect.top);
+
+        return this->event( new WMoveEvent(newPos, oldPos) );
+    }
+    if(WM_PAINT == message) {
+        RECT wr;
+        GetClientRect(this->hwnd(), &wr);
+        WRect r(0, 0, wr.right, wr.bottom);
+        return this->event( new WPaintEvent(r) );
+    }
+    if(WM_COMMAND == message){
+        // Lists
+        if(HIWORD(wParam) == LBN_SELCHANGE) {
+            return this->event(new WEvent( WEvent::Type::ChangeEvent ));
+        }
+        if(HIWORD(wParam) == LBN_DBLCLK) {
+            WMouseEvent* e = new WMouseEvent;
+            e->setType(WEvent::Type::MouseDoubleClickEvent);
+            return this->event(e);
+        }
+
+        // Buttons
+        if( HIWORD( wParam ) == BN_CLICKED ) {
+            return this->event(new WMouseEvent);
+        }
+        if( HIWORD( wParam ) == BN_PUSHED ) {
+            /// \todo fixme Not fire
+            return this->event(new WMouseEvent);
+        }
+        if( HIWORD( wParam ) == BN_UNPUSHED ) {
+            /// \todo fixme Not fire
+            return this->event(new WMouseEvent);
+        }
+
+        // Edits
+        if( EN_CHANGE == HIWORD(wParam) ){
+            return this->event( new WEvent(WEvent::Type::WindowTitleChange) );
+        }
     }
 
-    _x = rect.left;
-    _y = rect.top;
-    _width = rect.right-rect.left;
-    _height = rect.bottom - rect.top;
-    return true;
-  }
-  if (WM_PAINT) {
-    /// \todo repaint something
-  }
-
-  return WObject::nativeEvent(hWnd, message, wParam, lParam);
+    return WObject::nativeEvent(hWnd, message, wParam, lParam);
 }
 
 /**
