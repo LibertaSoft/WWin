@@ -3,13 +3,18 @@
 
 #include <windows.h>
 
+/*!
+ * \brief Класс WPaintDevice описывает устройство на котором можно рисовать
+ */
 class WPaintDevice
 {
-  HWND _painterHWND = nullptr;
+private:
+    HWND _painterHWND = nullptr;
+
 public:
-  WPaintDevice();
-  void initPaintDevice(HWND hwnd);
-  HWND painterHWND() const;
+    WPaintDevice();
+    void initPaintDevice(HWND hwnd);
+    HWND painterHWND() const;
 };
 
 #endif // WPAINTDEVICE_H

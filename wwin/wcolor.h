@@ -5,6 +5,9 @@ typedef unsigned int WRgb;
 
 #define rgb(r,g,b) (0xff000000 | (r << 16) |  (g << 8) | b)
 
+/*!
+ * \brief Класс WColor описывает цвет и предоставляет методы для работы с ним
+ */
 class WColor
 {
 public:

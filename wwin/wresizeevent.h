@@ -4,6 +4,9 @@
 #include "wwin/wevent.h"
 #include "wwin/wsize.h"
 
+/*!
+ * \brief Класс WResizeEvent описывает событие изменения размера
+ */
 class WResizeEvent : public WEvent
 {
 private:
