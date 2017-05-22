@@ -4,6 +4,9 @@
 #include "wwin/wpoint.h"
 #include "wwin/wsize.h"
 
+/*!
+ * \brief Класс WRect описывает четырёхугольник и предоставляет методы для работы с ним.
+ */
 class WRect
 {
     int _left   = 0;
@@ -13,6 +16,7 @@ class WRect
 
 public:
     WRect();
+    WRect(const WRect& rect);
     WRect(const WPoint& topLeft, const WPoint& bottomRight);
     WRect(const WPoint& topLeft, const WSize& size);
     WRect(int left, int top, int width, int height);
@@ -49,6 +53,20 @@ public:
     void moveRight(int x);
     void moveTop(int y);
     void moveBottom(int y);
+
+    void translate(int dx, int dy);
+    void translate(const WPoint &offset);
+
+    bool contains(int x, int y, bool proper = false) const;
+    bool contains(const WPoint &point, bool proper = false) const;
+    bool contains(const WRect &rectangle, bool proper = false) const;
+
+    WRect translated(int dx, int dy) const;
+    WRect translated(const WPoint &offset) const;
+
+    WRect transposed() const;
+    WRect normalized() const;
+    WRect united(const WRect &rectangle) const;
 
     int left() const;
     void setLeft(int left);
