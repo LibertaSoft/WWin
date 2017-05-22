@@ -8,8 +8,8 @@ class WRect
 {
     int _left   = 0;
     int _top    = 0;
-    int _width  = 0;
-    int _height = 0;
+    int _right  = 0;
+    int _bottom = 0;
 
 public:
     WRect();
@@ -20,6 +20,35 @@ public:
     bool isEmpty() const;
     bool isValid() const;
     bool isNull() const;
+
+    WPoint topLeft() const;
+    void setTopLeft(const WPoint& position);
+
+    WPoint topRight() const;
+    void setTopRight(const WPoint& position);
+
+    WPoint bottomLeft() const;
+    void setBottomLeft(const WPoint& position);
+
+    WPoint bottomRight() const;
+    void setBottomRight(const WPoint& position);
+
+    void setRect(int x, int y, int width, int height);
+    void setSize(const WSize& size);
+
+    void getRect(int *x, int *y, int *width, int *height) const;
+    void getCoords(int *x1, int *y1, int *x2, int *y2) const;
+
+    WPoint center() const;
+    void moveCenter(const WPoint& position);
+
+    void moveTo(int x, int y);
+    void moveTo(const WPoint& pos);
+
+    void moveLeft(int x);
+    void moveRight(int x);
+    void moveTop(int y);
+    void moveBottom(int y);
 
     int left() const;
     void setLeft(int left);
@@ -34,7 +63,10 @@ public:
     void setHeight(int height);
 
     int right() const;
+    void setRight(int right);
+
     int bottom() const;
+    void setBottom(int bottom);
 };
 
 #endif // WRECT_H
