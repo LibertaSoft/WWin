@@ -1,7 +1,7 @@
 #include "testwindow.h"
 #include <WStandardPaths>
 #include <iostream>
-#include <wpainter.h>
+#include "wwin/wpainter.h"
 
 TestWindow::TestWindow(WWidget *parent)
     : WWidget(parent)

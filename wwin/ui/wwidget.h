@@ -7,8 +7,8 @@
 #include "wwin/wmouseevent.h"
 #include "wwin/wresizeevent.h"
 #include "wwin/wmoveevent.h"
-#include <wpaintdevice.h>
-#include <wpaintevent.h>
+#include "wwin/wpaintdevice.h"
+#include "wwin/wpaintevent.h"
 /**
  * @brief WWidgetState перечисление с состояниями окна виджета
  */
