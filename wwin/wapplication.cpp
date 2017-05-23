@@ -229,6 +229,14 @@ LRESULT WApplication::wndproc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
     bool accept = false;
     if( component ) {
         accept = component->nativeEvent(hWnd, message, wParam, lParam);
+        if(WM_PAINT == message){
+            for( auto child_component : wApp->components(hWnd) ){
+                if( child_component.second && child_component.second->type() == WObjectType::Widget ){
+                    WWidget *wgt = reinterpret_cast<WWidget*>(child_component.second);
+                    wgt->nativeEvent(wgt->hwnd(), message, wParam, lParam);
+                }
+            }
+        }
     }
     if( ! accept ){
         return DefWindowProc( hWnd, message, wParam, lParam );

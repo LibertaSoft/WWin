@@ -1,4 +1,5 @@
 #include "testwindow.h"
+#include "xofield.h"
 #include <WStandardPaths>
 #include <iostream>
 #include "wwin/wpainter.h"
@@ -170,6 +171,10 @@ void TestWindow::initUi()
 
     listview2->setModel( m2 ); // Обновление модели
 
+
+    XOField *field = new XOField(wgt);
+    field->setGeometry(600,240,100,100);
+    field->show();
 
 
 /// \todo    WPaintDevice

@@ -339,6 +339,10 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         RECT wr;
         GetClientRect(this->hwnd(), &wr);
         WRect r(0, 0, wr.right, wr.bottom);
+
+        //InvalidateRect( this->hwnd(), &wr, true );
+        //UpdateWindow( this->hwnd() );
+
         return this->event( new WPaintEvent(r) );
     }
     if(WM_COMMAND == message){

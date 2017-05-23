@@ -79,7 +79,8 @@ HEADERS += \
     wwin/wpaintdevice.h \
     wwin/wpainter.h \
     wwin/wpaintevent.h \
-    wwin/wrect.h
+    wwin/wrect.h \
+    xofield.h
 
 SOURCES += main.cpp\
     wwin/wapplication.cpp \
@@ -101,4 +102,5 @@ SOURCES += main.cpp\
     wwin/wpaintdevice.cpp \
     wwin/wpainter.cpp \
     wwin/wpaintevent.cpp \
-    wwin/wrect.cpp
+    wwin/wrect.cpp \
+    xofield.cpp
