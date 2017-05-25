@@ -95,7 +95,7 @@ void WSpinBox::show()
             | UDS_SETBUDDYINT
             | UDS_WRAP
             ,0,0,0,0, // Размеры окна не нужны, т.к. виджет используется вместе с EDIT
-            this->parentHwnd(), // hwnd окна
+            this->parentWindowHwnd(), // hwnd окна
             _spinCid,
             wApp->getHinstance(),
             this->hwnd(), // hwnd EDIT'а
@@ -124,7 +124,7 @@ int WSpinBox::style()
 bool WSpinBox::changeEvent(WEvent *event)
 {
   wchar_t *buf = new wchar_t[_maxLength];
-  GetDlgItemText( this->parentHwnd(), this->cid(), buf, _maxLength);
+  GetDlgItemText( this->parentWindowHwnd(), this->cid(), buf, _maxLength);
 
   _title = WString(buf);
   _value = std::stoi(_title);

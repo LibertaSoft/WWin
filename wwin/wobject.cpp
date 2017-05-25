@@ -3,18 +3,46 @@
 
 #include <windows.h>
 
+
+void WObject::addChild(WObject *child)
+{
+    _childrens.push_back( child );
+}
+
+/*!
+ * \brief WObject::removeChild
+ * \todo Проверить удаление дочернего элемента
+ * \param child
+ */
+void WObject::removeChild(WObject *child)
+{
+    for( auto it = _childrens.begin(); it != _childrens.end(); it++ ){
+        if( *it == child ){
+            _childrens.erase(it);
+        }
+    }
+}
+
 /**
  * @brief WObject::WObject Конструктор объекта
  * @param parent - родитель объекта
  */
 WObject::WObject(WObject* parent = nullptr)
     : _parent(parent)
-{}
+{
+    if(parent != nullptr){
+        parent->addChild( this );
+    }
+}
 
 /**
  * @brief WObject::~WObject Виртуальный дестркуктор
  */
-WObject::~WObject(){}
+WObject::~WObject(){
+    if(_parent != nullptr){
+        _parent->removeChild( this );
+    }
+}
 
 /**
  * @brief WObject::setType Устанавливает тип объекта.
@@ -71,4 +99,9 @@ bool WObject::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
   }
 
   return false;
+}
+
+std::list<WObject *> WObject::children() const
+{
+    return _childrens;
 }

@@ -45,7 +45,7 @@ int WPlainTextEdit::style()
 bool WPlainTextEdit::changeEvent(WEvent *e)
 {
     wchar_t *buf = new wchar_t[_maxLength];
-    GetDlgItemText( this->parentHwnd(), this->cid(), buf, _maxLength);
+    GetDlgItemText( this->parentWindowHwnd(), this->cid(), buf, _maxLength);
 
     _title = WString(buf);
 

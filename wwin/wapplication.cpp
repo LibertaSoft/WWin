@@ -69,10 +69,10 @@ WApplication* WApplication::instance()
 void WApplication::addComponent(WWidget *object)
 {
     HWND hwnd = nullptr;
-    if( object->parentHwnd() == nullptr ){
+    if( object->parentWindowHwnd() == nullptr ){
       hwnd = object->hwnd();
     } else {
-      hwnd = object->parentHwnd();
+      hwnd = object->parentWindowHwnd();
     }
     (this->_objects[hwnd])[object->cid()] = object;
 }
@@ -85,10 +85,10 @@ void WApplication::addComponent(WWidget *object)
 void WApplication::removeComponent(const WWidget* object)
 {
     HWND hwnd = nullptr;
-    if( object->parentHwnd() == nullptr ){
+    if( object->parentWindowHwnd() == nullptr ){
       hwnd = object->hwnd();
     } else {
-      hwnd = object->parentHwnd();
+      hwnd = object->parentWindowHwnd();
     }
     (_objects[hwnd]).erase(object->cid());
 }

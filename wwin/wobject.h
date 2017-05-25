@@ -23,7 +23,10 @@ private:
     WObject *_parent; /// < Родитель клмпонента
     WString _objectName; /// < [Не используется] имя компонента
 
-    std::list<WObject*> _childrens; /// < [Не используется] список всех дочерних компонентов.
+    std::list<WObject*> _childrens; /// < список всех дочерних компонентов.
+
+    void addChild(WObject* child);
+    void removeChild(WObject* child);
 
 protected:
 

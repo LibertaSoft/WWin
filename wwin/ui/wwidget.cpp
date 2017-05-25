@@ -4,6 +4,7 @@
 #include "wwin/ui/wscreen.h"
 
 #include <iostream>
+#include <iomanip>
 
 int WWidget::_componentCount = 0; /// < Количество компонентов в системе
 
@@ -27,30 +28,25 @@ void WWidget::hwnd(HWND hwnd)
 }
 
 /**
- * @brief WWidget::parentHwnd получить хендл родительского окна
+ * @brief WWidget::parentWindowHwnd получить хендл родительского окна
  * @return
  */
-HWND WWidget::parentHwnd() const
+HWND WWidget::parentWindowHwnd() const
 {
-    HWND p_hwnd = HWND_DESKTOP;
-    WWidget *parent = parentWidget();
-    if( parent && parent->hwnd() ){
-        p_hwnd = parent->hwnd();
+    const WWidget* window = this;
+    while( window->parent() ){
+        window = reinterpret_cast<WWidget*>( window->parent() );
     }
-    return p_hwnd;
+    return window->hwnd();
 }
 
-/**
- * @brief WWidget::parentWidget получить родительский виджет
- * @return родительский виджет или nullptr
+/*!
+ * \brief WWidget::isVisible отображен ли виджет в данный момент
+ * \return
  */
-WWidget* WWidget::parentWidget() const
+bool WWidget::isVisible() const
 {
-    WObject* parent = WObject::parent();
-    if( parent && parent->type() == WObjectType::Widget ){
-        return static_cast<WWidget*>( parent );
-    }
-    return nullptr;
+    return _isVisible;
 }
 
 int WWidget::nextCid()
@@ -87,6 +83,8 @@ void WWidget::setStyle(int style)
 {
     SetWindowLong(this->hwnd(),GWL_STYLE,style);
     SetWindowPos(this->hwnd(),0,0,0,0,0,SWP_NOZORDER|SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE|SWP_DRAWFRAME);
+//    ShowWindow( this->hwnd(), style );
+//    UpdateWindow( this->hwnd() );
 }
 /**
  * @brief WWidget::initWndClass инициализировать окно класса.
@@ -101,8 +99,8 @@ bool WWidget::initWndClass(WString className)
          .className( _className )
          .title( this->title() )
          .style( this->style() )
-         .geometry( _x, _y, _width, _height )
-         .parent( this->parentHwnd() )
+         .geometry( _geometry.left(), _geometry.top(), _geometry.width(), _geometry.height() )
+         .parent( this->parentWindowHwnd() )
          .hinstance( wApp->getHinstance() )
          .param( reinterpret_cast<LPVOID>( _windowParams ) )
          .menu( reinterpret_cast<HMENU>( this->cid() ) )
@@ -189,7 +187,7 @@ bool WWidget::event(WEvent *e)
  * @param params - параметры окна
  */
 WWidget::WWidget(WWidget *parent, int params)
-    : WObject(parent), _windowParams(params)
+    : WObject(parent), _windowParams(params), _maxSize(16777215,16777215)
 {
     _cid = _componentCount++;
     this->setType(WObjectType::Widget);
@@ -217,12 +215,25 @@ void WWidget::show()
     if( ! this->hwnd() ) {
        this->initWndClass(L"WWIDGET");
     }
+    _isVisible = true;
+    _windowParams |= SW_SHOW;
+    ShowWindow( this->hwnd(), _windowParams );
+    UpdateWindow( this->hwnd() );
+}
+
+void WWidget::hide()
+{
+    _windowParams &= SW_HIDE;
+    _isVisible = false;
     ShowWindow( this->hwnd(), _windowParams );
     UpdateWindow( this->hwnd() );
 }
 
 /**
  * @brief WWidget::setGeometry установить размеры и положение виджета
+ * @note Для виджетов у которых есть родитель, имеющий собственного родителя,
+ * будет установлена локальная система координат
+ *
  * @param x
  * @param y
  * @param width
@@ -230,26 +241,62 @@ void WWidget::show()
  */
 void WWidget::setGeometry(int x, int y, int width, int height)
 {
-    _x = x;
-    _y = y;
 
     // Можно проще
-    if( width < _minWidth ) {
-        width = _minWidth;
-    } else if( width > _maxWidth ) {
-        width = _maxWidth;
+    if( width < _minSize.width() ) {
+        width = _minSize.width();
+    } else if( width > _maxSize.width() ) {
+        width = _maxSize.width();
     }
-    if( height < _minHeight ) {
-        height = _minHeight;
-    } else if( height > _maxHeight ) {
-        height = _maxHeight;
+    if( height < _minSize.height() ) {
+        height = _minSize.height();
+    } else if( height > _maxSize.height() ) {
+        height = _maxSize.height();
     }
 
-    _width = width;
-    _height = height;
+    /// Локальная система координат внутри виджетов
+    /// \todo Переделать красиво
+    if( this->parent() && this->parent()->parent() ){
+        WWidget* wgt = nullptr;
+        if( this->parent()->type() == WObjectType::Widget ){
+            wgt = reinterpret_cast<WWidget*>( this->parent() );
+        } else {
+            _geometry.setRect(x,y, width, height);
+        }
+        WRect r;
+        if( wgt != nullptr ){
+            r = wgt->geometry();
+            _geometry.setRect(r.left()+x, r.top()+y, width, height);
+        } else {
+            _geometry.setRect(x,y, width, height);
+        }
+    } else {
+        _geometry.setRect(x,y, width, height);
+    }
 
-    SetWindowPos(this->hwnd(), nullptr, _x, _y, _width, _height, 0);
+    SetWindowPos(this->hwnd(), nullptr, _geometry.left(), _geometry.top(), _geometry.width(), _geometry.height(), 0);
 
+}
+
+/*!
+ * \brief WWidget::geometry получить размеры и положение виджета
+ * \param x
+ * \param y
+ * \param width
+ * \param height
+ */
+void WWidget::geometry(int *x, int *y, int *width, int *height) const
+{
+    _geometry.getRect(x, y, width, height);
+}
+
+/*!
+ * \brief WWidget::geometry получить размеры и положение виджета
+ * \return
+ */
+WRect WWidget::geometry() const
+{
+    return _geometry;
 }
 
 /**
@@ -310,20 +357,17 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             return false;
         }
 
-        WSize oldSize(_width, _height);
+        WSize oldSize(_geometry.width(), _geometry.height());
 
         /// \todo export to WWidget::event(WResizeEvent*)
-        _x = rect.left;
-        _y = rect.top;
-        _width = rect.right-rect.left;
-        _height = rect.bottom - rect.top;
+        _geometry.setRect(rect.left, rect.top, rect.right-rect.left, rect.bottom-rect.top);
 
         WSize newSize(rect.right-rect.left, rect.bottom - rect.top);
 
         return this->event( new WResizeEvent(newSize, oldSize) );
     }
     if(WM_MOVE == message || WM_MOVING == message){
-        WPoint oldPos( _x, _y);
+        WPoint oldPos( _geometry.left(), _geometry.top() );
 
         RECT rect;
         if( ! GetWindowRect(hWnd, &rect) ){
@@ -379,6 +423,7 @@ bool WWidget::nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
  */
 void WWidget::setFocus()
 {
+    _isFocused = true;
     SetFocus( this->hwnd() );
 }
 

@@ -166,7 +166,7 @@ bool WListView::mouseDoubleClickEvent(WMouseEvent *e)
  */
 bool WListView::changeEvent(WEvent *e)
 {
-    int selectedIndex = SendDlgItemMessage(this->parentHwnd(), this->cid(), LB_GETCURSEL, 0, 0);
+    int selectedIndex = SendDlgItemMessage(this->parentWindowHwnd(), this->cid(), LB_GETCURSEL, 0, 0);
     _selectedIndex = {selectedIndex, 0};
 
     for(auto callback : _cblSelectItem){

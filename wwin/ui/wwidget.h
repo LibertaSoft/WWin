@@ -3,6 +3,7 @@
 
 #include "wwin/wobject.h"
 #include "wwin/wstring.h"
+#include "wwin/wsize.h"
 
 #include "wwin/wmouseevent.h"
 #include "wwin/wresizeevent.h"
@@ -39,43 +40,31 @@ enum WWidgetState{
 class WWidget : public WObject, public WPaintDevice
 {
 private:
-    // Geometry
-    /// \todo change to WRect ?
-    int _x = 0;
-    int _y = 0;
-    int _width = 0;
-    int _height = 0;
+    WRect _geometry; /// < Текущий размер виджета
 
-    /// \todo change to WSize
-    int _maxWidth = 16777215;  /// < [Не используется] размеры для системы Layout'ов
-    int _maxHeight = 16777215; /// < [Не используется] размеры для системы Layout'ов
+    WSize _minSize; /// < Минимальный размер виджета
+    WSize _maxSize; /// < Максимальный размер виджета
 
-    /// \todo change to WSize
-    int _minWidth = 0;   /// < [Не используется] размеры для системы Layout'ов
-    int _minHeight = 0;  /// < [Не используется] размеры для системы Layout'ов
-
-    /// \todo change too WRect or WMargins
+    /// \todo change to WRect or WMargins
     int _contentMargins_top    = 0; /// < [Не используется] отступы для системы Layout'ов
     int _contentMargins_right  = 0; /// < [Не используется] отступы для системы Layout'ов
     int _contentMargins_bottom = 0; /// < [Не используется] отступы для системы Layout'ов
     int _contentMargins_left   = 0; /// < [Не используется] отступы для системы Layout'ов
 
     // Widget
-    int  _windowIcon   = 0; /// < [Не используется] ICON from RC || file
-    int  _windowParams = 0; /// < [Не используется] FullScreen || ! FullScreen
+    int _windowIcon   = 0; /// < [Не используется] ICON from RC || file
+    int _windowParams = 0; /// < Show/Hide текущие параметры виджета
     WString _name; /// < [Не используется]
 
-    bool _isDisabled = false; /// < [Не используется]
-    bool _isFocused  = false; /// < [Не используется]
-    bool _isVisible  = false; /// < [Не используется]
+    bool _isDisabled = false; /// < Отключен ли виджет
+    bool _isFocused  = false; /// < Находится ли виджет в фокусе (фокус пока только устанавливается в true, но не теряется)
+    bool _isVisible  = false; /// < Виден ли виджет
 
 //    WLayout* _layout = nullptr;
 
     HWND _hwnd = nullptr; /// < Хендлер окна
     int _cid = 0; /// < ID компонента
     static int _componentCount; /// < Количество компонентов в системе
-
-    WWidget *parentWidget() const;
 
 protected:
     WString _className = L"WWIDGET"; /// < Название класса окна
@@ -122,12 +111,17 @@ public:
     virtual ~WWidget();
 
     HWND hwnd() const;
-    HWND parentHwnd() const;
+    HWND parentWindowHwnd() const;
     WORD cid() const;
     void hwnd(HWND hwnd);
-    void show();
+
+    virtual void show();
+    virtual void hide();
 
     void setGeometry(int x, int y, int width, int height);
+    void geometry(int* x, int* y, int* width, int* height) const;
+    WRect geometry() const;
+
     WString title() const;
     void setTitle(const WString &title);
 
@@ -138,6 +132,7 @@ public:
     bool nativeEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
 
     void setFocus();
+    bool isVisible() const;
 };
 
 #endif // WWIDGET_H

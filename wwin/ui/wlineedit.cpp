@@ -37,7 +37,7 @@ WLineEdit::EchoMode WLineEdit::echoMode() const
 void WLineEdit::clear()
 {
     _title.clear();
-    SetDlgItemText( this->parentHwnd(), this->cid(), _title.c_str() );
+    SetDlgItemText( this->parentWindowHwnd(), this->cid(), _title.c_str() );
 }
 
 /**
@@ -59,7 +59,7 @@ int WLineEdit::on_change(std::function<void (WString)> callback)
 bool WLineEdit::changeEvent(WEvent *e)
 {
   wchar_t *buf = new wchar_t[_maxLength];
-  GetDlgItemText( this->parentHwnd(), this->cid(), buf, _maxLength);
+  GetDlgItemText( this->parentWindowHwnd(), this->cid(), buf, _maxLength);
 
   _title = WString(buf);
 

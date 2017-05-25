@@ -2,6 +2,7 @@
 #include <WStandardPaths>
 #include <iostream>
 #include "wwin/wpainter.h"
+#include "wwin/ui/wstackedwidget.h"
 
 TestWindow::TestWindow(WWidget *parent)
     : WWidget(parent)
@@ -93,12 +94,9 @@ void TestWindow::initUi()
         WMessageBox::information(nullptr, L"WCheckBox 1", (ckd)?L"Cheked":L"Unchecked");
     });
     WCheckBox *chbox2 = new WCheckBox(wgt);
-    chbox2->setTitle(L"WCheckBox 2");
+    chbox2->setTitle(L"Hide WPlaintTextEdit2");
     chbox2->setGeometry(10,230,120,20);
     chbox2->show();
-    chbox2->on_toggleed([=](WMouseEvent*,bool ckd){
-        WMessageBox::information(nullptr, L"WCheckBox 2", (ckd)?L"Cheked":L"Unchecked");
-    });
 
     WRadioButton *rbtn1 = new WRadioButton(wgt);
     rbtn1->setTitle(L"WRadioButton 1");
@@ -170,12 +168,32 @@ void TestWindow::initUi()
 
     listview2->setModel( m2 ); // Обновление модели
 
+    chbox2->on_toggleed([=](WMouseEvent*,bool ckd){
+        if(! ckd){
+            ptedit2->show();
+        } else {
+            ptedit2->hide();
+        }
+    });
 
+    WStackedWidget* stwgt = new WStackedWidget(this);
+    stwgt->setGeometry(600,220,300,300);
+    WPushButton* btn3 = new WPushButton(L"StackedButton3",stwgt);
+    btn3->setGeometry(10,10,200,100);
+    btn3->show();
+    WPushButton* btn4 = new WPushButton(L"StackedButton4",stwgt);
+    btn4->setGeometry(10,10,200,100);
+    btn4->show();
+    const int page1 = stwgt->addWidget(btn3);
+    const int page2 = stwgt->addWidget(btn4);
+    stwgt->show();
 
-/// \todo    WPaintDevice
-/// \todo      HDC ->..
-/// \todo    WWidget <- WPaintDevice
-    /// \todo    WPainter(WPaintDeveice*)
+    btn4->on_clicked([=](WMouseEvent*,bool){
+        stwgt->setCurrentIndex(page1);
+    });
+    btn3->on_clicked([=](WMouseEvent*,bool){
+        stwgt->setCurrentIndex(page2);
+    });
 }
 
 bool TestWindow::paintEvent(WPaintEvent *e)

@@ -128,7 +128,7 @@ int WListBox::style(int prameterAnable, int parameterDisable)
  */
 bool WListBox::changeEvent(WEvent *e)
 {
-  _selectedIndex = SendDlgItemMessage(this->parentHwnd(), this->cid(), LB_GETCURSEL, 0, 0);
+  _selectedIndex = SendDlgItemMessage(this->parentWindowHwnd(), this->cid(), LB_GETCURSEL, 0, 0);
   std::cout << _selectedIndex << std::endl;
   e->accept();
   return e->isAccepted();
